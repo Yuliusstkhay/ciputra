@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/mahasiswa/store.js</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/mahasiswa/show.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/template/menu.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/mahasiswa/fakultas.js</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/mahasiswa/programstudi.js</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/mahasiswa/update.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/MahasiswaService.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/MatkulRepository.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/mahasiswa/fakultas.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/routes/web.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/Assessment.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/mahasiswa/index.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/DosenMahasiswa.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Http/Controllers/Master/MahasiswaController.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/mahasiswa/create.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/MahasiswaRepository.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/mahasiswa/update.js</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/template/header_footer.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/mahasiswa/programstudi.blade.php</file>
+        </group>
+    </open-files>
+</project-private>
