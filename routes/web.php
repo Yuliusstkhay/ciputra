@@ -16,6 +16,7 @@ use App\Http\Controllers\Master\ProgramStudiController;
 use App\Http\Controllers\Master\SemesterController;
 use App\Http\Controllers\Master\AssessmentController;
 use App\Http\Controllers\Master\UniversitasController;
+use App\Http\Controllers\Master\JadwalKuliahController;
 
 /*
   |--------------------------------------------------------------------------
@@ -148,6 +149,25 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('update/{dosen}', [DosenController::class, 'update'])->name('dosen.update');
         Route::put('void/{dosen}', [DosenController::class, 'void'])->name('dosen.void');
         Route::put('unvoid/{dosen}', [DosenController::class, 'unvoid'])->name('dosen.unvoid');
+    });
+    
+    Route::group(['prefix'=>'jadwalkuliah'],function(){
+        Route::get('/', [JadwalKuliahController::class, 'index'])->name('jadwalkuliah');
+        Route::get('getDataFakultas', [JadwalKuliahController::class, 'getDataFakultas'])->name('jadwalkuliah.fakultas');
+        Route::get('programstudi/{programstudi}', [JadwalKuliahController::class, 'programstudi']);
+        Route::get('getDataProgram/{programstudi}', [JadwalKuliahController::class, 'getDataProgramStudi'])->name('jadwalkuliah.programstudi');
+        Route::get('jadwalkuliah/{jadwalkuliah}', [JadwalKuliahController::class, 'jadwalkuliah']);
+        Route::get('getData/{jadwalkuliah}', [JadwalKuliahController::class, 'datatable'])->name('jadwalkuliah.list');
+        Route::get('add/{jadwalkuliah}', [JadwalKuliahController::class, 'create'])->name('jadwalkuliah.create');
+        Route::post('store', [JadwalKuliahController::class, 'store'])->name('jadwalkuliah.store');
+        Route::get('show/{jadwalkuliah}', [JadwalKuliahController::class, 'show']);
+        Route::get('getDataUpdate/{jadwalkuliah}', [JadwalKuliahController::class, 'getData']);
+        Route::put('update/{jadwalkuliah}', [JadwalKuliahController::class, 'update'])->name('jadwalkuliah.update');
+        Route::put('void/{jadwalkuliah}', [JadwalKuliahController::class, 'void'])->name('jadwalkuliah.void');
+        Route::put('unvoid/{jadwalkuliah}', [JadwalKuliahController::class, 'unvoid'])->name('jadwalkuliah.unvoid');
+        
+        Route::post('getMatkul/{programstudi}', [JadwalKuliahController::class, 'getMatkul'])->name('jadwalkuliah.matkul');
+        Route::post('dosen/{dosen}',[JadwalKuliahController::class,'getDosen'])->name('jadwalkuliah.dosen');
     });
 
 

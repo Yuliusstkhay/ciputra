@@ -22,7 +22,7 @@
             <li class="nav-item dropdown"><a href="{{route('dosen')}}"><span>Master Dosen</span></a></li>
             <li class="nav-item dropdown"><a href="{{route('mahasiswa')}}"><span>Master Mahasiswa</span></a></li>
             <li class="nav-item dropdown"><a href="{{route('semester')}}"><span>Master Semester</span></a></li>
-            <li class="nav-item dropdown"><a href="./jadwal-kuliah.html"><span>Jadwal Kuliah</span></a></li>
+            <li class="nav-item dropdown"><a href="{{route('jadwalkuliah')}}"><span>Jadwal Kuliah</span></a></li>
             <li class="nav-item dropdown"><a href="{{route('assesment')}}"><span>Master Assessment</span></a></li>
         </ul>
     </li>
