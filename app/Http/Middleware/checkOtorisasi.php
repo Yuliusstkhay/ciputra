@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use App\Models\UserAccess;
 
 class checkOtorisasi
 {
@@ -14,8 +15,13 @@ class checkOtorisasi
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next,$kode)
     {
-        return $next($request);
+        if(UserAccess::hasAccess($kode)){
+            return $next($request);
+        }else{
+            abort(401);
+        }
+        
     }
 }

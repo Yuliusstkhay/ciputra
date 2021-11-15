@@ -218,8 +218,6 @@ $(document).on('click', '.checkfunction', function () {
 $('#btn-submit').on('click', function () {
     var formData = new FormData();
     formData.append('_token', $('input[name="_token"]').val());
-    formData.append('user_id', $('#user_id').val());
-    formData.append('password', $('#password').val());
     formData.append('notes', $('#notes').val());
     formData.append('role_id', $('#role_name').val());
     $('.checkfunction:checked').each(function () {

@@ -30,4 +30,13 @@ class UserAccess extends Model
     public function modulfunction(){
         return $this->hasOne(ModulFungsi::class,'module_function_id','module_function_id');
     }
+    
+    public function hasAccess($kode){
+        $data= UserAccess::where('user_id',Auth::user()->user_id)->where('module_function_id',$kode)->count();
+        if($data > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

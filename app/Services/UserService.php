@@ -15,19 +15,17 @@ use Hash;
 class UserService {
 
     public function __construct(
-            UserRepository $user,
-            RoleRepository $role
-            ) {
+    UserRepository $user, RoleRepository $role
+    ) {
         $this->user = $user;
         $this->role = $role;
-
     }
 
     public function getList() {
         $data = $this->user->getList();
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
-                            
+
 //                            $action = $this->getShow($data->user_id);
                             $action = $this->getEdit($data->user_id);
                             if ($data->is_locked == 0) {
@@ -42,7 +40,7 @@ class UserService {
                         ->addIndexColumn()
                         ->make(true);
     }
-    
+
     private function getShow($id) {
         $action = '<a href="' . url('user/show/' . $id) . '" title="Detail" class="btn cur-p btn-secondary m-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15"
@@ -70,9 +68,9 @@ class UserService {
                                     </a>';
         return $action;
     }
-    
-    private function ubahPassword($id){
-        $action ='<a href="'.url('user/changePassword/'.$id).'" title="Ubah Password" class="btn cur-p btn-dark">
+
+    private function ubahPassword($id) {
+        $action = '<a href="' . url('user/changePassword/' . $id) . '" title="Ubah Password" class="btn cur-p btn-dark">
                   <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><rect x="5" y="11" width="14" height="10" rx="2" /><circle cx="12" cy="16" r="1" /><path d="M8 11v-4a4 4 0 0 1 8 0v4" /></svg>
                  </a>';
         return $action;
@@ -98,8 +96,8 @@ class UserService {
                                     </button>';
         return $action;
     }
-    
-    public function getRole(Request $request){
+
+    public function getRole(Request $request) {
         return $this->role->getData($request);
     }
 
@@ -129,16 +127,16 @@ class UserService {
         DB::commit();
         return true;
     }
+
     public function show($id) {
         return $this->user->show($id);
     }
-    
+
     public function getModul(Request $request) {
         $parent = $this->role->getParent();
         return ModuleFunctionResource::collection($parent);
-        
     }
-    
+
     public function getModulUpdate($id, Request $request) {
         $parent = $this->role->getParent();
         $request->merge([
@@ -150,20 +148,21 @@ class UserService {
     public function update($id, Request $request) {
         DB::beginTransaction();
         $model = $this->user->show($id);
-        $model->user_id = $request->user_id;
         $model->notes = $request->notes;
         $model->role_id = $request->role_id;
         if (!$model->save()) {
             DB::rollback();
             return false;
         }
-        
+
         $delete = $this->user->deleteAccess($model->user_id);
-        if(!$delete->delete()){
-            DB::rollback();
-            return false;
+        if ($delete->count() > 0) {
+            if (!$delete->delete()) {
+                DB::rollback();
+                return false;
+            }
         }
-        
+
         foreach ($request->modul_access as $key => $row) {
             $detail = $this->user->insertAccess();
             $detail->module_function_id = $row;
@@ -173,12 +172,11 @@ class UserService {
                 return false;
             }
         }
-        
+
         DB::commit();
         return true;
     }
 
-    
     public function updateStatus($id, $status) {
         DB::beginTransaction();
         $model = $this->user->show($id);
@@ -190,8 +188,8 @@ class UserService {
         DB::commit();
         return true;
     }
-    
-    public function updatePassword($id,Request $request){
+
+    public function updatePassword($id, Request $request) {
         DB::beginTransaction();
         $model = $this->user->show($id);
         $model->password = Hash::make($request->password);
@@ -199,7 +197,7 @@ class UserService {
             DB::rollback();
             return false;
         }
-        
+
         DB::commit();
         return true;
     }
