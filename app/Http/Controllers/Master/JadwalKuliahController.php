@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\JadwalKuliahService;
 use App\Http\Resources\MatkulResource;
 use App\Http\Resources\DosenMahasiswaResource;
+use App\Http\Resources\SemesterResource;
 
 class JadwalKuliahController extends Controller
 {
@@ -79,6 +80,28 @@ class JadwalKuliahController extends Controller
                         'message' => 'Terjadi kesalahan pada penyimpanan data. Mohon Hubungi admin'
             ]);
         }
+    }
+    
+    public function storePeserta($id,Request $request, JadwalKuliahService $jadwalkuliahservice){
+       try {
+            $model = $jadwalkuliahservice->insertPeserta($id,$request);
+            if ($model) {
+                return response()->json([
+                            'result' => true,
+                            'message' => 'Data Peserta Jadwal Kuliah berhasil ditambahkan'
+                ]);
+            }
+            return response()->json([
+                        'result' => false,
+                        'message' => 'Data Peserta Jadwal Kuliah gagal ditambahkan'
+            ]);
+        } catch (\Exception $ex) {
+            return response()->json([
+                        'result' => false,
+                        'message' => 'Terjadi kesalahan pada penyimpanan data. Mohon Hubungi admin',
+                        'error'=>$ex->getMessage()
+            ]);
+        } 
     }
     
     public function show($id, JadwalKuliahService $jadwalkuliahservice) {
@@ -179,5 +202,52 @@ class JadwalKuliahController extends Controller
         $data = $jadwalkuliahservice->getListDosen($id,$request);
         
         return response()->json(DosenMahasiswaResource::collection($data));
+    }
+    
+    public function getSemester(Request $request,JadwalKuliahService $jadwalkuliahservice){
+       $data = $jadwalkuliahservice->getListSemester($request);
+        
+        return response()->json(SemesterResource::collection($data)); 
+    }
+    
+    public function listPeserta($id, JadwalKuliahService $jadwalkuliahservice){
+        $jadwal = $jadwalkuliahservice->show($id);
+        
+        $data = [
+            'title' => "Tambah Peserta",
+            'data' => $jadwal
+        ];
+
+        return view('master.jadwalkuliah.peserta', $data);
+    }
+    
+    public function listDataPeserta($id, JadwalKuliahService $jadwalkuliahservice){
+        return $jadwalkuliahservice->getListPeserta($id);
+    }
+    
+    public function mahasiswaAll($id,JadwalKuliahService $jadwalkuliahservice){
+        return $jadwalkuliahservice->getListMahasiswa($id);
+    }
+    
+    public function removePeserta($id,$idmhs,JadwalKuliahService $jadwalkuliahservice){
+      try {
+            $model = $jadwalkuliahservice->deletePeserta($id,$idmhs);
+            if ($model) {
+                return response()->json([
+                            'result' => true,
+                            'message' => 'Data Peserta Kuliah berhasil di hapus'
+                ]);
+            }
+            return response()->json([
+                        'result' => false,
+                        'message' => 'Data Peserta Kuliah gagal di hapus'
+            ]);
+        } catch (\Exception $ex) {
+            return response()->json([
+                        'result' => false,
+                        'message' => 'Terjadi kesalahan pada perubahan data. Mohon Hubungi admin',
+                        'error'=>$ex->getMessage()
+            ]);
+        }   
     }
 }

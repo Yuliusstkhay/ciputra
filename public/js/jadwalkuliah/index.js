@@ -30,8 +30,16 @@ $(function () {
                 name: 'semester.semester_name'
             },
             {
+                data: 'paralel',
+                name: 'paralel'
+            },
+            {
                 data: 'deskripsi',
                 name: 'deskripsi'
+            },
+            {
+                data: 'jadwal_mahasiswa_count',
+                name: 'jadwal_mahasiswa_count'
             },
             {
                 data: 'status',

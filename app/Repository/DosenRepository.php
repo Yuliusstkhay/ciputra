@@ -25,6 +25,7 @@ class DosenRepository{
         return $data;
     }
     
+    
     public function insert(){
         $matkul = new DosenMahasiswa();
         return $matkul;

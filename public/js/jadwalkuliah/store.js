@@ -85,6 +85,37 @@ $(function(){
             cache: true
         }
     });
+    
+    $('#semester').select2({
+        placeholder: 'Pilih Semester',
+        ajax: {
+            url: semester,
+            delay: 250,
+            dataType: "json",
+            type: "post",
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page,
+                    _token: $('input[name="_token"]').val()
+                };
+            },
+            processResults: function (data, params) {
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+                return {
+                    results: data,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        }
+    });
 });
 
 function save() {
@@ -93,8 +124,12 @@ function save() {
         type: 'post',
         data: {
             _token: $('input[name="_token"]').val(),
-            fakultas_id: $('#fakultas_id').val(),
-            bidang_studi_name:$('#programstudi_name').val()
+            program_studi_id:$('#program_studi_id').val(),
+            mata_kuliah_id:$('#mata_kuliah_id').val(),
+            paralel:$('#paralel').val(),
+            dosen_pengampu:$('#dosen_pengampu').val(),
+            semester:$('#semester').val(),
+            jadwal_kuliah:$('#jadwal_kuliah').val(),
             
         },
         dataType: "json",
@@ -106,10 +141,11 @@ function save() {
            if(data.result){
                notification("success", data.message);
 //               document.getElementById("frm-programstudi").reset();
-               $('#programstudi_name').val("");
-               $('#fakultas_id').val(null).trigger('change');
-               var form = document.getElementById("frm-programstudi");
-               form.classList.add('was-validated');
+               $('#mata_kuliah_id').val(null).trigger('change');
+               $('#paralel').val("").trigger('change');
+               $('#dosen_pengampu').val(null).trigger('change');
+               $('#semester').val(null).trigger('change');
+               $('#jadwal_kuliah').val("");
            }else{
 
                notification("error", data.message);

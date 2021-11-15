@@ -12,8 +12,8 @@
                     <div class="bgc-teal-500 c-white p-20">
                         <div class="peers ai-c jc-sb gap-40">
                             <div class="peer peer-greed">
-                                <h3>Dr. Ir. Janti Gunawan, M.Eng.Sc., M.Com.IB.</h3>
-                                <p class="mB-0">1985.07.23.2005.02.2.001</p>
+                                <h3>{{(Auth::user()->type == 2)?Auth::user()->user_id:Auth::user()->dosen->name}}</h3>
+                                <p class="mB-0">{{(Auth::user()->type == 2)?"":Auth::user()->dosen->nip}}</p>
                             </div>
                             <div class="peer">
                                 <h3 class="text-right">7</h3>

@@ -7,6 +7,7 @@
         <title>{{$title}}</title>
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap-grid.min.css') }}">
+        
         <style>
             #loader {
                 transition: all .3s ease-in-out;
@@ -60,6 +61,7 @@
         </style>
         <link rel="stylesheet" type="text/css" href="{{asset('toastr/build/toastr.css')}}" />
         <link rel="stylesheet" href="{{asset('sweetalert2/dist/sweetalert2.min.css')}}">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
         <link href="{{asset('template/css/style.css')}}" rel="stylesheet">
 
         @yield('css')

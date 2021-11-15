@@ -82,9 +82,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('void/{matakuliah}', [MataKuliahController::class, 'void'])->name('matakuliah.void');
         Route::put('unvoid/{matakuliah}', [MataKuliahController::class, 'unvoid'])->name('matakuliah.unvoid');
     });
-    
-    Route::group(['prefix'=>'semester'],function(){
-        Route::get('/',[SemesterController::class,'index'])->name('semester');
+
+    Route::group(['prefix' => 'semester'], function() {
+        Route::get('/', [SemesterController::class, 'index'])->name('semester');
         Route::get('getData', [SemesterController::class, 'datatable'])->name('semester.list');
         Route::get('add', [SemesterController::class, 'create'])->name('semester.create');
         Route::post('store', [SemesterController::class, 'store'])->name('semester.store');
@@ -94,9 +94,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('void/{semester}', [SemesterController::class, 'void'])->name('semester.void');
         Route::put('unvoid/{semester}', [SemesterController::class, 'unvoid'])->name('semester.unvoid');
     });
-    
-    Route::group(['prefix'=>'assesment'],function(){
-        Route::get('/',[AssessmentController::class,'index'])->name('assesment');
+
+    Route::group(['prefix' => 'assesment'], function() {
+        Route::get('/', [AssessmentController::class, 'index'])->name('assesment');
         Route::get('getData', [AssessmentController::class, 'datatable'])->name('assesment.list');
         Route::get('add', [AssessmentController::class, 'create'])->name('assesment.create');
         Route::post('store', [AssessmentController::class, 'store'])->name('assesment.store');
@@ -106,9 +106,9 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('void/{assessment}', [AssessmentController::class, 'void'])->name('assesment.void');
         Route::put('unvoid/{assessment}', [AssessmentController::class, 'unvoid'])->name('assesment.unvoid');
     });
-    
-    Route::group(['prefix'=>'universitas'],function(){
-        Route::get('/',[UniversitasController::class,'index'])->name('universitas');
+
+    Route::group(['prefix' => 'universitas'], function() {
+        Route::get('/', [UniversitasController::class, 'index'])->name('universitas');
         Route::get('getData', [UniversitasController::class, 'datatable'])->name('universitas.list');
         Route::get('add', [UniversitasController::class, 'create'])->name('universitas.create');
         Route::post('store', [UniversitasController::class, 'store'])->name('universitas.store');
@@ -118,7 +118,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('void/{universitas}', [UniversitasController::class, 'void'])->name('universitas.void');
         Route::put('unvoid/{universitas}', [UniversitasController::class, 'unvoid'])->name('universitas.unvoid');
     });
-    
+
     Route::group(['prefix' => 'mahasiswa'], function() {
         Route::get('/', [MahasiswaController::class, 'index'])->name('mahasiswa');
         Route::get('getDataFakultas', [MahasiswaController::class, 'getDataFakultas'])->name('mahasiswa.fakultas');
@@ -134,7 +134,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('void/{mahasiswa}', [MahasiswaController::class, 'void'])->name('mahasiswa.void');
         Route::put('unvoid/{mahasiswa}', [MahasiswaController::class, 'unvoid'])->name('mahasiswa.unvoid');
     });
-    
+
     Route::group(['prefix' => 'dosen'], function() {
         Route::get('/', [DosenController::class, 'index'])->name('dosen');
         Route::get('getDataFakultas', [DosenController::class, 'getDataFakultas'])->name('dosen.fakultas');
@@ -150,8 +150,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('void/{dosen}', [DosenController::class, 'void'])->name('dosen.void');
         Route::put('unvoid/{dosen}', [DosenController::class, 'unvoid'])->name('dosen.unvoid');
     });
-    
-    Route::group(['prefix'=>'jadwalkuliah'],function(){
+
+    Route::group(['prefix' => 'jadwalkuliah'], function() {
         Route::get('/', [JadwalKuliahController::class, 'index'])->name('jadwalkuliah');
         Route::get('getDataFakultas', [JadwalKuliahController::class, 'getDataFakultas'])->name('jadwalkuliah.fakultas');
         Route::get('programstudi/{programstudi}', [JadwalKuliahController::class, 'programstudi']);
@@ -165,9 +165,47 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('update/{jadwalkuliah}', [JadwalKuliahController::class, 'update'])->name('jadwalkuliah.update');
         Route::put('void/{jadwalkuliah}', [JadwalKuliahController::class, 'void'])->name('jadwalkuliah.void');
         Route::put('unvoid/{jadwalkuliah}', [JadwalKuliahController::class, 'unvoid'])->name('jadwalkuliah.unvoid');
-        
+
         Route::post('getMatkul/{programstudi}', [JadwalKuliahController::class, 'getMatkul'])->name('jadwalkuliah.matkul');
-        Route::post('dosen/{dosen}',[JadwalKuliahController::class,'getDosen'])->name('jadwalkuliah.dosen');
+        Route::post('dosen/{dosen}', [JadwalKuliahController::class, 'getDosen'])->name('jadwalkuliah.dosen');
+        Route::post('semester', [JadwalKuliahController::class, 'getSemester'])->name('jadwalkuliah.semester');
+
+//        peserta
+        Route::get('peserta/{jadwalkuliah}', [JadwalKuliahController::class, 'listPeserta'])->name('jadwalkuliah.listpeserta');
+        Route::get('listPeserta/{jadwalkuliah}', [JadwalKuliahController::class, 'listDataPeserta'])->name('jadwalkuliah.pesertaData');
+        Route::get('mahasiswaAll/{jadwalkuliah}', [JadwalKuliahController::class, 'mahasiswaAll'])->name('jadwalkuliah.mahasiswaAll');
+        Route::post('storePeserta/{jadwalkuliah}', [JadwalKuliahController::class, 'storePeserta'])->name('jadwalkuliah.storePeserta');
+        Route::delete('removePeserta/{jadwalkuliah}/{idmhs}', [JadwalKuliahController::class, 'removePeserta'])->name('jadwalkuliah.removePeserta');
+    });
+
+    Route::group(['prefix' => 'role'], function() {
+        Route::get('/', [RoleController::class, 'index'])->name('role');
+        Route::get('add', [RoleController::class, 'create'])->name('role.create');
+        Route::post('getModul', [RoleController::class, 'getModul'])->name('role.modul');
+        Route::post('getModulUpdate/{role}', [RoleController::class, 'getModulUpdate'])->name('role.modulUpdate');
+        Route::post('store', [RoleController::class, 'store'])->name('role.store');
+        Route::get('getData', [RoleController::class, 'datatable'])->name('role.list');
+        Route::get('showData/{role}', [RoleController::class, 'show']);
+        Route::post('update/{role}',[RoleController::class,'update'])->name('role.update');
+        Route::put('void/{universitas}', [RoleController::class, 'void'])->name('role.void');
+        Route::put('unvoid/{universitas}', [RoleController::class, 'unvoid'])->name('role.unvoid');
+    });
+    
+    Route::group(['prefix' => 'user'], function() {
+        Route::get('/', [UserController::class, 'index'])->name('user');
+        Route::get('getData', [UserController::class, 'datatable'])->name('user.list');
+        Route::get('add', [UserController::class, 'create'])->name('user.create');
+        Route::post('getRole',[UserController::class,'getRole'])->name('user.getRole');
+        Route::post('getModul', [UserController::class, 'getModul'])->name('user.modul');
+        Route::post('store', [UserController::class, 'store'])->name('user.store');
+        Route::get('show/{user}',[UserController::class,'show']);
+        Route::get('showData/{user}', [UserController::class, 'showUpdate']);
+        Route::post('update/{user}',[UserController::class,'update'])->name('user.update');
+        Route::post('getModulUpdate/{user}', [UserController::class, 'getModulUpdate'])->name('user.modulUpdate');
+        Route::put('void/{user}', [UserController::class, 'void'])->name('user.void');
+        Route::put('unvoid/{user}', [UserController::class, 'unvoid'])->name('user.unvoid');
+        Route::get('changePassword/{user}',[UserController::class,'changePassword']);
+        Route::put('updatePassword/{user}',[UserController::class,'updatePassword'])->name('user.updatePassword');
     });
 
 
@@ -183,18 +221,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('aturPenilaian/{penilaian}', [PenilaianController::class, 'aturPenilaian']);
     });
 
-    Route::group(['prefix' => 'role'], function() {
-        Route::get('/', [RoleController::class, 'index'])->name('role');
-        Route::get('userMatrix/{role}', [RoleController::class, 'userMatrix']);
-    });
 
-    Route::group(['prefix' => 'user'], function() {
-        Route::get('/', [UserController::class, 'index'])->name('user');
-    });
 
     
 
-    
+
+
+
 
 
 

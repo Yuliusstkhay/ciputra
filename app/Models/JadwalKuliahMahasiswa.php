@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Wuwx\LaravelAutoNumber\AutoNumberTrait;
 use Auth;
 
 class JadwalKuliahMahasiswa extends Model
 {
-    use HasFactory,AutoNumberTrait;
+    use HasFactory;
     protected $table = 'm_jadwal_mahasiswa';
     protected $primaryKey = 'jadwal_kuliah_id';
     public $incrementing = false;
@@ -24,18 +23,8 @@ class JadwalKuliahMahasiswa extends Model
         });
     }
     
-    /**
-     * Return the autonumber configuration array for this model.
-     *
-     * @return array
-     */
-    public function getAutoNumberOptions()
-    {
-        return [
-            'jadwal_kuliah_id' => [
-                'format' => 'BS.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
-                'length' => 5, // The number of digits in an autonumber
-            ],
-        ];
+    
+    public function mahasiswa(){
+        return $this->hasOne(DosenMahasiswa::class,'id','dosen_mahasiswa_id');
     }
 }

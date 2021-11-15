@@ -32,7 +32,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="mata_kuliah_id" class="text-normal text-dark">Mata Kuliah</label> 
-                                <select class="form-control" id="mata_kuliah_id" style="width:100%;" name="mata_kuliah_id">
+                                <select class="form-control" id="mata_kuliah_id" style="width:100%;" name="mata_kuliah_id" required="">
                                     <option value=""></option>
                                 </select>
                                 <div class="invalid-feedback">
@@ -47,8 +47,8 @@
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <div class="form-group">
                                 <label for="paralel" class="text-normal text-dark">Paralel</label> 
-                                <select class="form-control selectwidth" style="width:100%;" id="paralel" name="paralel">
-                                    <option selected="selected">Pilih Paralel</option>
+                                <select class="form-control selectwidth" style="width:100%;" id="paralel" name="paralel" required="">
+                                    <option value="" selected="selected">Pilih Paralel</option>
                                     <option value="A">
                                         A
                                     </option>
@@ -134,7 +134,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="dosen_pengampu" class="text-normal text-dark">Dosen Pengampu</label> 
-                                <select class="form-control" id="dosen_pengampu" style="width:100%;" name="dosen_pengampu">
+                                <select class="form-control" id="dosen_pengampu" style="width:100%;" name="dosen_pengampu" required="">
 
                                 </select>
                                 <div class="invalid-feedback">
@@ -143,7 +143,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="semester" class="text-normal text-dark">Semester</label> 
-                                <select class="form-control" id="semester" name="semester">
+                                <select class="form-control" id="semester" style="width:100%;" name="semester" required="">
 
                                 </select>
                                 <div class="invalid-feedback">
@@ -152,7 +152,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="jadwal_kuliah" class="text-normal text-dark">Jadwal Kuliah</label> 
-                                <textarea class="form-control" name="jadwal_kuliah" rows="6"></textarea>
+                                <textarea class="form-control" name="jadwal_kuliah" id="jadwal_kuliah" rows="6" required=""></textarea>
                                 <div class="invalid-feedback">
                                     Jadwal Kuliah harus diisi.
                                 </div>
@@ -180,6 +180,7 @@
 var store = '{{route("jadwalkuliah.store")}}';
 var matkul = '{{route("jadwalkuliah.matkul",$programStudi->bidang_studi_id)}}';
 var dosen = '{{route("jadwalkuliah.dosen",$programStudi->bidang_studi_id)}}';
+var semester = '{{route("jadwalkuliah.semester")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/jadwalkuliah/store.js')}}"></script>
 @stop

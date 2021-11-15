@@ -20,6 +20,7 @@ class SemesterRepository{
         return $data;
     }
     
+    
     public function getListData(){
         $data = Semester::where('universitas_id',Auth::user()->universitas_id)->where('status',0)->get();
         return $data;

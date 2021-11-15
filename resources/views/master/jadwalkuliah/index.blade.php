@@ -43,7 +43,9 @@
                                 <th>Kode Mata Kuliah</th>
                                 <th>Dosen Pengampu</th>
                                 <th>Semester</th>
+                                <th>Paralel</th>
                                 <th>Jadwal</th>
+                                <th>Jumlah Peserta</th>
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>

@@ -50,4 +50,9 @@ class JadwalKuliah extends Model
     public function semester(){
         return $this->hasOne(Semester::class,'semester_id','semester_id');
     }
+    
+    public function jadwalMahasiswa(){
+        return $this->hasMany(JadwalKuliahMahasiswa::class,'jadwal_kuliah_id','jadwal_kuliah_id');
+    }
+    
 }

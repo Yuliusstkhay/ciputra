@@ -53,4 +53,11 @@ class User extends Authenticatable
     public function dosen(){
         return $this->hasOne(DosenMahasiswa::class,'email','user_id');
     }
+    public function role(){
+        return $this->hasOne(Role::class,'role_id','role_id');
+    }
+    
+    public function userAccess(){
+        return $this->hasMany(UserAccess::class,'user_id','user_id');
+    }
 }
