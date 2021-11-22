@@ -17,6 +17,7 @@ use App\Http\Controllers\Master\SemesterController;
 use App\Http\Controllers\Master\AssessmentController;
 use App\Http\Controllers\Master\UniversitasController;
 use App\Http\Controllers\Master\JadwalKuliahController;
+use App\Http\Controllers\LaporanController;
 
 /*
   |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ use App\Http\Controllers\Master\JadwalKuliahController;
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
 Route::post('login/process', [LoginController::class, 'loginProcess'])->name('login.process');
-
+Route::get('logout',[LoginController::class,'logout'])->name('logout');
 Route::group(['middleware' => 'auth'], function() {
     Route::get('/', function () {
         $data = [
@@ -41,6 +42,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         return view('dashboard.index', $data);
     });
+    Route::get('getData',[DashboardController::class,'getList'])->name('dashboard.list');
 
     Route::group(['prefix' => "fakultas",'middleware'=>'user.akses:M02.01'], function() {
         Route::get('/', [FakultasController::class, 'index'])->name('fakultas')->middleware('user.akses:M02.01');
@@ -217,10 +219,53 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/', [PenilaianController::class, 'index'])->name('penilaian');
         Route::get('nilai/{penilaian}', [PenilaianController::class, 'penilaian']);
         Route::get('item/{penilaian}', [PenilaianController::class, 'listPenilaian']);
+        Route::get('getList',[PenilaianController::class,'getList'])->name('penilaian.list');
+//        insert
         Route::get('add', [PenilaianController::class, 'create']);
-        Route::get('aturPenilaian/{penilaian}', [PenilaianController::class, 'aturPenilaian']);
+        Route::get('getDataJadwalKuliah',[PenilaianController::class,'datatable'])->name('penilaian.jadwalkuliah');
+        Route::get('tambahPenilaianJadwal/{jadwal}',[PenilaianController::class,'createPenilaianJadwal']);
+        Route::get('getDosen/{jadwal}/{penilaian?}',[PenilaianController::class,'getDosen'])->name('penilaian.getDosen');
+        Route::post('storeTahap1/{jadwal}',[PenilaianController::class,'storeTahap1'])->name('penilaian.storeTahap1');
+        Route::get('getAssessment/{penilaian?}',[PenilaianController::class,'getAssessment'])->name('penilaian.getAssessment');
+        Route::get('getDosenPenilai/{penilaian}',[PenilaianController::class,'getDosenPenilai']);
+        Route::get('getKelompok/{penilaian}/{assessment}',[PenilaianController::class,'getKelompok']);
+        Route::get('listMahasiswa/{penilaian}/{assessment}',[PenilaianController::class,'listMahasiswa']);
+        Route::post('storeKelompok',[PenilaianController::class,'storeKelompok'])->name('penilaian.storeKelompok');
+        Route::post('deleteKelompok',[PenilaianController::class,'deleteKelompok'])->name('penilaian.deleteKelompok');
+        Route::post('insertPenilai',[PenilaianController::class,'insertPenilai'])->name('penilaian.insertPenilai');
+        Route::post('storeTahap2',[PenilaianController::class,'storeTahap2'])->name('penilaian.storeTahap2');
+        Route::get('listKriteriaAssessment/{penilaian}',[PenilaianController::class,'getKriteriaPenilaian']);
+        Route::post('storeTahap3',[PenilaianController::class,'storeTahap3'])->name('penilaian.storeTahap3');
+        
+//        nilai
+        Route::get('assessment/{penilaian}',[PenilaianController::class,'assessment']);
+        Route::get('listAssessment/{penilaian}',[PenilaianController::class,'listAssessment'])->name('penilaian.listAssessment');
+        Route::get('insertNilaiMahasiswa/{penilaianassessment}',[PenilaianController::class,'insertNilaiMahasiswa']);
+        Route::post('storeNilai',[PenilaianController::class,'storeNilai'])->name('penilaian.storeNilai');
+        
+        Route::put('void/{penilaian}', [PenilaianController::class, 'void'])->name('penilaian.void');
+        Route::put('unvoid/{penilaian}', [PenilaianController::class, 'unvoid'])->name('penilaian.unvoid');
     });
 
+    Route::group(['prefix'=>'LaporanGlobal','middleware'=>'user.akses:R01.01'],function(){
+        Route::get('/',[LaporanController::class,'indexGlobal'])->name('laporan.global')->middleware('user.akses:R01.01');
+        Route::get('getJadwal',[LaporanController::class,'getJadwal'])->name('laporan.listGlobal')->middleware('user.akses:R01.01');
+    });
+    
+    Route::group(['prefix'=>'LaporanAssessment','middleware'=>'user.akses:R02.01'],function(){
+        Route::get('/',[LaporanController::class,'indexAssessment'])->name('laporan.assessment');
+        Route::get('getJadwal',[LaporanController::class,'getJadwalAssessment'])->name('laporan.listAssessment');
+        Route::get('show/{penilaian}',[LaporanController::class,'getAssessment']);
+    });
+    
+    Route::group(['prefix'=>'LaporanDetail','middleware'=>'user.akses:R02.01'],function(){
+        Route::get('/',[LaporanController::class,'indexDetail'])->name('laporan.detail');
+        Route::get('getJadwal',[LaporanController::class,'getJadwalDetail'])->name('laporan.listDetail');
+        Route::get('show/{penilaian}',[LaporanController::class,'getDetail']);
+        Route::post('assessment/{penilaian}',[LaporanController::class,'listAssessment'])->name('laporandetail.assessment');
+        Route::post('itempenilaian/{penilaian}',[LaporanController::class,'listItemPenilaian'])->name('laporandetail.itempenilaian');
+        Route::get('getLaporan/{penilaian}/{assessment}/{itempenilaian}',[LaporanController::class,'getLaporanDetail']);
+    });
 
 
     

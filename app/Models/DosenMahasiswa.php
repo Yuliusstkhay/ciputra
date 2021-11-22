@@ -42,4 +42,8 @@ class DosenMahasiswa extends Model
     public function programstudi(){
         return $this->hasOne(ProgramStudi::class,'bidang_studi_id','bidang_studi_id');
     }
+    
+    public function penilaianDetail(){
+        return $this->hasOne(PenilaianDosenMahasiswaDetail::class,'dosen_mahasiswa_id','id');
+    }
 }

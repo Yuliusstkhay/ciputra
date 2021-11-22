@@ -1,4 +1,7 @@
 @extends('template.header_footer') 
+@section('css')
+<link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
+@stop
 @section('content') 
 <div class="row gap-20 masonry pos-r">
     <div class="masonry-sizer col-md-6"></div>
@@ -15,15 +18,16 @@
                                 <h3>{{(Auth::user()->type == 2)?Auth::user()->user_id:Auth::user()->dosen->name}}</h3>
                                 <p class="mB-0">{{(Auth::user()->type == 2)?"":Auth::user()->dosen->nip}}</p>
                             </div>
-                            <div class="peer">
+<!--                            <div class="peer">
                                 <h3 class="text-right">7</h3>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div class="table-responsive p-20">
-                        <table class="table">
+                        <table class="table" id="tbl-dashboard">
                             <thead>
                                 <tr>
+                                    <th class="bdwT-0">No</th>
                                     <th class="bdwT-0">Mata Kuliah</th>
                                     <th class="bdwT-0">Kode Mata Kuliah</th>
                                     <th class="bdwT-0">Dosen Pengampu</th>
@@ -31,70 +35,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="fw-600">
-                                        Gambar Teknik dan Permodelan
-                                    </td>
-                                    <td>
-                                        MK230001
-                                    </td>
-                                    <td>
-                                        Dr. Ir. Janti Gunawan, M.Eng.Sc., M.Com.IB.
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn cur-p btn-success">   
-                                            Nilai
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-600">
-                                        Entrepreneurship Essentials
-                                    </td>
-                                    <td>
-                                        MK220007
-                                    </td>
-                                    <td>
-                                        Dr. Ir. Janti Gunawan, M.Eng.Sc., M.Com.IB.
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn cur-p btn-success">   
-                                            Nilai
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-600">
-                                        Desain Ruang Kompak
-                                    </td>
-                                    <td>
-                                        MK230021
-                                    </td>
-                                    <td>
-                                        Dr. Ir. Janti Gunawan, M.Eng.Sc., M.Com.IB.
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn cur-p btn-success">   
-                                            Nilai
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-600">
-                                        Sejarah dan Teori Desain di Indonesia
-                                    </td>
-                                    <td>
-                                        MK230004
-                                    </td>
-                                    <td>
-                                        Prof. Dr. Ir. Sugeng Winardi
-                                    </td>
-                                    <td>
-                                        <button type="button" class="btn cur-p btn-success">   
-                                            Nilai
-                                        </button>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </div>
@@ -105,3 +46,10 @@
     </div>
 </div>
 @stop
+@section('js')
+    <script type="text/javascript" src="{{asset('DataTables/datatables.min.js')}}"></script>
+    <script type="text/javascript">
+        var list = '{{route("dashboard.list")}}';
+    </script>
+    <script type="text/javascript" src="{{asset('js/dashboard/index.js')}}"></script>
+    @stop

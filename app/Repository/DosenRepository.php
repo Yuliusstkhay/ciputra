@@ -25,6 +25,12 @@ class DosenRepository{
         return $data;
     }
     
+    public function getListPenilaianDosen($id){
+      return DosenMahasiswa::whereHas('programstudi.fakultas',function($q){
+            $q->where('universitas_id',Auth::user()->universitas_id);
+        })->where('bidang_studi_id',$id)->where('tipe',0)->where('email','!=',Auth::user()->user_id)->get();  
+    }
+    
     
     public function insert(){
         $matkul = new DosenMahasiswa();

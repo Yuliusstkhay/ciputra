@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Services\PenilaianService;
 
 class DashboardController extends Controller
 {
@@ -13,5 +14,9 @@ class DashboardController extends Controller
         
         
         return view('dashboard.index',$data);
+    }
+    
+    public function getList(PenilaianService $penilaianservice){
+        return $penilaianservice->getListPenilaian();
     }
 }

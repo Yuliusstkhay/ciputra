@@ -33,9 +33,13 @@ class PenilaianDosenMahasiswaDetail extends Model
     {
         return [
             'id' => [
-                'format' => 'BS.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
+                'format' => 'PNLD.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
                 'length' => 5, // The number of digits in an autonumber
             ],
         ];
+    }
+    
+    public function dosen(){
+        return $this->hasOne(DosenMahasiswa::class,'id','dosen_mahasiswa_id');
     }
 }

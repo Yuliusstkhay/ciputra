@@ -11,7 +11,7 @@ class PenilaianAssessmentDetail extends Model
 {
     use HasFactory,AutoNumberTrait;
     protected $table = 't_penilaian_assessment_detail';
-    protected $primaryKey = 'penilaian_assessment_id';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     const CREATED_AT = 'dt_record';
     const UPDATED_AT = 'dt_modified';
@@ -32,10 +32,18 @@ class PenilaianAssessmentDetail extends Model
     public function getAutoNumberOptions()
     {
         return [
-            'penilaian_assessment_id' => [
-                'format' => 'BS.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
+            'id' => [
+                'format' => 'PSD.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
                 'length' => 5, // The number of digits in an autonumber
             ],
         ];
+    }
+    
+    public function dosenMahasiswa(){
+        return $this->hasOne(DosenMahasiswa::class,'id','dosen_mahasiswa_id');
+    }
+    
+    public function penilaianAssessment(){
+        return $this->hasOne(PenilaianAssessment::class,'id','penilaian_assessment_id');
     }
 }

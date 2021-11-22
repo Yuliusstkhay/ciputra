@@ -33,10 +33,18 @@ class PenilaianHeader extends Model
     {
         return [
             'penilaian_id' => [
-                'format' => 'BS.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
+                'format' => 'PNL.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
                 'length' => 5, // The number of digits in an autonumber
             ],
         ];
+    }
+    
+    public function jadwal(){
+        return $this->hasOne(JadwalKuliah::class,'jadwal_kuliah_id','jadwal_kuliah_id');
+    }
+    
+    public function penilaianAssessment(){
+        return $this->hasMany(PenilaianAssessment::class,'penilaian_id','penilaian_id');
     }
     
 }

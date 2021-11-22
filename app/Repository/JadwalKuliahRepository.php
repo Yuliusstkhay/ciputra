@@ -17,8 +17,25 @@ class JadwalKuliahRepository{
         })->with(['matakuliah','dosenmahasiswa','semester'])->withCount('jadwalMahasiswa')->get();
     }
     
+    public function getListPenilaian(){
+        $data = JadwalKuliah::whereHas('matakuliah.programstudi.fakultas',function($q){
+            $q->where('universitas_id',Auth::user()->universitas_id);
+        })->with('matakuliah','dosenmahasiswa')
+        ->whereHas('semester',function($q){
+            $q->where('status',0);
+        })->doesntHave('penilaian')->orWhereHas('penilaian',function($q){
+            $q->where('status',0);
+        });
+        if(Auth::user()->type == 0){
+            $data->where('dosen_mahasiswa_id',Auth::user()->dosen->id);
+        }
+        
+        return $data->get();
+    }
+    
+    
     public function getListPeserta($id){
-        return JadwalKuliahMahasiswa::where('jadwal_kuliah_id',$id)->with('mahasiswa')->orderBy('index','asc')->get();
+        return JadwalKuliahMahasiswa::where('jadwal_kuliah_id',$id)->with(['mahasiswa','mahasiswa.programstudi'])->orderBy('index','asc')->get();
     }
     
     public function getListMahasiswa($idx){
@@ -36,6 +53,13 @@ class JadwalKuliahRepository{
                     ->get();
         return $mahasiswa;
         
+    }
+    
+    public function ListMahasiswaPenilaian($idx,$mahasiswa){
+        $data = JadwalKuliahMahasiswa::where('jadwal_kuliah_id',$idx)
+                ->whereNotIn('dosen_mahasiswa_id',$mahasiswa)
+                ->with(['mahasiswa','mahasiswa.programstudi'])->orderBy('index','asc')->get();
+        return $data;
     }
     
     public function insert(){

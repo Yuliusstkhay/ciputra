@@ -1,6 +1,6 @@
 @extends('template.header_footer') 
 @section('css')
-<link href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css" rel="stylesheet">
+<link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
 @stop
 @section('content')
 <div class="container-fluid">
@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <table id="dataTable" class="table table-hover" cellspacing="0" width="100%">
+                <table id="tbl-jadwalkuliah" class="table table-hover" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -36,42 +36,19 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+<!--                        <tr>
                             <td>1</td>
                             <td>Gambar Teknik dan Permodelan<br>(Technical Drawing and 3D Modelling)</td>
                             <td>MK230001</td>
                             <td>Dr. Ir. Janti Gunawan, M.Eng.Sc., M.Com.IB.</td>
                             <td>Senin 09.00-11.00<br>Rabu 13.00-15.00</td>
                             <td>
-                                <a class="btn cur-p btn-success" href="{{url('penilaian/aturPenilaian/asdasda')}}">   
+                                <a class="btn cur-p btn-success" href="./add-penilaian.html">   
                                     Atur Penilaian
                                 </a>
                             </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Entrepreneurship Essentials</td>
-                            <td>MK220007</td>
-                            <td>Dr. Ir. Janti Gunawan, M.Eng.Sc., M.Com.IB.</td>
-                            <td>Selasa 09.00-11.00<br>Kamis 11.00-13.00</td>
-                            <td>
-                                <button type="button" class="btn cur-p btn-success">   
-                                    Atur Penilaian
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>Desain Ruang Kompak<br>(Compact Space Design)</td>
-                            <td>MK230021</td>
-                            <td>Dr. Ir. Janti Gunawan, M.Eng.Sc., M.Com.IB.</td>
-                            <td>Jumat 07.00-09.00</td>
-                            <td>
-                                <button type="button" class="btn cur-p btn-success">
-                                    Atur Penilaian
-                                </button>
-                            </td>
-                        </tr>
+                        </tr>-->
+
                     </tbody>
                 </table>
             </div>
@@ -79,3 +56,10 @@
     </div>
 </div>
 @stop
+@section('js')
+    <script type="text/javascript" src="{{asset('DataTables/datatables.min.js')}}"></script>
+    <script type="text/javascript">
+        var list = '{{route("penilaian.jadwalkuliah")}}';
+    </script>
+    <script type="text/javascript" src="{{asset('js/penilaian/create.js')}}"></script>
+    @stop

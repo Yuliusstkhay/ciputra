@@ -38,4 +38,16 @@ class PenilaianAssessment extends Model
             ],
         ];
     }
+    
+    public function assessment(){
+        return $this->hasOne(Assessment::class,'assessment_id','assessment_id');
+    }
+    
+    public function penilaian(){
+        return $this->hasOne(PenilaianHeader::class,'penilaian_id','penilaian_id');
+    }
+    
+    public function penilaianAssessmentDetail(){
+        return $this->hasMany(PenilaianAssessmentDetail::class,'penilaian_assessment_id','id');
+    }
 }

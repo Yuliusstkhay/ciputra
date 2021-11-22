@@ -4,22 +4,21 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/JadwalKuliah.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/PenilaianRepository.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/LaporanService.php</file>
             <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/template/menu.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/Matkul.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/peserta.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/jadwalkuliah/index.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/JadwalKuliahMahasiswa.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/jadwalkuliah/peserta.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/index.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/create.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/jadwalkuliah/store.js</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Http/Controllers/Master/FakultasController.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/laporan/assessment/jadwal.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/laporan/detail/jadwal.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Http/Controllers/LaporanController.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/laporan/global/jadwal.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/PenilaianHeader.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/LaporanRepository.php</file>
             <file>file:/E:/xampp74/htdocs/ciputraNew/routes/web.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Http/Controllers/Master/JadwalKuliahController.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/DosenMahasiswa.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/laporan/global/index.js</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/PenilaianService.php</file>
             <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/JadwalKuliahRepository.php</file>
             <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/template/header_footer.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/DosenRepository.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/JadwalKuliahService.php</file>
         </group>
     </open-files>
 </project-private>

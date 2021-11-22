@@ -55,4 +55,8 @@ class JadwalKuliah extends Model
         return $this->hasMany(JadwalKuliahMahasiswa::class,'jadwal_kuliah_id','jadwal_kuliah_id');
     }
     
+    public function penilaian(){
+        return $this->hasOne(PenilaianHeader::class,'jadwal_kuliah_id','jadwal_kuliah_id');
+    }
+    
 }

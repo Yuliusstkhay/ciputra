@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Wuwx\LaravelAutoNumber\AutoNumberTrait;
 use Auth;
 
-class PenilaianDosenMahasiswa extends Model
+class PenilaianAssessmentNilai extends Model
 {
-     use HasFactory,AutoNumberTrait;
-    protected $table = 't_penilaian_dosen_mahasiswa';
-    protected $primaryKey = ['penilaian_assessment_id','id','dosen_mahasiswa_id'];
+   use HasFactory,AutoNumberTrait;
+    protected $table = 't_penilaian_mahasiswa_nilai';
+    protected $primaryKey = 'id';
     public $incrementing = false;
     const CREATED_AT = 'dt_record';
     const UPDATED_AT = 'dt_modified';
@@ -33,17 +33,17 @@ class PenilaianDosenMahasiswa extends Model
     {
         return [
             'id' => [
-                'format' => 'PMD.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
+                'format' => 'PMN.'.Auth::user()->universitas_id.'.?', // autonumber format. '?' will be replaced with the generated number.
                 'length' => 5, // The number of digits in an autonumber
             ],
         ];
     }
     
-    public function penilaianAssessment(){
-        return $this->hasOne(PenilaianAssessment::class,['penilaian_id','assessment_id'],['penilaian_id','assessment_id']);
+    public function mahasiswa(){
+        return $this->hasOne(DosenMahasiswa::class,'id','mahasiswa_dosen_id');
     }
     
-    public function mahasiswa(){
-        return $this->hasOne(DosenMahasiswa::class,'id','dosen_mahasiswa_id');
+    public function assessmentDetail(){
+        return $this->hasOne(PenilaianAssessmentDetail::class,'id','penilaian_assessment_detail_id');
     }
 }
