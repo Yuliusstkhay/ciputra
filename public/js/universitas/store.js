@@ -36,7 +36,9 @@ function save() {
         success: function (data) {
            if(data.result){
                notification("success", data.message);
-               document.getElementById("frm-universitas").reset();
+               setTimeout(function () {
+                    window.location.href = urlx;
+                }, 500);
            }else{
 
                notification("error", data.message);

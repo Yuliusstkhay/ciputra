@@ -71,10 +71,13 @@ function save() {
            if(data.result){
                notification("success", data.message);
 //               document.getElementById("frm-programstudi").reset();
-               $('#programstudi_name').val("");
-               $('#fakultas_id').val(null).trigger('change');
-               var form = document.getElementById("frm-programstudi");
-               form.classList.add('was-validated');
+//               $('#programstudi_name').val("");
+//               $('#fakultas_id').val(null).trigger('change');
+//               var form = document.getElementById("frm-programstudi");
+//               form.classList.add('was-validated');
+                 setTimeout(function () {
+                    window.location.href = urlx;
+                }, 500);
            }else{
 
                notification("error", data.message);

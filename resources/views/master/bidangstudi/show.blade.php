@@ -17,6 +17,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{route('programstudi')}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <a href="{{url('programstudi/getDataUpdate/'.$data->bidang_studi_id)}}" class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-3">Ubah Data</a>
                         </div>
                     </div>

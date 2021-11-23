@@ -23,6 +23,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{route('universitas')}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
@@ -39,6 +40,7 @@
 @section('js')
 <script type="text/javascript">
 var store = '{{route("universitas.update",$data->universitas_id)}}';
+var urlx = '{{route("universitas")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/universitas/update.js')}}"></script>
 @stop

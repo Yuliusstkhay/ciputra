@@ -24,6 +24,7 @@
 
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{route('fakultas')}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <a href="{{url('fakultas/getData/'.$data->fakultas_id)}}" class="btn btn-primary float-end col-2">Ubah Data</a>
                         </div>
                     </div>

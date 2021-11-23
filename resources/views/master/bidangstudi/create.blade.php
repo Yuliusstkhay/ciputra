@@ -33,6 +33,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{route('programstudi')}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
@@ -51,6 +52,7 @@
 <script type="text/javascript">
 var store = '{{route("programstudi.store")}}';
 var fakultas = '{{route("programstudi.getfakultas")}}';
+var urlx = '{{route("programstudi")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/programstudi/store.js')}}"></script>
 @stop
