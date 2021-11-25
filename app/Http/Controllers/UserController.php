@@ -22,7 +22,7 @@ class UserController extends Controller
     
     public function create(){
         $data = [
-            'title'=>'Pengguna'
+            'title'=>'Tambah Pengguna'
         ];
         
         return view('user.create',$data);

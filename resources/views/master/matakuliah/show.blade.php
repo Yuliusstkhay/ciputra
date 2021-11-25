@@ -8,7 +8,7 @@
 @stop
 @section('content')
 <div class="container-fluid">
-    <h4 class="c-grey-900 mT-10 mB-30">Detail Mata Kuliah</h4>
+    <h4 class="c-grey-900 mT-10 mB-30">Detail Master Mata Kuliah</h4>
     <div class="row">
         <div class="col-md-10 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -28,6 +28,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{url('matakuliah/matkul/'.$data->programstudi->bidang_studi_id."_".$data->programstudi->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <a href="{{url('matakuliah/getDataUpdate/'.$data->mata_kuliah_id)}}" class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-3">Ubah Data</a>
                         </div>
                     </div>

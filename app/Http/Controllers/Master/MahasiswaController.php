@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\MahasiswaService;
+use App\Http\Resources\RoleResource;
 
 class MahasiswaController extends Controller
 {
@@ -35,9 +36,11 @@ class MahasiswaController extends Controller
     }
     
     public function mahasiswa($id){
+        $idx = explode("_", $id);
        $data = [
             'title'=>"Master Mahasiswa",
-           'id'=>$id
+           'id'=>$idx[0],
+           'fakultas'=>$idx[1]
         ];
         
         return view('master.mahasiswa.index',$data); 
@@ -117,7 +120,8 @@ class MahasiswaController extends Controller
             return response()->json([
                         'result' => false,
                         'message' => 'Terjadi kesalahan pada perubahan data. Mohon Hubungi admin',
-                        'error'=>$ex->getMessage()
+                        'error'=>$ex->getMessage(),
+                        'line'=>$ex->getLine()
             ]);
         }
     }
@@ -164,5 +168,10 @@ class MahasiswaController extends Controller
                         'error'=>$ex->getMessage()
             ]);
         } 
+    }
+    
+    public function hakakses(Request $request,MahasiswaService $mahasiswaservice){
+        $data = $mahasiswaservice->getRole($request);
+        return response()->json(RoleResource::collection($data));
     }
 }

@@ -5,6 +5,12 @@
     @section('content')
     <div class="container-fluid">
         <h4 class="c-grey-900 mT-10 mB-30">Jadwal Kuliah</h4>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('jadwalkuliah')}}">Fakultas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Program Studi</li>
+            </ol>
+        </nav>
         <div class="row">
             {{csrf_field()}}
             <div class="col-md-12">

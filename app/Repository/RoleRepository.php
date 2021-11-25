@@ -22,6 +22,26 @@ class RoleRepository{
         return $data;
     }
     
+    public function getRoleDosen(Request $request){
+        $data = Role::where('universitas_id',Auth::user()->universitas_id)
+                ->where('is_dosen',1);
+        if($request->has('q')){
+            $data->where('role_name','like','%'.$request->q.'%');
+        }
+        $data = $data->get();
+        return $data;
+    }
+    
+    public function getRoleMahasiswa(Request $request){
+        $data = Role::where('universitas_id',Auth::user()->universitas_id)
+                ->where('is_mahasiswa',1);
+        if($request->has('q')){
+            $data->where('role_name','like','%'.$request->q.'%');
+        }
+        $data = $data->get();
+        return $data;
+    }
+    
     public function getData(Request $request){
         $data = Role::where('universitas_id',Auth::user()->universitas_id)->where('status',0)->where('is_admin',1);
         if($request->has('q')){

@@ -46,4 +46,8 @@ class DosenMahasiswa extends Model
     public function penilaianDetail(){
         return $this->hasOne(PenilaianDosenMahasiswaDetail::class,'dosen_mahasiswa_id','id');
     }
+    
+    public function user(){
+        return $this->hasOne(User::class,'user_id','email');
+    }
 }

@@ -121,7 +121,7 @@ class RoleController extends Controller
         $role = $roleservices->show($id);
 
         $data = [
-            'title' => "Detail Master Fakultas",
+            'title' => "Ubah Hak Akses",
             'data' => $role
         ];
 

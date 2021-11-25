@@ -9,6 +9,12 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Tambah Assessment</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('assesment')}}">Master Assessment</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-10 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -23,6 +29,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{route('assesment')}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
@@ -39,6 +46,7 @@
 @section('js')
 <script type="text/javascript">
 var store = '{{route("assesment.store")}}';
+var urlx = '{{route("assesment")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/assessment/store.js')}}"></script>
 @stop

@@ -8,7 +8,7 @@
 @stop
 @section('content')
 <div class="container-fluid">
-    <h4 class="c-grey-900 mT-10 mB-30">Ubah Mata Kuliah</h4>
+    <h4 class="c-grey-900 mT-10 mB-30">Ubah Master Mata Kuliah</h4>
     <div class="row">
         <div class="col-md-10 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -33,6 +33,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{url('matakuliah/matkul/'.$data->programstudi->bidang_studi_id."_".$data->programstudi->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
@@ -49,6 +50,7 @@
 @section('js')
 <script type="text/javascript">
 var store = '{{route("matakuliah.update",$data->mata_kuliah_id)}}';
+var urlx = '{{url("matakuliah/matkul/".$data->programstudi->bidang_studi_id."_".$data->programstudi->fakultas_id)}}';
 </script>
 <script type="text/javascript" src="{{asset('js/matakuliah/update.js')}}"></script>
 @stop

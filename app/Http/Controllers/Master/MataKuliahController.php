@@ -34,9 +34,11 @@ class MataKuliahController extends Controller
     }
     
     public function matakuliah($id){
+        $idx = explode("_", $id);
        $data = [
             'title'=>"Master Mata Kuliah",
-           'id'=>$id
+           'id'=>$idx[0],
+           'fakultas'=>$idx[1]
         ];
         
         return view('master.matakuliah.index',$data); 
@@ -49,7 +51,7 @@ class MataKuliahController extends Controller
     public function create($id, MatkulService $matkul) {
         $data = [
             'title' => "Tambah Master Mata Kuliah",
-            'programStudi'=>$matkul->getDataProgram($id)
+            'programStudi'=>$matkul->getDataProgram($id),
         ];
 
 

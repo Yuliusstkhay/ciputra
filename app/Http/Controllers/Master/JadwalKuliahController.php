@@ -39,9 +39,11 @@ class JadwalKuliahController extends Controller
     }
     
     public function jadwalkuliah($id){
+        $idx = explode("_", $id);
        $data = [
             'title'=>"Master Jadwal Kuliah",
-           'id'=>$id
+           'id'=>$idx[0],
+           'fakultas'=>$idx[1]
         ];
         
         return view('master.jadwalkuliah.index',$data); 

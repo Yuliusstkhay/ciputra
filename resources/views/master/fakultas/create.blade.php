@@ -9,6 +9,12 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Tambah Fakultas</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('fakultas')}}">Master Fakultas</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-10 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">

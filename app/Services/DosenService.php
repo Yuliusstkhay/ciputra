@@ -6,6 +6,7 @@ use App\Repository\FakultasRepository;
 use App\Repository\ProgramStudiRepository;
 use App\Repository\DosenRepository;
 use App\Repository\UserRepository;
+use App\Repository\RoleRepository;
 use DataTables;
 use Illuminate\Http\Request;
 use Auth;
@@ -16,11 +17,18 @@ class DosenService {
 
     protected $fakultas, $programstudi, $dosen,$user;
 
-    public function __construct(FakultasRepository $fakultas, ProgramStudiRepository $programstudi, DosenRepository $dosen, UserRepository $user) {
+    public function __construct(
+            FakultasRepository $fakultas, 
+            ProgramStudiRepository $programstudi, 
+            DosenRepository $dosen, 
+            UserRepository $user,
+            RoleRepository $role
+            ) {
         $this->fakultas = $fakultas;
         $this->programstudi = $programstudi;
         $this->dosen = $dosen;
         $this->user = $user;
+        $this->role = $role;
     }
 
     public function getDataFakultas() {
@@ -41,7 +49,7 @@ class DosenService {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
-                </svg> Tambah Dosen
+                </svg> Atur Dosen
             </a>';
         return $action;
     }
@@ -49,8 +57,8 @@ class DosenService {
     public function getDataProgramStudi($id) {
         $data = $this->programstudi->getListData($id);
         return Datatables::of($data)
-                        ->addColumn('action', function ($data) {
-                            $action = $this->getMatkul($data->bidang_studi_id);
+                        ->addColumn('action', function ($data) use ($id) {
+                            $action = $this->getMatkul($data->bidang_studi_id."_".$id);
                             return $action;
                         })
                         ->rawColumns(['action'])
@@ -64,7 +72,7 @@ class DosenService {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
-                </svg> Tambah Dosen
+                </svg> Atur Dosen
             </a>';
         return $action;
     }
@@ -159,10 +167,23 @@ class DosenService {
         $user->password = Hash::make('12345');
         $user->type = 0;
         $user->universitas_id = Auth::user()->universitas_id;
+        $user->role_id = $request->role_id;
         if (!$user->save()) {
             DB::rollback();
             return false;
         }
+        
+        $role = $this->role->show($request->role_id);
+        foreach($role->roleAccess as $key=> $row){
+            $detail = $this->user->insertAccess();
+            $detail->module_function_id = $row->module_function_id;
+            $detail->user_id = $request->email;
+            if (!$detail->save()) {
+                DB::rollback();
+                return false;
+            }
+        }
+        
         
         DB::commit();
         return true;
@@ -184,6 +205,32 @@ class DosenService {
             return false;
         }
         
+        $user = $this->user->show($model->email);
+        $user->role_id = $request->role_id;
+        if (!$user->save()) {
+            DB::rollback();
+            return false;
+        }
+        
+        $delete = $this->user->deleteAccess($model->email);
+        if ($delete->count() > 0) {
+            if (!$delete->delete()) {
+                DB::rollback();
+                return false;
+            }
+        }
+        
+        $role = $this->role->show($request->role_id);
+        foreach($role->roleAccess as $key=> $row){
+            $detail = $this->user->insertAccess();
+            $detail->module_function_id = $row->module_function_id;
+            $detail->user_id = $model->email;
+            if (!$detail->save()) {
+                DB::rollback();
+                return false;
+            }
+        }
+        
         
         DB::commit();
         return true;
@@ -199,6 +246,10 @@ class DosenService {
         }
         DB::commit();
         return true;
+    }
+    
+    public function getRole(Request $request){
+        return $this->role->getRoleDosen($request);
     }
 
 }

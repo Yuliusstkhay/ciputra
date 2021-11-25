@@ -141,11 +141,14 @@ function save() {
            if(data.result){
                notification("success", data.message);
 //               document.getElementById("frm-programstudi").reset();
-               $('#mata_kuliah_id').val(null).trigger('change');
-               $('#paralel').val("").trigger('change');
-               $('#dosen_pengampu').val(null).trigger('change');
-               $('#semester').val(null).trigger('change');
-               $('#jadwal_kuliah').val("");
+//               $('#mata_kuliah_id').val(null).trigger('change');
+//               $('#paralel').val("").trigger('change');
+//               $('#dosen_pengampu').val(null).trigger('change');
+//               $('#semester').val(null).trigger('change');
+//               $('#jadwal_kuliah').val("");
+                setTimeout(function () {
+                    window.location.href = urlx;
+                }, 500);
            }else{
 
                notification("error", data.message);

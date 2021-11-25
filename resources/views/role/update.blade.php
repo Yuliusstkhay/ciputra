@@ -256,7 +256,13 @@
 @stop
 @section('content')
 <div class="container-fluid">
-    <h4 class="c-grey-900 mT-10 mB-30">Tambah Hak Akses</h4>
+    <h4 class="c-grey-900 mT-10 mB-30">Ubah Hak Akses</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('role')}}">Hak Akses</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ubah</li>
+            </ol>
+        </nav>
     <div class="row">
         {{csrf_field()}}
         <div class="col-md-12 col-sm-12">
@@ -343,6 +349,7 @@
 <script type="text/javascript">
     var store = '{{route("role.update",$data->role_id)}}';
     var getModul = '{{route("role.modulUpdate",$data->role_id)}}';
+    var urlx = '{{url("role")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/role/update.js')}}"></script>
 @stop

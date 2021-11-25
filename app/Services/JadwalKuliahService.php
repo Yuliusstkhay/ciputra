@@ -56,8 +56,8 @@ class JadwalKuliahService {
     public function getDataProgramStudi($id) {
         $data = $this->programstudi->getListData($id);
         return Datatables::of($data)
-                        ->addColumn('action', function ($data) {
-                            $action = $this->getMatkul($data->bidang_studi_id);
+                        ->addColumn('action', function ($data) use ($id) {
+                            $action = $this->getMatkul($data->bidang_studi_id."_".$id);
                             return $action;
                         })
                         ->rawColumns(['action'])

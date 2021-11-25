@@ -135,6 +135,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('update/{mahasiswa}', [MahasiswaController::class, 'update'])->name('mahasiswa.update')->middleware('user.akses:M06.03');
         Route::put('void/{mahasiswa}', [MahasiswaController::class, 'void'])->name('mahasiswa.void')->middleware('user.akses:M06.04');
         Route::put('unvoid/{mahasiswa}', [MahasiswaController::class, 'unvoid'])->name('mahasiswa.unvoid')->middleware('user.akses:M06.04');
+        
+        Route::post('hakakses',[MahasiswaController::class,'hakakses'])->name('mahasiswa.hakakses');
     });
 
     Route::group(['prefix' => 'dosen','middleware'=>'user.akses:M05.01'], function() {
@@ -151,6 +153,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::put('update/{dosen}', [DosenController::class, 'update'])->name('dosen.update')->middleware('user.akses:M05.03');
         Route::put('void/{dosen}', [DosenController::class, 'void'])->name('dosen.void')->middleware('user.akses:M05.04');
         Route::put('unvoid/{dosen}', [DosenController::class, 'unvoid'])->name('dosen.unvoid')->middleware('user.akses:M05.04');
+        
+        Route::post('hakakses',[DosenController::class,'hakakses'])->name('dosen.hakakses');
     });
 
     Route::group(['prefix' => 'jadwalkuliah','middleware'=>'user.akses:M08.01'], function() {

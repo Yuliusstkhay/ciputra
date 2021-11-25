@@ -12,6 +12,12 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Detail Semester</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('semester')}}">Semester</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-10 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -23,6 +29,7 @@
 
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{route('semester')}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <a href="{{url('semester/getDataUpdate/'.$data->semester_id)}}" class="btn btn-primary float-end col-2">Ubah Data</a>
                         </div>
                     </div>

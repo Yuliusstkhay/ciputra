@@ -38,7 +38,7 @@ class MatkulService {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
-                </svg> Tambah Mata Kuliah
+                </svg> Atur Mata Kuliah
             </a>';
         return $action;
     }
@@ -46,8 +46,8 @@ class MatkulService {
     public function getDataProgramStudi($id) {
         $data = $this->programstudi->getListData($id);
         return Datatables::of($data)
-                        ->addColumn('action', function ($data) {
-                            $action = $this->getMatkul($data->bidang_studi_id);
+                        ->addColumn('action', function ($data) use ($id) {
+                            $action = $this->getMatkul($data->bidang_studi_id."_".$id);
                             return $action;
                         })
                         ->rawColumns(['action'])
@@ -61,7 +61,7 @@ class MatkulService {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
-                </svg> Tambah Mata Kuliah
+                </svg> Atur Mata Kuliah
             </a>';
         return $action;
     }

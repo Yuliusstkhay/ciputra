@@ -9,6 +9,14 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Detail Dosen</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('dosen')}}">Fakultas</a></li>
+                <li class="breadcrumb-item"><a href="{{url('dosen/programstudi/'.$data->programStudi->fakultas->fakultas_id)}}">Program Studi</a></li>
+                <li class="breadcrumb-item"><a href="{{url('dosen/dosen/'.$data->programStudi->bidang_studi_id."_".$data->programStudi->fakultas->fakultas_id)}}">Master Dosen</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -46,6 +54,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{url('dosen/dosen/'.$data->programStudi->bidang_studi_id."_".$data->programStudi->fakultas->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <a href="{{url('dosen/getDataUpdate/'.$data->id)}}" class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-3">Ubah Data</a>
                         </div>
                     </div>

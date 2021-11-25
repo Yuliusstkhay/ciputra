@@ -6,6 +6,7 @@ use App\Repository\FakultasRepository;
 use App\Repository\ProgramStudiRepository;
 use App\Repository\MahasiswaRepository;
 use App\Repository\UserRepository;
+use App\Repository\RoleRepository;
 use DataTables;
 use Illuminate\Http\Request;
 use Auth;
@@ -14,13 +15,20 @@ use Hash;
 
 class MahasiswaService {
 
-    protected $fakultas, $programstudi, $mahasiswa,$user;
+    protected $fakultas, $programstudi, $mahasiswa,$user,$role;
 
-    public function __construct(FakultasRepository $fakultas, ProgramStudiRepository $programstudi, MahasiswaRepository $mahasiswa, UserRepository $user) {
+    public function __construct(
+            FakultasRepository $fakultas, 
+            ProgramStudiRepository $programstudi, 
+            MahasiswaRepository $mahasiswa, 
+            UserRepository $user,
+            RoleRepository $role
+            ) {
         $this->fakultas = $fakultas;
         $this->programstudi = $programstudi;
         $this->mahasiswa = $mahasiswa;
         $this->user = $user;
+        $this->role = $role;
     }
 
     public function getDataFakultas() {
@@ -41,7 +49,7 @@ class MahasiswaService {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
-                </svg> Tambah Mahasiswa
+                </svg> Atur Mahasiswa
             </a>';
         return $action;
     }
@@ -49,8 +57,8 @@ class MahasiswaService {
     public function getDataProgramStudi($id) {
         $data = $this->programstudi->getListData($id);
         return Datatables::of($data)
-                        ->addColumn('action', function ($data) {
-                            $action = $this->getMatkul($data->bidang_studi_id);
+                        ->addColumn('action', function ($data) use ($id) {
+                            $action = $this->getMatkul($data->bidang_studi_id."_".$id);
                             return $action;
                         })
                         ->rawColumns(['action'])
@@ -64,7 +72,7 @@ class MahasiswaService {
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                     <line x1="12" y1="5" x2="12" y2="19" />
                     <line x1="5" y1="12" x2="19" y2="12" />
-                </svg> Tambah Mahasiswa
+                </svg> Atur Mahasiswa
             </a>';
         return $action;
     }
@@ -158,9 +166,21 @@ class MahasiswaService {
         $user->password = Hash::make('12345');
         $user->type = 1;
         $user->universitas_id = Auth::user()->universitas_id;
+        $user->role_id = $request->role_id;
         if (!$user->save()) {
             DB::rollback();
             return false;
+        }
+        
+        $role = $this->role->show($request->role_id);
+        foreach($role->roleAccess as $key=> $row){
+            $detail = $this->user->insertAccess();
+            $detail->module_function_id = $row->module_function_id;
+            $detail->user_id = $request->email;
+            if (!$detail->save()) {
+                DB::rollback();
+                return false;
+            }
         }
         
         DB::commit();
@@ -182,6 +202,31 @@ class MahasiswaService {
             return false;
         }
         
+        $user = $this->user->show($model->email);
+        $user->role_id = $request->role_id;
+        if (!$user->save()) {
+            DB::rollback();
+            return false;
+        }
+        $delete = $this->user->deleteAccess($model->email);
+        if ($delete->count() > 0) {
+            if (!$delete->delete()) {
+                DB::rollback();
+                return false;
+            }
+        }
+        
+        $role = $this->role->show($request->role_id);
+        foreach($role->roleAccess as $key=> $row){
+            $detail = $this->user->insertAccess();
+            $detail->module_function_id = $row->module_function_id;
+            $detail->user_id = $model->email;
+            if (!$detail->save()) {
+                DB::rollback();
+                return false;
+            }
+        }
+        
         
         DB::commit();
         return true;
@@ -197,6 +242,10 @@ class MahasiswaService {
         }
         DB::commit();
         return true;
+    }
+    
+    public function getRole(Request $request){
+        return $this->role->getRoleMahasiswa($request);
     }
 
 }

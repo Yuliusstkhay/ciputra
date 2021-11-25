@@ -38,4 +38,8 @@ class Role extends Model
             ],
         ];
     }
+    
+    public function roleAccess(){
+        return $this->hasMany(RoleAccess::class,'role_id','role_id');
+    }
 }

@@ -5,10 +5,19 @@
         display: none;
     }
 </style>
+<link rel="stylesheet" href="{{ asset('select2/dist/css/select2.min.css') }}">
 @stop
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Tambah Mahasiswa</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('mahasiswa')}}">Fakultas</a></li>
+                <li class="breadcrumb-item"><a href="{{url('mahasiswa/programstudi/'.$programStudi->fakultas_id)}}">Program Studi</a></li>
+                <li class="breadcrumb-item"><a href="{{url('mahasiswa/mahasiswa/'.$programStudi->bidang_studi_id."_".$programStudi->fakultas->fakultas_id)}}">Master Mahasiswa</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -48,10 +57,20 @@
                                     Email harus valid.
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="role_id" class="text-normal text-dark">Hak Akses</label> 
+                                <select class="form-control col-12" style="width:100%!important;" name="role_id" id="role_id" required="">
+                                    <option value="">&nbsp;</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Hak Akses Harus Dipilih.
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{url('mahasiswa/mahasiswa/'.$programStudi->bidang_studi_id."_".$programStudi->fakultas->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
@@ -66,8 +85,11 @@
 </div>
 @stop
 @section('js')
+<script type="text/javascript" src="{{asset('select2/dist/js/select2.min.js')}}"></script>
 <script type="text/javascript">
     var store = '{{route("mahasiswa.store")}}';
+    var urlx = '{{url("mahasiswa/mahasiswa/".$programStudi->bidang_studi_id."_".$programStudi->fakultas->fakultas_id)}}';
+    var hakakses = '{{route("mahasiswa.hakakses")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/mahasiswa/store.js')}}"></script>
 @stop

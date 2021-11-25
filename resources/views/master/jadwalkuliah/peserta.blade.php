@@ -11,6 +11,14 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Peserta Kuliah</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('jadwalkuliah')}}">Fakultas</a></li>
+                <li class="breadcrumb-item"><a href="{{url('jadwalkuliah/programstudi/'.$data->matakuliah->programStudi->fakultas_id)}}">Program Studi</a></li>
+                <li class="breadcrumb-item"><a href="{{url('jadwalkuliah/jadwalkuliah/'.$data->matakuliah->programStudi->bidang_studi_id."_".$data->matakuliah->programStudi->fakultas->fakultas_id)}}">Jadwal Kuliah</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+        </nav>
     <div class="row">
         {{csrf_field()}}
         <div class="col-md-12">
@@ -55,6 +63,14 @@
                                 </div>
                                 <div class="col-md-9">
                                     <a>: {{$data->matakuliah->mata_kuliah_id}}</a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <a>Paralel</a>
+                                </div>
+                                <div class="col-md-9">
+                                    <a>: {{$data->paralel}}</a>
                                 </div>
                             </div>
                             <div class="row">

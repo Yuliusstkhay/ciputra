@@ -5,6 +5,13 @@
     @section('content')
     <div class="container-fluid">
         <h4 class="c-grey-900 mT-10 mB-30">Master Mata Kuliah</h4>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('matakuliah')}}">Fakultas</a></li>
+                <li class="breadcrumb-item"><a href="{{url('matakuliah/programstudi/'.$fakultas)}}">Program Studi</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Mata Kuliah</li>
+            </ol>
+        </nav>
         <div class="row">
             {{csrf_field()}}
             <div class="col-md-12">

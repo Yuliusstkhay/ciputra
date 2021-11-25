@@ -228,7 +228,10 @@ $('#btn-submit').on('click', function () {
                 $('#notes').val("");
                 $('#role_name').val("");
                 $('#role_name').removeClass('is-valid');
-                previouss();
+//                previouss();
+                setTimeout(function () {
+                    window.location.href = urlx;
+                }, 500);
             } else {
 
                 notification("error", data.message);

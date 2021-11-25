@@ -13,6 +13,14 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Detail Jadwal Kuliah</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('jadwalkuliah')}}">Fakultas</a></li>
+                <li class="breadcrumb-item"><a href="{{url('jadwalkuliah/programstudi/'.$data->matakuliah->programStudi->fakultas_id)}}">Program Studi</a></li>
+                <li class="breadcrumb-item"><a href="{{url('jadwalkuliah/jadwalkuliah/'.$data->matakuliah->programStudi->bidang_studi_id."_".$data->matakuliah->programStudi->fakultas->fakultas_id)}}">Jadwal Kuliah</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Detail</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -57,6 +65,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{url('jadwalkuliah/jadwalkuliah/'.$data->matakuliah->programStudi->bidang_studi_id."_".$data->matakuliah->programStudi->fakultas->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <a href="{{url('jadwalkuliah/getDataUpdate/'.$data->jadwal_kuliah_id)}}" class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-3">Ubah Data</a>
                         </div>
                     </div>

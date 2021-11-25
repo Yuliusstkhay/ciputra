@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\DosenService;
+use App\Http\Resources\RoleResource;
 
 class DosenController extends Controller
 {
@@ -36,9 +37,11 @@ class DosenController extends Controller
     }
     
     public function dosen($id){
+        $idx = explode("_", $id);
        $data = [
             'title'=>"Master Dosen",
-           'id'=>$id
+           'id'=>$idx[0],
+           'fakultas'=>$idx[1]
         ];
         
         return view('master.dosen.index',$data); 
@@ -165,5 +168,10 @@ class DosenController extends Controller
                         'error'=>$ex->getMessage()
             ]);
         } 
+    }
+    
+    public function hakakses(Request $request,DosenService $dosenservice){
+        $data = $dosenservice->getRole($request);
+        return response()->json(RoleResource::collection($data));
     }
 }

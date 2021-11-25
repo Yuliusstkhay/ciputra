@@ -14,6 +14,14 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Tambah Jadwal Kuliah</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('jadwalkuliah')}}">Fakultas</a></li>
+                <li class="breadcrumb-item"><a href="{{url('jadwalkuliah/programstudi/'.$programStudi->fakultas_id)}}">Program Studi</a></li>
+                <li class="breadcrumb-item"><a href="{{url('jadwalkuliah/jadwalkuliah/'.$programStudi->bidang_studi_id."_".$programStudi->fakultas->fakultas_id)}}">Jadwal Kuliah</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-12 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -161,6 +169,7 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
+                            <a href="{{url('jadwalkuliah/jadwalkuliah/'.$programStudi->bidang_studi_id."_".$programStudi->fakultas->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
                             <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
@@ -181,6 +190,7 @@ var store = '{{route("jadwalkuliah.store")}}';
 var matkul = '{{route("jadwalkuliah.matkul",$programStudi->bidang_studi_id)}}';
 var dosen = '{{route("jadwalkuliah.dosen",$programStudi->bidang_studi_id)}}';
 var semester = '{{route("jadwalkuliah.semester")}}';
+var urlx = '{{url("jadwalkuliah/jadwalkuliah/".$programStudi->bidang_studi_id."_".$programStudi->fakultas->fakultas_id)}}';
 </script>
 <script type="text/javascript" src="{{asset('js/jadwalkuliah/store.js')}}"></script>
 @stop

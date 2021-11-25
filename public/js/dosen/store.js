@@ -19,6 +19,40 @@
     }, false);
 })();
 
+$(function(){
+  
+    $('#role_id').select2({
+        placeholder: 'Pilih Hak Akses',
+        ajax: {
+            url: hakakses,
+            delay: 250,
+            dataType: "json",
+            type: "post",
+            data: function (params) {
+                return {
+                    q: params.term, // search term
+                    page: params.page,
+                    _token: $('input[name="_token"]').val()
+                };
+            },
+            processResults: function (data, params) {
+                // parse the results into the format expected by Select2
+                // since we are using custom formatting functions we do not need to
+                // alter the remote JSON data, except to indicate that infinite
+                // scrolling can be used
+                params.page = params.page || 1;
+                return {
+                    results: data,
+                    pagination: {
+                        more: (params.page * 30) < data.total_count
+                    }
+                };
+            },
+            cache: true
+        }
+    });
+});
+
 
 function save() {
     $.ajax({
@@ -31,6 +65,7 @@ function save() {
             name:$('#name').val(),
             email:$('#email').val(),
             jabatan:$('#jabatan').val(),
+            role_id:$('#role_id').val()
             
         },
         dataType: "json",
@@ -41,10 +76,13 @@ function save() {
         success: function (data) {
            if(data.result){
                notification("success", data.message);
-               $('#nip').val("");
-               $('#name').val("");
-               $('#email').val("");
-               $('#jabatan').val("");
+//               $('#nip').val("");
+//               $('#name').val("");
+//               $('#email').val("");
+//               $('#jabatan').val("");
+                setTimeout(function () {
+                    window.location.href = urlx;
+                }, 500);
            }else{
 
                notification("error", data.message);
