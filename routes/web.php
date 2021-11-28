@@ -253,7 +253,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::group(['prefix'=>'LaporanGlobal','middleware'=>'user.akses:R01.01'],function(){
         Route::get('/',[LaporanController::class,'indexGlobal'])->name('laporan.global')->middleware('user.akses:R01.01');
-        Route::get('getJadwal',[LaporanController::class,'getJadwal'])->name('laporan.listGlobal')->middleware('user.akses:R01.01');
+        Route::get('getJadwal',[LaporanController::class,'getJadwal'])->name('laporan.listGloball')->middleware('user.akses:R01.01');
         Route::get('show/{penilaian}',[LaporanController::class,'getDetail'])->name('laporan.globalreport');
         Route::get('getNilaiGlobal/{penilaian}',[LaporanController::class,'getNilaiGlobal'])->name('laporan.listGlobal');
         Route::get('assessmentReport/{penilaian}',[LaporanController::class,'assessmentReport'])->name('laporan.assessmentreport');

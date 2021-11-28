@@ -5,6 +5,11 @@
     @section('content')
     <div class="container-fluid">
         <h4 class="c-grey-900 mT-10 mB-30">Laporan</h4>
+        <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Laporan</li>
+            </ol>
+    </nav>
         {{csrf_field()}}
         <div class="row">
             <div class="col-md-12">
@@ -45,7 +50,7 @@
     @section('js')
     <script type="text/javascript" src="{{asset('DataTables/datatables.min.js')}}"></script>
     <script type="text/javascript">
-        var list = '{{route("laporan.listGlobal")}}';
+        var list = '{{route("laporan.listGloball")}}';
     </script>
-    <script type="text/javascript" src="{{asset('js/laporan/global/index.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/laporan/global/jadwal.js')}}"></script>
     @stop

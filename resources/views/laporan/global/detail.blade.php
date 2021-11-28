@@ -8,6 +8,14 @@
     <h4 class="c-grey-900 mT-10 mB-30">
         Laporan Detail
     </h4>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('laporan.global')}}">Laporan</a></li>
+                <li class="breadcrumb-item"><a href="{{route('laporan.globalreport',$data->penilaian_id)}}">Global</a></li>
+                <li class="breadcrumb-item"><a href="{{route('laporan.assessmentreport',$data->penilaian_id)}}">Assessment</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Assessment</li>
+            </ol>
+    </nav>
     <div class="row">
         {{csrf_field()}}
         <div class="col-md-12">

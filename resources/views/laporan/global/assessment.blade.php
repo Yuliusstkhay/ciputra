@@ -153,5 +153,5 @@
 <script type="text/javascript">
     var list = '{{route("laporan.listGlobal",$data->penilaian_id)}}';
 </script>
-<script type="text/javascript" src="{{asset('js/laporan/global/index.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/laporan/global/assessment.js')}}"></script>
 @stop
