@@ -254,22 +254,29 @@ Route::group(['middleware' => 'auth'], function() {
     Route::group(['prefix'=>'LaporanGlobal','middleware'=>'user.akses:R01.01'],function(){
         Route::get('/',[LaporanController::class,'indexGlobal'])->name('laporan.global')->middleware('user.akses:R01.01');
         Route::get('getJadwal',[LaporanController::class,'getJadwal'])->name('laporan.listGlobal')->middleware('user.akses:R01.01');
+        Route::get('show/{penilaian}',[LaporanController::class,'getDetail'])->name('laporan.globalreport');
+        Route::get('getNilaiGlobal/{penilaian}',[LaporanController::class,'getNilaiGlobal'])->name('laporan.listGlobal');
+        Route::get('assessmentReport/{penilaian}',[LaporanController::class,'assessmentReport'])->name('laporan.assessmentreport');
+        Route::get('detailReport/{penilaian}/{mahasiswa}',[LaporanController::class,'detailReport'])->name('laporan.detailreport');
+        Route::post('assessment/{penilaian}',[LaporanController::class,'listAssessment'])->name('laporan.assessment');
+        Route::post('itempenilaian/{penilaian}',[LaporanController::class,'listItemPenilaian'])->name('laporan.itempenilaian');
+        Route::get('dataDetailReport/{penilaian}/{mahasiswa}/{assessment}/{itempenilaian}',[LaporanController::class,'dataDetailReport']);
     });
     
-    Route::group(['prefix'=>'LaporanAssessment','middleware'=>'user.akses:R02.01'],function(){
-        Route::get('/',[LaporanController::class,'indexAssessment'])->name('laporan.assessment');
-        Route::get('getJadwal',[LaporanController::class,'getJadwalAssessment'])->name('laporan.listAssessment');
-        Route::get('show/{penilaian}',[LaporanController::class,'getAssessment']);
-    });
-    
-    Route::group(['prefix'=>'LaporanDetail','middleware'=>'user.akses:R02.01'],function(){
-        Route::get('/',[LaporanController::class,'indexDetail'])->name('laporan.detail');
-        Route::get('getJadwal',[LaporanController::class,'getJadwalDetail'])->name('laporan.listDetail');
-        Route::get('show/{penilaian}',[LaporanController::class,'getDetail']);
-        Route::post('assessment/{penilaian}',[LaporanController::class,'listAssessment'])->name('laporandetail.assessment');
-        Route::post('itempenilaian/{penilaian}',[LaporanController::class,'listItemPenilaian'])->name('laporandetail.itempenilaian');
-        Route::get('getLaporan/{penilaian}/{assessment}/{itempenilaian}',[LaporanController::class,'getLaporanDetail']);
-    });
+//    Route::group(['prefix'=>'LaporanAssessment','middleware'=>'user.akses:R02.01'],function(){
+//        Route::get('/',[LaporanController::class,'indexAssessment'])->name('laporan.assessment');
+//        Route::get('getJadwal',[LaporanController::class,'getJadwalAssessment'])->name('laporan.listAssessment');
+//        Route::get('show/{penilaian}',[LaporanController::class,'getAssessment']);
+//    });
+//    
+//    Route::group(['prefix'=>'LaporanDetail','middleware'=>'user.akses:R02.01'],function(){
+////        Route::get('/',[LaporanController::class,'indexDetail'])->name('laporan.detail');
+////        Route::get('getJadwal',[LaporanController::class,'getJadwalDetail'])->name('laporan.listDetail');
+////        Route::get('show/{penilaian}',[LaporanController::class,'getDetail']);
+//        Route::post('assessment/{penilaian}',[LaporanController::class,'listAssessment'])->name('laporandetail.assessment');
+//        Route::post('itempenilaian/{penilaian}',[LaporanController::class,'listItemPenilaian'])->name('laporandetail.itempenilaian');
+////        Route::get('getLaporan/{penilaian}/{assessment}/{itempenilaian}',[LaporanController::class,'getLaporanDetail']);
+//    });
 
 
     

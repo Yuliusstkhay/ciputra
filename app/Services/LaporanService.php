@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repository\PenilaianRepository;
+use App\Repository\JadwalKuliahRepository;
+use App\Repository\MahasiswaRepository;
 use DataTables;
 use Illuminate\Http\Request;
 use Auth;
@@ -10,8 +12,10 @@ use DB;
 
 class LaporanService {
 
-    public function __construct(PenilaianRepository $penilaian) {
+    public function __construct(PenilaianRepository $penilaian,JadwalKuliahRepository $jadwal, MahasiswaRepository $mahasiswa) {
         $this->penilaian = $penilaian;
+        $this->jadwal = $jadwal;
+        $this->mahasiswa = $mahasiswa;
         
     }
 
@@ -29,7 +33,7 @@ class LaporanService {
     }
 
     private function getShow($id) {
-        $action = '<a href="' . url('fakultas/show/' . $id) . '" title="Detail" class="btn cur-p btn-secondary m-3">
+        $action = '<a href="' . url('LaporanGlobal/show/' . $id) . '" title="Detail" class="btn cur-p btn-secondary m-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15"
                                              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
                                              stroke-linecap="round" stroke-linejoin="round">
@@ -40,6 +44,124 @@ class LaporanService {
                                     </a>';
         return $action;
     }
+    
+    public function getNilaiGlobal($id){
+        $data = $this->penilaian->listReportGlobal($id);
+        return Datatables::of($data)
+                        ->addColumn('action', function ($data) {
+                            $action = $this->getShow($data->penilaian_id);
+   
+                            return $action;
+                        })
+                        ->rawColumns(['action'])
+                        ->addIndexColumn()
+                        ->make(true);
+    }
+    
+    public function assessmentList($penilaian){
+        $data = $this->penilaian->listAssessment($penilaian);
+        return $data;
+    }
+    
+    public function listMahasiswa($penilaian){
+       $jadwal= $this->penilaian->show($penilaian);
+       $mahasiswa = $this->jadwal->getListPeserta($jadwal->jadwal_kuliah_id);
+       return $mahasiswa;
+    }
+    
+    public function showMahasiswa($id){
+        return $this->mahasiswa->show($id);
+    }
+    
+    public function getItemDetailPenilaian($penilaian,$mahasiswa,$assessment,$itempenilaian){
+        $data = $this->penilaian->nilaiMahasiswa($mahasiswa);
+        $itempenilaian = base64_decode($itempenilaian);
+        if($itempenilaian != "all"){
+            $item = explode("_",$itempenilaian);
+            $data->whereHas('assessmentDetail',function($q) use ($item){
+                $q->where('penilaian_assessment_id',$item[0])->where('item_penilaian',$item[1]);
+            });
+                       
+        }
+        if($assessment != "all"){
+            $data->whereHas('assessmentDetail.penilaianAssessment',function ($q) use ($penilaian,$assessment){
+                $q->where('assessment_id',$assessment)->where('penilaian_id',$penilaian);
+            });
+        }
+        
+        $data = $data->with(['assessmentDetail','assessmentDetail.dosenMahasiswa','assessmentDetail.penilaianAssessment','assessmentDetail.penilaianAssessment.assessment'])->get();
+        return Datatables::of($data)
+            ->addColumn('action', function ($data) {
+                $action = $this->getCatatan($data->catatan);
+
+                return $action;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+        
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    public function getItemDetailPenilaianOld($penilaian,$mahasiswa,$assessment,$itempenilaian){
+        $data = $this->penilaian->getNilaiDetail($penilaian);
+        if($assessment != "all"){
+            $data->whereHas('penilaianAssessment',function ($q) use ($assessment){
+            $q->where('assessment_id',$assessment);
+            });
+        }
+        $itempenilaian = base64_decode($itempenilaian);
+        
+        if($itempenilaian != "all"){
+            $item = explode("_",$itempenilaian);
+            
+            $data->where('penilaian_assessment_id',$item[0])->where('item_penilaian',$item[1]);
+        }
+        $data = $data->with(['penilaianAssessment.assessment','dosenMahasiswa'])->get();
+        return Datatables::of($data)
+            ->addColumn('action', function ($data) {
+                $action = $this->getCatatan($data->catatan_nilai);
+
+                return $action;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn()
+            ->make(true);
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public function getListAssessment() {
         $data = $this->penilaian->getListPenilaian();
         return Datatables::of($data)
@@ -102,31 +224,7 @@ class LaporanService {
         return $data;
     }
     
-    public function getItemDetailPenilaian($penilaian,$assessment,$itempenilaian){
-        $data = $this->penilaian->getNilaiDetail($penilaian);
-        if($assessment != "all"){
-            $data->whereHas('penilaianAssessment',function ($q) use ($assessment){
-            $q->where('assessment_id',$assessment);
-            });
-        }
-        $itempenilaian = base64_decode($itempenilaian);
-        
-        if($itempenilaian != "all"){
-            $item = explode("_",$itempenilaian);
-            
-            $data->where('penilaian_assessment_id',$item[0])->where('item_penilaian',$item[1]);
-        }
-        $data = $data->with(['penilaianAssessment.assessment','dosenMahasiswa'])->get();
-        return Datatables::of($data)
-            ->addColumn('action', function ($data) {
-                $action = $this->getCatatan($data->catatan_nilai);
-
-                return $action;
-            })
-            ->rawColumns(['action'])
-            ->addIndexColumn()
-            ->make(true);
-    }
+    
     
     public function getCatatan($catatan){
         $action='<button class="btn cur-p btn-success btnCatatan" data-catatan="'.$catatan.'">   

@@ -17,7 +17,7 @@ class PenilaianService {
     protected $jadwalkuliah, $dosen, $penilaian, $assessment;
 
     public function __construct(
-    JadwalKuliahRepository $jadwalkuliah, DosenRepository $dosen, PenilaianRepository $penilaian, AssessmentRepository $assessment
+            JadwalKuliahRepository $jadwalkuliah, DosenRepository $dosen, PenilaianRepository $penilaian, AssessmentRepository $assessment
     ) {
         $this->jadwalkuliah = $jadwalkuliah;
         $this->dosen = $dosen;
@@ -100,7 +100,7 @@ class PenilaianService {
 
                             return $action;
                         })
-                        ->addColumn('kriteria_penilaian', function($data) use ($penilaian) {
+                        ->addColumn('kriteria_penilaian', function ($data) use ($penilaian) {
                             $hasil = "";
                             if (is_null($penilaian)) {
                                 $action = $this->getKriteriaPenilaian($data->assessment_id, $hasil);
@@ -111,7 +111,7 @@ class PenilaianService {
 
                             return $action;
                         })
-                        ->addColumn('persentase', function($data) use ($penilaian) {
+                        ->addColumn('persentase', function ($data) use ($penilaian) {
                             $hasil = 0;
                             if (is_null($penilaian)) {
                                 $action = $this->getPersentase($data->assessment_id, $hasil);
@@ -122,11 +122,12 @@ class PenilaianService {
 
                             return $action;
                         })
-                        ->addColumn('penilai', function($data) use ($penilaian) {
+                        ->addColumn('penilai', function ($data) use ($penilaian) {
                             $check = "";
                             $checkedPengampu = "";
-                            $checkedPenilai="";
-                            $checkedMahasiswa="";
+                            $checkedPenilai = "";
+                            $checkedMahasiswa = "";
+
                             if (is_null($penilaian)) {
                                 $action = $this->getPenilai($data->assessment_id, $check);
                             } else {
@@ -148,26 +149,23 @@ class PenilaianService {
                                         $checkedMahasiswa = "checked";
                                     }
                                     $dosenPenilai = $this->penilaian->getPenilaianDosenMahasiswa($penilaian)
-                                            ->where('assessment_id',$data->assessment_id)
-                                            ->where('status_jabatan',1);
-                                    if($dosenPenilai->count() >  0){
+                                            ->where('assessment_id', $data->assessment_id)
+                                            ->where('status_jabatan', 1);
+                                    if ($dosenPenilai->count() > 0) {
                                         $dosenPenilai = $dosenPenilai->get();
-                                    }else{
+                                    } else {
                                         $dosenPenilai = null;
                                     }
-                                    
-                                    
-                                    
-                                    
+
+
+
+
                                     $action = $this->checklistPengampu((int) $checkPengampu->value_persentase_pengampu, $checkedPengampu, $data->assessment_id);
-                                    $action .= $this->checklistPenilai((int) $checkPengampu->value_persentasi_penilai, $checkedPenilai, $data->assessment_id,$dosenPenilai);
+                                    $action .= $this->checklistPenilai((int) $checkPengampu->value_persentasi_penilai, $checkedPenilai, $data->assessment_id, $dosenPenilai);
                                     $action .= $this->checklistMahasiswa((int) $checkPengampu->value_persentase_mahasiswa, $checkedMahasiswa, $data->assessment_id);
-                                    
-                                    
-                                    
-                                }else{
+                                } else {
                                     $action = $this->checklistPengampu(0, $checkedPengampu, $data->assessment_id);
-                                    $action .= $this->checklistPenilai(0, $checkedPenilai, $data->assessment_id,null);
+                                    $action .= $this->checklistPenilai(0, $checkedPenilai, $data->assessment_id, null);
                                     $action .= $this->checklistMahasiswa(0, $checkedMahasiswa, $data->assessment_id);
                                 }
 
@@ -179,6 +177,19 @@ class PenilaianService {
                         ->rawColumns(['action', 'kriteria_penilaian', 'persentase', 'penilai'])
                         ->addIndexColumn()
                         ->make(true);
+    }
+
+    public function getPenilai($id, $check) {
+        $action = '
+            
+            <div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input ckMahasiswa" type="checkbox" data-assessment="' . $id . '" id="chk-mahasiswa-' . $id . '" >
+                    Mahasiswa
+                    <input type="text" class="form-control text-end pe-1 text-end" value="" autocomplete="off" id="persenMahasiswa-' . $id . '" style="display: none; width: 100%;" placeholder="%">
+                </label>
+            </div>';
+        return $action;
     }
 
     public function getChecklistAssessment($id, $check) {
@@ -210,7 +221,7 @@ class PenilaianService {
                         <label class="form-check-label">
                             <input class="form-check-input ckPengampu" data-id="' . $assessment . '" type="checkbox" id="ck-pengampu-' . $assessment . '" ' . $check . '>
                             Dosen Pengampu
-                            <input type="text" class="form-control text-end pe-1"   value="'.$persen.'" autocomplete="off" id="persenPengampu-' . $assessment . '" style="width: 100%;" placeholder="%">
+                            <input type="text" class="form-control text-end pe-1"   value="' . $persen . '" autocomplete="off" id="persenPengampu-' . $assessment . '" style="width: 100%;" placeholder="%">
                         </label>
                    </div>';
         } else {
@@ -226,31 +237,31 @@ class PenilaianService {
 
         return $action;
     }
-    
-    public function checklistPenilai($persen,$check,$assessment,$dosenPenilai){
+
+    public function checklistPenilai($persen, $check, $assessment, $dosenPenilai) {
         if ($persen > 0) {
-            $action='<div class="form-check">
+            $action = '<div class="form-check">
                 <label class="form-check-label">
                     <input class="form-check-input ckPenilai" type="checkbox" data-assessment="' . $assessment . '"  id="chk-penilai-' . $assessment . '"  ' . $check . '>
                     Dosen Penilai
-                    <input type="text" class="form-control text-end pe-1 text-end" value="'.$persen.'" autocomplete="off" id="persenPenilai-' . $assessment . '" style="width: 100%;" placeholder="%">
+                    <input type="text" class="form-control text-end pe-1 text-end" value="' . $persen . '" autocomplete="off" id="persenPenilai-' . $assessment . '" style="width: 100%;" placeholder="%">
                 </label>
                 <div id="lstDosenPenilai-' . $assessment . '">';
-            if(!is_null($dosenPenilai)){
-                foreach($dosenPenilai as $key => $row){
-                    $action .='<div class="form-check">'.
-                              '<label class="form-check-label">'.
-                              '<input class="form-check-input ckPenilai-'.$assessment.'" value="'.$assessment."_".$row->dosen_mahasiswa_id.'" type="checkbox" checked="checked" disabled>'.
-                              $row->mahasiswa->name.
-                              '</label>'.
-                              '</div>';
+            if (!is_null($dosenPenilai)) {
+                foreach ($dosenPenilai as $key => $row) {
+                    $action .= '<div class="form-check">' .
+                            '<label class="form-check-label">' .
+                            '<input class="form-check-input ckPenilai-' . $assessment . '" value="' . $assessment . "_" . $row->dosen_mahasiswa_id . '" type="checkbox" checked="checked" disabled>' .
+                            $row->mahasiswa->name .
+                            '</label>' .
+                            '</div>';
                 }
-            }        
-            
-            $action .='</div>
+            }
+
+            $action .= '</div>
             </div>';
-        }else{
-            $action='<div class="form-check">
+        } else {
+            $action = '<div class="form-check">
                 <label class="form-check-label">
                     <input class="form-check-input ckPenilai" type="checkbox" data-assessment="' . $assessment . '"  id="chk-penilai-' . $assessment . '"  ' . $check . '>
                     Dosen Penilai
@@ -261,33 +272,32 @@ class PenilaianService {
                 </div>
             </div>';
         }
-        
-        return $action;
-    }
-    
-    public function checklistMahasiswa($persen,$check,$assessment){
-        if($persen > 0){
-            $action = '<div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input ckMahasiswa" type="checkbox" data-assessment="' . $assessment . '" id="chk-mahasiswa-' . $assessment . '" '.$check.' >
-                    Mahasiswa
-                    <input type="text" class="form-control text-end pe-1 text-end" value="'.$persen.'" autocomplete="off" id="persenMahasiswa-' . $assessment . '" style="width: 100%;" placeholder="%">
-                </label>
-            </div>';
-        }else{
-           $action = '<div class="form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input ckMahasiswa" type="checkbox" data-assessment="' . $assessment . '" id="chk-mahasiswa-' . $assessment . '" '.$check.' >
-                    Mahasiswa
-                    <input type="text" class="form-control text-end pe-1 text-end" value="" autocomplete="off" id="persenMahasiswa-' . $assessment . '" style="display: none; width: 100%;" placeholder="%">
-                </label>
-            </div>'; 
-        }
-        
-        
+
         return $action;
     }
 
+    public function checklistMahasiswa($persen, $check, $assessment) {
+        if ($persen > 0) {
+            $action = '<div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input ckMahasiswa" type="checkbox" data-assessment="' . $assessment . '" id="chk-mahasiswa-' . $assessment . '" ' . $check . ' >
+                    Mahasiswa
+                    <input type="text" class="form-control text-end pe-1 text-end" value="' . $persen . '" autocomplete="off" id="persenMahasiswa-' . $assessment . '" style="width: 100%;" placeholder="%">
+                </label>
+            </div>';
+        } else {
+            $action = '<div class="form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input ckMahasiswa" type="checkbox" data-assessment="' . $assessment . '" id="chk-mahasiswa-' . $assessment . '" ' . $check . ' >
+                    Mahasiswa
+                    <input type="text" class="form-control text-end pe-1 text-end" value="" autocomplete="off" id="persenMahasiswa-' . $assessment . '" style="display: none; width: 100%;" placeholder="%">
+                </label>
+            </div>';
+        }
+
+
+        return $action;
+    }
 
     public function insertTahap1($id, Request $request) {
         DB::beginTransaction();
@@ -402,7 +412,7 @@ class PenilaianService {
         return Datatables::of($head)->addColumn('detailList', function ($data) {
                             return $data["detail"];
                         })
-                        ->addColumn('action', function($data) use ($penilaian, $assessment) {
+                        ->addColumn('action', function ($data) use ($penilaian, $assessment) {
 //                            $action = $this->getEdit($penilaian, $assessment);
 //                            $action .= $this->getDelete($penilaian, $assessment,$data["head"]);
                             $action = $this->getDelete($penilaian, $assessment, $data["head"]);
@@ -516,22 +526,22 @@ class PenilaianService {
         return true;
     }
 
-    public function insertPenilai(Request $request){
-       DB::beginTransaction();
-        
-       $check = $this->penilaian->deletePenilaiList($request->penilaian_id,$request->assessment_id);
-        if($check->count()> 0){
-                if (!$check->delete()) {
-                    DB::rollback();
-                    return [
-                        'result' => false,
-                        'message' => "gagal menambahkan dosen Penilai"
-                    ];
-                }
+    public function insertPenilai(Request $request) {
+        DB::beginTransaction();
+
+        $check = $this->penilaian->deletePenilaiList($request->penilaian_id, $request->assessment_id);
+        if ($check->count() > 0) {
+            if (!$check->delete()) {
+                DB::rollback();
+                return [
+                    'result' => false,
+                    'message' => "gagal menambahkan dosen Penilai"
+                ];
             }
+        }
         foreach ($request->dosen as $key => $row) {
-            
-            
+
+
             $model = $this->penilaian->insertMahasiswa();
             $model->penilaian_id = $request->penilaian_id;
             $model->assessment_id = $request->assessment_id;
@@ -550,36 +560,36 @@ class PenilaianService {
         return [
             'result' => true,
             'message' => "sukses menambahkan dosen Penilai",
-        ]; 
+        ];
     }
-    
-    public function insertUpdateTahap2(Request $request){
+
+    public function insertUpdateTahap2(Request $request) {
 //        dd($request->all());
         DB::beginTransaction();
-        
-        foreach($request->assessment as $key => $row){
-           $checkPenilaian = $this->penilaian->checkPenilaianAssessment($request->penilaian_id, $row);
-            
-           if($checkPenilaian > 0){
-               $model = $this->penilaian->showPenilaianAssessment($request->penilaian_id,$row);
-           }else{              
-               $model = $this->penilaian->insertAssessment();
-               $model->penilaian_id = $request->penilaian_id;
-               $model->assessment_id = $row;              
-           }
-           $model->kriteria_penilaian = $request->kriteriaPenilaian[$key];
-           $model->value = $request->persenAssessment[$key];
-           $model->value_persentase_pengampu = $request->persenPengampu[$key];
-           $model->value_persentasi_penilai = $request->persenPenilai[$key];
-           $model->value_persentase_mahasiswa = $request->persenMahasiswa[$key];
-           if (!$model->save()) {
+
+        foreach ($request->assessment as $key => $row) {
+            $checkPenilaian = $this->penilaian->checkPenilaianAssessment($request->penilaian_id, $row);
+
+            if ($checkPenilaian > 0) {
+                $model = $this->penilaian->showPenilaianAssessment($request->penilaian_id, $row);
+            } else {
+                $model = $this->penilaian->insertAssessment();
+                $model->penilaian_id = $request->penilaian_id;
+                $model->assessment_id = $row;
+            }
+            $model->kriteria_penilaian = $request->kriteriaPenilaian[$key];
+            $model->value = $request->persenAssessment[$key];
+            $model->value_persentase_pengampu = $request->persenPengampu[$key];
+            $model->value_persentasi_penilai = $request->persenPenilai[$key];
+            $model->value_persentase_mahasiswa = $request->persenMahasiswa[$key];
+            if (!$model->save()) {
                 DB::rollback();
                 return [
                     'result' => false,
                     'message' => "gagal menambahkan assessment"
                 ];
             }
-        }       
+        }
 
         DB::commit();
         return [
@@ -587,66 +597,63 @@ class PenilaianService {
             'message' => "sukses menambahkan assessment",
         ];
     }
-    
-    public function getKriteriaList($penilaian){
+
+    public function getKriteriaList($penilaian) {
         $data = $this->penilaian->getPenilaianAssessment($penilaian);
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
 
                             $action = $this->addKriteria($data->id);
-                            
 
                             return $action;
                         })
-                        ->addColumn('itemPenilaian',function($data) use ($penilaian){
+                        ->addColumn('itemPenilaian', function ($data) use ($penilaian) {
                             $checkItem = $this->penilaian->checkAssessmentDetail($data->id);
-                            $action='<div id="item-'.$data->id.'">';
-                            if($checkItem->count()> 0){
-                               $checkItem = $checkItem->select('penilaian_assessment_id','item_penilaian','value_persentase')->distinct()->get();
-                               foreach($checkItem as $key => $row){
-                                   $action .= $this->getFieldItem($row->item_penilaian, $data->id, $key);
-                               }
-                                
-                            }else{
+                            $action = '<div id="item-' . $data->id . '">';
+                            if ($checkItem->count() > 0) {
+                                $checkItem = $checkItem->select('penilaian_assessment_id', 'item_penilaian', 'value_persentase')->distinct()->get();
+                                foreach ($checkItem as $key => $row) {
+                                    $action .= $this->getFieldItem($row->item_penilaian, $data->id, $key);
+                                }
+                            } else {
                                 $action .= $this->getFieldItem("", $data->id, 0);
                             }
-                            $action .='</div>';
+                            $action .= '</div>';
                             return $action;
                         })
-                        ->addColumn('persentase',function($data) use ($penilaian){
+                        ->addColumn('persentase', function ($data) use ($penilaian) {
                             $checkItem = $this->penilaian->checkAssessmentDetail($data->id);
-                            $action='<div id="persentase-'.$data->id.'">';
-                            if($checkItem->count()> 0){
-                               $checkItem = $checkItem->select('item_penilaian','value_persentase')->distinct()->get();
-                               foreach($checkItem as $key => $row){
-                                   $action .= $this->getFieldPersentase($row->value_persentase, $data->id, $key);
-                               }
-                                
-                            }else{
+                            $action = '<div id="persentase-' . $data->id . '">';
+                            if ($checkItem->count() > 0) {
+                                $checkItem = $checkItem->select('item_penilaian', 'value_persentase')->distinct()->get();
+                                foreach ($checkItem as $key => $row) {
+                                    $action .= $this->getFieldPersentase($row->value_persentase, $data->id, $key);
+                                }
+                            } else {
                                 $action .= $this->getFieldPersentase("", $data->id, 0);
                             }
-                            $action .='</div>';
+                            $action .= '</div>';
                             return $action;
                         })
-                        ->rawColumns(['action','itemPenilaian','persentase'])
+                        ->rawColumns(['action', 'itemPenilaian', 'persentase'])
                         ->addIndexColumn()
                         ->make(true);
     }
-    
-    public function getFieldItem($item,$penilaianAssessment,$key) {
-        $action = '<input type="text" class="form-control itemPenilaian mb-3" value="'.$item.'" id="item_penilaian-'.$penilaianAssessment.'-'.$key.'" data-id="'.$key.'" data-penilaiAssessment="'.$penilaianAssessment.'" name="item_penilaian-'.$penilaianAssessment.'[]" placeholder="Item Penilaian">';
+
+    public function getFieldItem($item, $penilaianAssessment, $key) {
+        $action = '<input type="text" class="form-control itemPenilaian mb-3" value="' . $item . '" id="item_penilaian-' . $penilaianAssessment . '-' . $key . '" data-id="' . $key . '" data-penilaiAssessment="' . $penilaianAssessment . '" name="item_penilaian-' . $penilaianAssessment . '[]" placeholder="Item Penilaian">';
         return $action;
     }
-    
-    public function getFieldPersentase($item,$penilaianAssessment,$key){
-        $action ='<div class="input-group input-group-flat">
-                <input type="text" class="form-control text-end pe-1 persentaseItemPenilaian mb-3" value="'.$item.'" id="persentase_item_penilaian-'.$penilaianAssessment.'-'.$key.'" data-id="'.$key.'" data-penilaiAssessment="'.$penilaianAssessment.'" name="persentase_item_penilaian-'.$penilaianAssessment.'[]" autocomplete="off" placeholder="%">
+
+    public function getFieldPersentase($item, $penilaianAssessment, $key) {
+        $action = '<div class="input-group input-group-flat">
+                <input type="text" class="form-control text-end pe-1 persentaseItemPenilaian mb-3" value="' . $item . '" id="persentase_item_penilaian-' . $penilaianAssessment . '-' . $key . '" data-id="' . $key . '" data-penilaiAssessment="' . $penilaianAssessment . '" name="persentase_item_penilaian-' . $penilaianAssessment . '[]" autocomplete="off" placeholder="%">
             </div>';
         return $action;
     }
-    
-    public function addKriteria($penilaianAssessment){
-        $action ='<button type="button" class="btn btn-info d-none d-sm-inline-block btnItem" data-value="'.$penilaianAssessment.'">
+
+    public function addKriteria($penilaianAssessment) {
+        $action = '<button type="button" class="btn btn-info d-none d-sm-inline-block btnItem" data-value="' . $penilaianAssessment . '">
                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -656,26 +663,27 @@ class PenilaianService {
                 </button>';
         return $action;
     }
-    
-    public function insertUpdateTahap3(Request $request){
+
+    public function insertUpdateTahap3(Request $request) {
         DB::beginTransaction();
-        foreach($request->penilaianAssessment as $key => $row){
+        foreach ($request->penilaianAssessment as $key => $row) {
             $getPenilaianAssessment = $this->penilaian->showPenilaianAssessmentFind($row);
-            
-            if($getPenilaianAssessment->value_persentase_pengampu > 0){
+
+            if ($getPenilaianAssessment->value_persentase_pengampu > 0) {
                 $id = $getPenilaianAssessment->penilaian->jadwal->dosen_mahasiswa_id;
-                
+
 //                check insert/update
-                $check = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id,$id)->where('item_penilaian',$request->itemPenilaian[$key])->count();
-                if($check > 0){
-                    $model = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id,$id)->where('item_penilaian',$request->itemPenilaian[$key])->first();
-                }else{
+                $check = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $id)->where('item_penilaian', $request->itemPenilaian[$key])->count();
+                if ($check > 0) {
+                    $model = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $id)->where('item_penilaian', $request->itemPenilaian[$key])->first();
+                } else {
                     $model = $this->penilaian->insertAssessmentDetail();
                     $model->penilaian_assessment_id = $getPenilaianAssessment->id;
                     $model->dosen_mahasiswa_id = $id;
                 }
                 $model->value_persentase = $request->persentasePenilaianAssessment[$key];
                 $model->item_penilaian = $request->itemPenilaian[$key];
+                $model->status_penilai = 0;
                 if (!$model->save()) {
                     DB::rollback();
                     return [
@@ -684,16 +692,16 @@ class PenilaianService {
                     ];
                 }
             }
-            
-            if($getPenilaianAssessment->value_persentasi_penilai > 0){
+
+            if ($getPenilaianAssessment->value_persentasi_penilai > 0) {
                 $dosenpenilai = $this->penilaian->getPenilaianDosenMahasiswa($getPenilaianAssessment->penilaian_id)
-                                ->where('assessment_id',$getPenilaianAssessment->assessment_id)
-                                ->where('status_jabatan',1)->get();
-                foreach($dosenpenilai as $y => $x){
- //                check insert/update
-                    $check = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id,$x->dosen_mahasiswa_id)->where('item_penilaian',$request->itemPenilaian[$key])->count();
+                                ->where('assessment_id', $getPenilaianAssessment->assessment_id)
+                                ->where('status_jabatan', 1)->get();
+                foreach ($dosenpenilai as $y => $x) {
+                    //                check insert/update
+                    $check = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $x->dosen_mahasiswa_id)->where('item_penilaian', $request->itemPenilaian[$key])->count();
                     if ($check > 0) {
-                        $model = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $x->dosen_mahasiswa_id)->where('item_penilaian',$request->itemPenilaian[$key])->first();
+                        $model = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $x->dosen_mahasiswa_id)->where('item_penilaian', $request->itemPenilaian[$key])->first();
                     } else {
                         $model = $this->penilaian->insertAssessmentDetail();
                         $model->penilaian_assessment_id = $getPenilaianAssessment->id;
@@ -701,6 +709,7 @@ class PenilaianService {
                     }
                     $model->value_persentase = $request->persentasePenilaianAssessment[$key];
                     $model->item_penilaian = $request->itemPenilaian[$key];
+                    $model->status_penilai = 1;
                     if (!$model->save()) {
                         DB::rollback();
                         return [
@@ -710,16 +719,16 @@ class PenilaianService {
                     }
                 }
             }
-          
-            if($getPenilaianAssessment->value_persentase_mahasiswa > 0){
+
+            if ($getPenilaianAssessment->value_persentase_mahasiswa > 0) {
                 $mahasiswapenilai = $this->penilaian->getPenilaianDosenMahasiswa($getPenilaianAssessment->penilaian_id)
-                                ->where('assessment_id',$getPenilaianAssessment->assessment_id)
-                                ->where('status_jabatan',0)->get();
-                foreach($mahasiswapenilai as $y => $x){
- //                check insert/update
-                    $check = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id,$x->dosen_mahasiswa_id)->where('item_penilaian',$request->itemPenilaian[$key])->count();
+                                ->where('assessment_id', $getPenilaianAssessment->assessment_id)
+                                ->where('status_jabatan', 0)->get();
+                foreach ($mahasiswapenilai as $y => $x) {
+                    //                check insert/update
+                    $check = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $x->dosen_mahasiswa_id)->where('item_penilaian', $request->itemPenilaian[$key])->count();
                     if ($check > 0) {
-                        $model = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $x->dosen_mahasiswa_id)->where('item_penilaian',$request->itemPenilaian[$key])->first();
+                        $model = $this->penilaian->showAssessmentDetail($getPenilaianAssessment->id, $x->dosen_mahasiswa_id)->where('item_penilaian', $request->itemPenilaian[$key])->first();
                     } else {
                         $model = $this->penilaian->insertAssessmentDetail();
                         $model->penilaian_assessment_id = $getPenilaianAssessment->id;
@@ -728,6 +737,7 @@ class PenilaianService {
                     $model->value_persentase = $request->persentasePenilaianAssessment[$key];
                     $model->item_penilaian = $request->itemPenilaian[$key];
                     $model->status = 1;
+                    $model->status_penilai = 2;
                     if (!$model->save()) {
                         DB::rollback();
                         return [
@@ -737,9 +747,8 @@ class PenilaianService {
                     }
                 }
             }
-            
         }
-        
+
         $header = $this->penilaian->show($request->penilaian_id);
         $header->status = 1;
         if (!$header->save()) {
@@ -754,17 +763,16 @@ class PenilaianService {
         return [
             'result' => true,
             'message' => "sukses menambahkan assessment",
-            "url"=> url('penilaian')
+            "url" => url('penilaian')
         ];
     }
-    
-   
-    public function getListPenilaian(){
+
+    public function getListPenilaian() {
         $data = $this->penilaian->listPenilaian();
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
-                            
-                            $action="";
+
+                            $action = "";
                             if ($data->jadwal->dosen_mahasiswa_id == Auth::user()->dosen->id) {
 //                                $action = $this->getShow($data->penilaian_id);
                                 $action .= $this->getEditPenilaian($data->jadwal_kuliah_id);
@@ -778,60 +786,58 @@ class PenilaianService {
                             return $action;
                         })
                         ->addColumn('matkul', function ($data) {
-                            if(Auth::user()->type ==2){
+                            if (Auth::user()->type == 2) {
                                 return $data->jadwal->matakuliah->mata_kuliah_name;
-                            }else{
+                            } else {
                                 return $data->jadwal->matakuliah->mata_kuliah_name;
                             }
                         })
                         ->addColumn('matkul_id', function ($data) {
-                            if(Auth::user()->type ==2){
+                            if (Auth::user()->type == 2) {
                                 return $data->jadwal->matakuliah->mata_kuliah_id;
-                            }else{
+                            } else {
                                 return $data->jadwal->matakuliah->mata_kuliah_id;
                             }
                         })
                         ->addColumn('dosen_pengampu', function ($data) {
-                            if(Auth::user()->type ==2){
+                            if (Auth::user()->type == 2) {
                                 return $data->jadwal->dosenmahasiswa->name;
-                            }else{
+                            } else {
                                 return $data->jadwal->dosenmahasiswa->name;
                             }
                         })
                         ->addColumn('jadwal', function ($data) {
-                            if(Auth::user()->type ==2){
+                            if (Auth::user()->type == 2) {
                                 return $data->jadwal->deskripsi;
-                            }else{
+                            } else {
                                 return $data->jadwal->deskripsi;
                             }
                         })
                         ->addColumn('nilai', function ($data) {
-                            if(Auth::user()->type ==2){
+                            if (Auth::user()->type == 2) {
                                 $id = $data->penilaian_id;
                                 return "";
-                            }else{
+                            } else {
                                 $id = $data->penilaian_id;
                                 return $this->getNilai($id);
                             }
-                            
                         })
-                        
-                        ->rawColumns(['action','matkul','matkul_id','dosen_pengampu','jadwal','nilai'])
+                        ->rawColumns(['action', 'matkul', 'matkul_id', 'dosen_pengampu', 'jadwal', 'nilai'])
                         ->addIndexColumn()
                         ->make(true);
     }
-    
-    public function getShowPenilaian($penilaian){
+
+    public function getShowPenilaian($penilaian) {
         return $this->penilaian->show($penilaian);
     }
-    
-    public function getNilai($id){
-        $action = '<a href="'.url('penilaian/assessment/'.$id).'" class="btn cur-p btn-success">
+
+    public function getNilai($id) {
+        $action = '<a href="' . url('penilaian/assessment/' . $id) . '" class="btn cur-p btn-success">
                                         Nilai
                                     </a>';
         return $action;
     }
-    
+
     private function getShow($id) {
         $action = '<a href="' . url('dosen/show/' . $id) . '" title="Detail" class="btn cur-p btn-secondary m-3">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15"
@@ -844,7 +850,7 @@ class PenilaianService {
                                     </a>';
         return $action;
     }
-    
+
     private function getEditPenilaian($id) {
         $action = '<a href="' . url('penilaian/tambahPenilaianJadwal/' . $id) . '"  class="btn cur-p btn-primary m-3">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/edit -->
@@ -859,15 +865,15 @@ class PenilaianService {
                                     </a>';
         return $action;
     }
-    
+
     private function getVoid($id) {
-        $action = '<button type="button" class="btn cur-p btn-danger m-3 void" title="Nonaktifkan" data-id="'.$id.'">
+        $action = '<button type="button" class="btn cur-p btn-danger m-3 void" title="Nonaktifkan" data-id="' . $id . '">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/x -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                                     </button>';
         return $action;
     }
-    
+
     private function getUnvoid($id) {
         $action = '<button type="button" class="btn cur-p btn-success m-3 unvoid" title="aktifkan" data-id="' . $id . '">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/check -->
@@ -881,60 +887,187 @@ class PenilaianService {
         return $action;
     }
 
-    public function getListAssessmentPenilaian($penilaian){
+    public function getListAssessmentPenilaian($penilaian) {
         $data = $this->penilaian->listAssessmentPenilaian($penilaian);
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
-                                $action = $this->nilaiAssessment($data->id);
+                            $action = $this->nilaiAssessment($data->id);
 
                             return $action;
                         })
-                        
                         ->rawColumns(['action'])
                         ->addIndexColumn()
                         ->make(true);
     }
-    private function nilaiAssessment($id){
-        $action ='<a href="'.url('penilaian/insertNilaiMahasiswa/'.$id).'" class="btn cur-p btn-success">   
+
+    private function nilaiAssessment($id) {
+        $action = '<a href="' . url('penilaian/insertNilaiMahasiswa/' . $id) . '" class="btn cur-p btn-success">   
                  Nilai
                 </a>';
         return $action;
     }
-    public function getShowPenilaianAssessment($penilaianAssessment){
+
+    public function getShowPenilaianAssessment($penilaianAssessment) {
         return $this->penilaian->showPenilaianAssessmentFind($penilaianAssessment);
     }
-    
-    public function getListItem($penilaianAssessment){
+
+    public function getListItem($penilaianAssessment) {
         return $this->penilaian->showListItem($penilaianAssessment);
     }
-    
-    public function getListNilaiMahasiswa($penilaianAssessment){
+
+    public function getListNilaiMahasiswa($penilaianAssessment) {
         $data = $this->penilaian->showPenilaianAssessmentFind($penilaianAssessment);
-        if(Auth::user()->type== 1){
-            $getKelompok = $this->penilaian->getMahasiswaKelompok($data->penilaian_id,$data->assessment_id)->kelompok_mahasiswa;
-            $mahasiswa = $this->penilaian->getListMahasiswaKelompok($data->penilaian_id,$data->assessment_id,$getKelompok);
-        }else{
+        if (Auth::user()->type == 1) {
+            $getKelompok = $this->penilaian->getMahasiswaKelompok($data->penilaian_id, $data->assessment_id)->kelompok_mahasiswa;
+            $mahasiswa = $this->penilaian->getListMahasiswaKelompok($data->penilaian_id, $data->assessment_id, $getKelompok);
+          
+        } else {
             $getData = $this->penilaian->show($data->penilaian_id);
             $mahasiswa = $getData->jadwal->jadwalMahasiswa;
-
         }
         return $mahasiswa;
     }
-    
-    public function insertNilai(Request $request){
+
+    public function insertNilai(Request $request) {
         DB::beginTransaction();
-        $id=[];
-        foreach($request->mahasiswa as $key => $row){
-            $check = $this->penilaian->checkPenilai($row,$request->assessmentdetail[$key]);
-            if($check->count()> 0){
-               $model = $check->first(); 
-            }else{
-               $model = $this->penilaian->insertNilai();
-               $model->penilaian_assessment_detail_id = $request->assessmentdetail[$key];
-               $model->mahasiswa_dosen_id = $row;
+        $id = [];
+        foreach ($request->mahasiswa as $key => $row) {
+
+            $check = $this->penilaian->checkPenilai($row, $request->assessmentdetail[$key]);
+            $assdetail = $this->penilaian->showPenilaianAssessmentDetail($request->assessmentdetail[$key])->first();
+            if ($check->count() > 0) {
+                $model = $check->first();
+            } else {
+                $model = $this->penilaian->insertNilai();
+                $model->penilaian_assessment_detail_id = $request->assessmentdetail[$key];
+                $model->mahasiswa_dosen_id = $row;
             }
             $model->nilai = $request->nilai[$key];
             $model->catatan = $request->catatan[$key];
+            $model->persen = $assdetail->value_persentase;
+            $hasil = round(($request->nilai[$key] * ($assdetail->value_persentase / 100)), 2);
+            $model->hasil = $hasil;
+            if (!$model->save()) {
+                DB::rollback();
+                return [
+                    'result' => false,
+                    'message' => "gagal menambahkan assessment"
+                ];
+            }
+
+//            perhitungan tahap 1
+            $assessmentid = $assdetail->penilaian_assessment_id;
+            $itempenilaian = $assdetail->item_penilaian;
+            $assessment = $this->penilaian->showAssessmentID($assessmentid)->first();
+            $nilaiPengampu = 0;
+            $nilaiPenilai = 0;
+            $nilaiMahasiswa = 0;
+//            menghitung dosen pengampu
+            if ($assessment->value_persentase_pengampu > 0) {
+                $pengampu = $this->penilaian->getPenilaianAssessmentDetail($assessmentid)
+                                ->where('status_penilai', 0)->get();
+                foreach ($pengampu as $x => $y) {
+                    $cekMahasiswa = $this->penilaian->checkPenilai($row, $y->id);
+                    if ($cekMahasiswa->count() > 0) {
+                        $mhs = $cekMahasiswa->first();
+                        $nilaiPengampu += $mhs->hasil;
+                    }
+                }
+                
+                if ($nilaiPengampu != 0) {
+                    $nilaiPengampu = round($nilaiPengampu * ($assessment->value_persentase_pengampu / 100), 2);
+                }
+            }
+
+//            menghitung dosen penilai
+            if ($assessment->value_persentasi_penilai > 0) {
+                $cariItem = $this->penilaian->getPenilaianAssessmentDetail($assessmentid)
+                        ->where('status_penilai', 1)->select('item_penilaian')->groupBy('item_penilaian')
+                        ->get();
+
+                foreach ($cariItem as $x => $y) {
+                    $nilaiSementara = 0;
+                    $penilai = $this->penilaian->getPenilaianAssessmentDetail($assessmentid)
+                            ->where('status_penilai', 1)
+                            ->where('item_penilaian', $y->item_penilaian);
+                    $jumlah = $penilai->count();
+                    foreach ($penilai->get() as $z => $e) {
+                        $cekMahasiswa = $this->penilaian->checkPenilai($row, $e->id);
+                        if ($cekMahasiswa->count() > 0) {
+                            $mhs = $cekMahasiswa->first();
+                            $nilaiSementara += $mhs->hasil;
+                        }
+                    }
+                    if ($nilaiSementara != 0) {
+                        $nilaiPenilai += round(($nilaiSementara / $jumlah), 2);
+                    }
+                }
+                if ($nilaiPenilai != 0) {
+                    $nilaiPenilai = round($nilaiPenilai * ($assessment->value_persentasi_penilai / 100), 2);
+                }
+            }
+
+//            menghitung mahasiswa penilai
+            if ($assessment->value_persentase_mahasiswa > 0) {
+                $cariItem = $this->penilaian->getPenilaianAssessmentDetail($assessmentid)
+                        ->where('status_penilai', 2)
+                        ->select('item_penilaian')
+                        ->groupBy('item_penilaian')
+                        ->get();
+                foreach ($cariItem as $x => $y) {
+                    $nilaiSementara = 0;
+                    $idmhs = [];
+//                  cari kelompok dari mahasiswa tersebut
+                    $kelompok = $this->penilaian->getKelompokPenilaian($assessment->penilaian_id, $assessment->assessment_id)
+                                    ->where('dosen_mahasiswa_id', $row)->first()->kelompok_mahasiswa;
+                    $getMahasiswaKelompok = $this->penilaian->getKelompokPenilaian($assessment->penilaian_id, $assessment->assessment_id)
+                            ->where('kelompok_mahasiswa', $kelompok)
+                            ->where('dosen_mahasiswa_id', '!=', $row)
+                            ->get();
+                    foreach ($getMahasiswaKelompok as $a => $b) {
+                        array_push($idmhs, $b->dosen_mahasiswa_id);
+                    }
+
+                    $nilaimhs = $this->penilaian->getPenilaianAssessmentDetail($assessmentid)
+                            ->where('status_penilai', 2)
+                            ->where('item_penilaian', $y->item_penilaian)
+                            ->whereIn('dosen_mahasiswa_id', $idmhs);
+
+                    $jumlah = $nilaimhs->count();
+                    foreach ($nilaimhs->get() as $z => $e) {
+                        $cekMahasiswa = $this->penilaian->checkPenilai($row, $e->id);
+                        if ($cekMahasiswa->count() > 0) {
+                            $mhs = $cekMahasiswa->first();
+                            $nilaiSementara += $mhs->hasil;
+                        }
+                    }
+                    if ($nilaiSementara != 0) {
+                        $nilaiMahasiswa += round(($nilaiSementara / $jumlah), 2);
+                    }
+                }
+                
+                if($nilaiMahasiswa != 0){
+                    $nilaiMahasiswa = round($nilaiMahasiswa*($assessment->value_persentase_mahasiswa/100),2);
+                }
+            }
+            
+            $totalAkhir = $nilaiPengampu+$nilaiPenilai+$nilaiMahasiswa;
+//            dd($totalAkhir);
+            $nilaiTotalAkhir = round($totalAkhir*($assessment->value/100),2);
+
+//            cek penilaian
+            $cekTahap1 = $this->penilaian->getPenilaianTahap1($assessment->id)
+                         ->where('mahasiswa_dosen_id',$row);
+            if($cekTahap1->count()>0){
+                $model = $cekTahap1->first();
+            }else{
+                $model = $this->penilaian->insertTahap1();
+                $model->penilaian_assessment_id = $assessment->id;
+                $model->mahasiswa_dosen_id = $row;
+            }
+            $model->nilai_awal = $totalAkhir;
+            $model->persen = $assessment->value;
+            $model->nilai_akhir = $nilaiTotalAkhir;
             if (!$model->save()) {
                 DB::rollback();
                 return [
@@ -943,29 +1076,58 @@ class PenilaianService {
                 ];
             }
             
-            if(!in_array($request->assessmentdetail[$key], $id)){
-                array_push($id,$request->assessmentdetail[$key]);
+//            cek Penilaian total
+//            get assessment
+            $listAssessment = $this->penilaian->listPenilaianAssessment($assessment->penilaian_id)
+                              ->get();
+            $grandNilai=0;
+            $penilaiAss=[];
+            foreach($listAssessment as $x => $y){
+                array_push($penilaiAss,$y->id);
             }
+            $grandNilai= $this->penilaian->getPenilaianTahap1Arr($penilaiAss)
+                          ->where('mahasiswa_dosen_id',$row)
+                          ->sum('nilai_akhir');
             
-        }
-        
-//        cari rata2 tiap item penilaian
-        foreach($id as $key => $row){
-            $getData = $this->penilaian->listNilai($row);
-            $jumlah = $getData->count();
-            $total = (float) $getData->sum('nilai');
-            $nilairata = $total/$jumlah;
-            $model = $this->penilaian->showPenilaianAssessmentDetail($row)->first();
-            $model->nilai = $nilairata;
+            $cekTahap2 = $this->penilaian->getPenilaianTahap2($assessment->penilaian_id)
+                         ->where('mahasiswa_dosen_id',$row);
+            if($cekTahap2->count()>0){
+                $model = $cekTahap2->first();
+            }else{
+                $model = $this->penilaian->insertTahap2();
+                $model->penilaian_id = $assessment->penilaian_id;
+                $model->mahasiswa_dosen_id = $row;
+            }
+            $model->nilai_akhir = $grandNilai;
             if (!$model->save()) {
                 DB::rollback();
                 return [
                     'result' => false,
-                    'message' => "gagal menambahkan nilai rata-rata assessment detail "
+                    'message' => "gagal menambahkan assessment"
                 ];
             }
-           
-        }   
+//            if(!in_array($request->assessmentdetail[$key], $id)){
+//                array_push($id,$request->assessmentdetail[$key]);
+//            }
+        }
+
+//        cari rata2 tiap item penilaian
+//        foreach($id as $key => $row){
+//            $getData = $this->penilaian->listNilai($row);
+//            $jumlah = $getData->count();
+//            $total = (float) $getData->sum('nilai');
+//            $nilairata = $total/$jumlah;
+//            $model = $this->penilaian->showPenilaianAssessmentDetail($row)->first();
+//            $model->nilai = $nilairata;
+//            if (!$model->save()) {
+//                DB::rollback();
+//                return [
+//                    'result' => false,
+//                    'message' => "gagal menambahkan nilai rata-rata assessment detail "
+//                ];
+//            }
+//           
+//        }   
 
         DB::commit();
         return [
@@ -973,8 +1135,7 @@ class PenilaianService {
             'message' => "sukses menambahkan Penilaian",
         ];
     }
-    
-    
+
     public function updateStatus($id, $status) {
         DB::beginTransaction();
         $model = $this->penilaian->show($id);
@@ -986,6 +1147,5 @@ class PenilaianService {
         DB::commit();
         return true;
     }
-    
 
 }

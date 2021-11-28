@@ -97,7 +97,7 @@
                             </td>
                             @foreach($item as $x => $y)
                             <td style="width: 100px;">
-                                <input type="number" class="form-control nilai" data-mahasiswa="{{$row->mahasiswa->id}}" data-id="{{$y->id}}" id="nilai-{{$row->mahasiswa->id}}-{{$y->id}}" placeholder="Nilai">
+                                <input type="number" class="form-control nilai" data-mahasiswa="{{$row->mahasiswa->id}}" data-id="{{$y->id}}" value="{{$row->getNilai($y->id,$row->mahasiswa->id)}}" id="nilai-{{$row->mahasiswa->id}}-{{$y->id}}" placeholder="Nilai">
                             </td>            
                             @endforeach
                             <td>
@@ -127,6 +127,7 @@
 <script type="text/javascript" src="{{asset('DataTables/datatables.min.js')}}"></script>
 <script type="text/javascript">
     var store = '{{route("penilaian.storeNilai")}}';
+    var urlx = '{{url("penilaian/assessment/".$data->penilaian_id)}}'
 </script>
 <script type="text/javascript" src="{{asset('js/penilaian/storeNilai.js')}}"></script>
 @stop

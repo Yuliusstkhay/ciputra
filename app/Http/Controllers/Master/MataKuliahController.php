@@ -83,7 +83,7 @@ class MataKuliahController extends Controller
         $matkul = $matkulservice->show($id);
 
         $data = [
-            'title' => "Detail Master Program Studi",
+            'title' => "Detail Master Mata Kuliah",
             'data' => $matkul
         ];
 
@@ -94,7 +94,7 @@ class MataKuliahController extends Controller
         $matkul = $matkulservice->show($id);
 
         $data = [
-            'title' => "Ubah Master Program Studi",
+            'title' => "Ubah Master Mata Kuliah",
             'data' => $matkul
         ];
 

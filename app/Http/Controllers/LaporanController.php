@@ -18,57 +18,52 @@ class LaporanController extends Controller
         return view('laporan.global.jadwal', $data);
     }
     
-    
-    public function indexAssessment(){
-        $data = [
-            'title' => "Laporan Assessment"
-        ];
-
-
-        return view('laporan.assessment.jadwal', $data);
-    }
-    
-    public function indexDetail(){
-        $data = [
-            'title' => "Laporan Detail"
-        ];
-
-
-        return view('laporan.detail.jadwal', $data);
-    }
-    
-    public function getJadwal(LaporanService $laporan){
+     public function getJadwal(LaporanService $laporan){
         return $laporan->getList();
     }
     
-    public function getJadwalAssessment(LaporanService $laporan){
-        return $laporan->getListAssessment();
-    }
-    
-    public function getJadwalDetail(LaporanService $laporan){
-        return $laporan->getListDetail();
-    }
-    
     public function getDetail($penilaian,LaporanService $laporan){
-        $header = $laporan->getPenilaian($penilaian);
-       $data = [
-            'title' => "Laporan Detail",
-            'data'=>$header
-        ];
-
-
-        return view('laporan.detail.laporan', $data); 
-    }
-    
-    public function getAssessment($penilaian, LaporanService $laporan){
        $header = $laporan->getPenilaian($penilaian);
        $data = [
-            'title' => "Laporan Assessment",
+            'title' => "Laporan Global",
             'data'=>$header
         ];
 
 
-        return view('laporan.assessment.laporan', $data);  
+        return view('laporan.global.laporan', $data); 
+    }
+    
+    public function getNilaiGlobal($id, LaporanService $laporan){
+        $data = $laporan->getNilaiGlobal($id);
+        return $data;
+    }
+    
+    public function assessmentReport($penilaian, LaporanService $laporan){
+        $header = $laporan->getPenilaian($penilaian);
+        $assessment = $laporan->assessmentList($penilaian);
+        $mahasiswa = $laporan->listMahasiswa($penilaian);
+        $data = [
+            'title' => "Laporan Assessment",
+            'data'=>$header,
+            'assessment'=>$assessment,
+            'mahasiswa'=>$mahasiswa
+        ];
+
+
+        return view('laporan.global.assessment', $data); 
+    }
+    
+    public function detailReport($penilaian,$mahasiswa,LaporanService $laporan){
+        $header = $laporan->getPenilaian($penilaian);
+        $mahasiswa = $laporan->showMahasiswa($mahasiswa);
+        $data = [
+            'title' => "Laporan Detail",
+            'data'=>$header,
+            'mahasiswa'=>$mahasiswa
+        ];
+
+
+        return view('laporan.global.detail', $data); 
     }
     
     public function listAssessment($penilaian,Request $request,LaporanService $laporan){
@@ -81,6 +76,55 @@ class LaporanController extends Controller
 
         return response()->json(ItemPenilaianResource::collection($data));
     }
+    
+    public function dataDetailReport($penilaian,$mahasiswa,$assessment,$itempenilaian,LaporanService $laporan){
+        $data = $laporan->getItemDetailPenilaian($penilaian,$mahasiswa,$assessment,$itempenilaian);
+        return $data;
+    }
+    
+    
+//    public function indexAssessment(){
+//        $data = [
+//            'title' => "Laporan Assessment"
+//        ];
+//
+//
+//        return view('laporan.assessment.jadwal', $data);
+//    }
+//    
+//    public function indexDetail(){
+//        $data = [
+//            'title' => "Laporan Detail"
+//        ];
+//
+//
+//        return view('laporan.detail.jadwal', $data);
+//    }
+    
+   
+    
+//    public function getJadwalAssessment(LaporanService $laporan){
+//        return $laporan->getListAssessment();
+//    }
+//    
+//    public function getJadwalDetail(LaporanService $laporan){
+//        return $laporan->getListDetail();
+//    }
+//    
+//    
+//    
+    public function getAssessment($penilaian, LaporanService $laporan){
+       $header = $laporan->getPenilaian($penilaian);
+       $data = [
+            'title' => "Laporan Assessment",
+            'data'=>$header
+        ];
+
+
+        return view('laporan.assessment.laporan', $data);  
+    }
+    
+    
     
     public function getLaporanDetail($penilaian,$assessment,$itempenilaian,LaporanService $laporan){
         $data = $laporan->getItemDetailPenilaian($penilaian,$assessment,$itempenilaian);

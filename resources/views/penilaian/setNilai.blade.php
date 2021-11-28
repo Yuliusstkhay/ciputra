@@ -4,6 +4,7 @@
 @stop
 @section('content')
 <div class="container-fluid">
+    {{csrf_field()}}
                         <h4 class="c-grey-900 mT-10 mB-30">Penilaian</h4>
                         <div class="row">
                             <div class="col-md-12">

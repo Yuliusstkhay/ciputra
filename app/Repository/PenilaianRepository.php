@@ -7,6 +7,8 @@ use App\Models\PenilaianAssessment;
 use App\Models\PenilaianDosenMahasiswa;
 use App\Models\PenilaianAssessmentDetail;
 use App\Models\PenilaianAssessmentNilai;
+use App\Models\PenilaianTahap1;
+use App\Models\PenilaianTahap2;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -14,6 +16,7 @@ class PenilaianRepository{
     
     public function getListPenilaian(){
         $data = PenilaianHeader::where('status',1)->where('status_transaksi',0)->with(['jadwal','jadwal.dosenmahasiswa','jadwal.matakuliah']);
+        
         if(Auth::user()->type == 0){
             $data->whereHas('jadwal',function($q){
                 $q->where('dosen_mahasiswa_id',Auth::user()->dosen->id);
@@ -35,6 +38,14 @@ class PenilaianRepository{
     public function insertMahasiswa(){
         $data = new PenilaianDosenMahasiswa(); 
         return $data;
+    }
+    
+    public function insertTahap1(){
+        return new PenilaianTahap1();
+    }
+    
+    public function insertTahap2(){
+        return new PenilaianTahap2();
     }
     
     public function show($id){
@@ -231,9 +242,47 @@ class PenilaianRepository{
         return PenilaianAssessmentDetail::where('id',$assessmentdetail);
     }
     
+    public function getPenilaianAssessmentDetail($assessment){
+        return PenilaianAssessmentDetail::where('penilaian_assessment_id',$assessment);
+    }
     
+    public function showAssessmentID($assessment){
+        return PenilaianAssessment::where('id',$assessment);
+    }
     
+    public function getKelompokPenilaian($penilaian,$assessment){
+        return PenilaianDosenMahasiswa::where('penilaian_id',$penilaian)
+               ->where('assessment_id',$assessment);
+    }
     
+    public function getPenilaianTahap1($penilaianAssessment){
+        return PenilaianTahap1::where('penilaian_assessment_id',$penilaianAssessment);
+    }
+    
+    public function getPenilaianTahap1Arr($penilaianAssessment){
+        return PenilaianTahap1::whereIn('penilaian_assessment_id',$penilaianAssessment);
+    }
+    
+    public function getPenilaianTahap2($penilaianID){
+        return PenilaianTahap2::where('penilaian_id',$penilaianID);
+    }
+    
+    public function listPenilaianAssessment($penilaianID){
+        return PenilaianAssessment::where('penilaian_id',$penilaianID);
+    }
+    
+    public function listReportGlobal($penilaian)
+    {
+        return PenilaianTahap2::where('penilaian_id',$penilaian)->with('mahasiswa')->get();
+    }
+    
+    public function listAssessment($penilaian){
+        return PenilaianAssessment::where('penilaian_id',$penilaian)->get();
+    }
+    
+    public function nilaiMahasiswa($mahasiswa){
+        return PenilaianAssessmentNilai::where('mahasiswa_dosen_id',$mahasiswa);
+    }
     
     
     

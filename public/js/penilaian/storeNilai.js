@@ -21,6 +21,7 @@ function simpan(){
     formData.append('_token', $('input[name="_token"]').val());
     $('.nilai').each(function(){
         var mhs = $(this).data('mahasiswa');
+        console.log(mhs);
         formData.append('mahasiswa[]', $(this).data('mahasiswa'));
         formData.append('assessmentdetail[]', $(this).data('id'));
         formData.append('nilai[]', $(this).val());
@@ -42,7 +43,9 @@ function simpan(){
             console.log(data);
             if (data.result) {
                 notification("success", data.message);
-
+                setTimeout(function () {
+                    window.location.href = urlx;
+                }, 500);
             } else {
 
                 notification("error", data.message);

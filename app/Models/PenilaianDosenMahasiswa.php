@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Wuwx\LaravelAutoNumber\AutoNumberTrait;
 use Auth;
+use App\Models\PenilaianAssessmentNilai;
 
 class PenilaianDosenMahasiswa extends Model
 {
@@ -45,5 +46,16 @@ class PenilaianDosenMahasiswa extends Model
     
     public function mahasiswa(){
         return $this->hasOne(DosenMahasiswa::class,'id','dosen_mahasiswa_id');
+    }
+    
+    public function getNilai($penilaianAssessmentID,$mahasiswaID){
+        $data =PenilaianAssessmentNilai::where('penilaian_assessment_detail_id',$penilaianAssessmentID)
+               ->where('mahasiswa_dosen_id',$mahasiswaID);
+        if($data->count()>0){
+            $data = $data->first()->nilai;
+            return $data;
+        }else{
+            return 0;
+        }
     }
 }

@@ -9,6 +9,14 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Tambah Mata Kuliah</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('matakuliah')}}">Fakultas</a></li>
+                <li class="breadcrumb-item"><a href="{{url('matakuliah/programstudi/'.$programStudi->fakultas_id)}}">Program Studi</a></li>
+                <li class="breadcrumb-item"><a href="{{url('matakuliah/matkul/'.$programStudi->bidang_studi_id."_".$programStudi->fakultas->fakultas_id)}}">Master Mata Kuliah</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Tambah</li>
+            </ol>
+        </nav>
     <div class="row">
         <div class="col-md-10 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">

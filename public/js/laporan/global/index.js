@@ -1,5 +1,5 @@
 $(function () {
-    var table = $('#table-jadwal').DataTable({
+    var table = $('#tbl-laporanglobal').DataTable({
         processing: true,
         serverSide: true,
         "lengthMenu": [
@@ -14,29 +14,24 @@ $(function () {
                 searchable: false
             },
             {
-                data: 'jadwal.matakuliah.mata_kuliah_name',
-                name: 'jadwal.matakuliah.mata_kuliah_name'
+                data: 'mahasiswa.name',
+                name: 'mahasiswa.name'
             },
             {
-                data: 'jadwal.matakuliah.mata_kuliah_id',
-                name: 'jadwal.matakuliah.mata_kuliah_id'
+                data: 'mahasiswa.nip',
+                name: 'mahasiswa.nip'
             },
             {
-                data: 'jadwal.dosenmahasiswa.name',
-                name: 'jadwal.dosenmahasiswa.name'
+                data: 'nilai_akhir',
+                name: 'nilai_akhir'
             },
-            {
-                data: 'jadwal.deskripsi',
-                name: 'jadwal.deskripsi'
-            },
-
-            {
-                data: 'action',
-                name: 'action',
-                'sClass': 'td-actions text-center',
-                orderable: false,
-                searchable: false
-            }
+//            {
+//                data: 'action',
+//                name: 'action',
+//                'sClass': 'td-actions text-center',
+//                orderable: false,
+//                searchable: false
+//            }
         ]
     });
 

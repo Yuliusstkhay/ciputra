@@ -77,7 +77,8 @@ class DosenController extends Controller
         } catch (\Exception $ex) {
             return response()->json([
                         'result' => false,
-                        'message' => 'Terjadi kesalahan pada penyimpanan data. Mohon Hubungi admin'
+                        'message' => 'Terjadi kesalahan pada penyimpanan data. Mohon Hubungi admin',
+                        'error'=>$ex->getMessage()
             ]);
         }
     }
