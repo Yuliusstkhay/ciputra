@@ -194,4 +194,12 @@ class UserController extends Controller
         }
     }
     
+    public function profil(){
+     $data = [
+            'title'=>"Profil"
+        ];
+        
+        return view('user.profil',$data);   
+    }
+    
 }

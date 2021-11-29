@@ -265,6 +265,7 @@ Route::group(['middleware' => 'auth'], function() {
     });
     
     Route::get('profil',[UserController::class,'profil'])->name('profil');
+    Route::put('updatePasswordProfil/{user}',[UserController::class,'updatePassword'])->name('user.updatePasswordProfil');
     
 //    Route::group(['prefix'=>'LaporanAssessment','middleware'=>'user.akses:R02.01'],function(){
 //        Route::get('/',[LaporanController::class,'indexAssessment'])->name('laporan.assessment');
