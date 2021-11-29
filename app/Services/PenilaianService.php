@@ -17,7 +17,7 @@ class PenilaianService {
     protected $jadwalkuliah, $dosen, $penilaian, $assessment;
 
     public function __construct(
-            JadwalKuliahRepository $jadwalkuliah, DosenRepository $dosen, PenilaianRepository $penilaian, AssessmentRepository $assessment
+    JadwalKuliahRepository $jadwalkuliah, DosenRepository $dosen, PenilaianRepository $penilaian, AssessmentRepository $assessment
     ) {
         $this->jadwalkuliah = $jadwalkuliah;
         $this->dosen = $dosen;
@@ -773,13 +773,16 @@ class PenilaianService {
                         ->addColumn('action', function ($data) {
 
                             $action = "";
-                            if ($data->jadwal->dosen_mahasiswa_id == Auth::user()->dosen->id) {
+                            if (Auth::user()->type != 2) {
+
+                                if ($data->jadwal->dosen_mahasiswa_id == Auth::user()->dosen->id) {
 //                                $action = $this->getShow($data->penilaian_id);
-                                $action .= $this->getEditPenilaian($data->jadwal_kuliah_id);
-                                if ($data->status_transaksi == 0) {
-                                    $action .= $this->getVoid($data->penilaian_id);
-                                } else {
-                                    $action .= $this->getUnvoid($data->penilaian_id);
+                                    $action .= $this->getEditPenilaian($data->jadwal_kuliah_id);
+                                    if ($data->status_transaksi == 0) {
+                                        $action .= $this->getVoid($data->penilaian_id);
+                                    } else {
+                                        $action .= $this->getUnvoid($data->penilaian_id);
+                                    }
                                 }
                             }
 
@@ -920,7 +923,6 @@ class PenilaianService {
         if (Auth::user()->type == 1) {
             $getKelompok = $this->penilaian->getMahasiswaKelompok($data->penilaian_id, $data->assessment_id)->kelompok_mahasiswa;
             $mahasiswa = $this->penilaian->getListMahasiswaKelompok($data->penilaian_id, $data->assessment_id, $getKelompok);
-          
         } else {
             $getData = $this->penilaian->show($data->penilaian_id);
             $mahasiswa = $getData->jadwal->jadwalMahasiswa;
@@ -973,7 +975,7 @@ class PenilaianService {
                         $nilaiPengampu += $mhs->hasil;
                     }
                 }
-                
+
                 if ($nilaiPengampu != 0) {
                     $nilaiPengampu = round($nilaiPengampu * ($assessment->value_persentase_pengampu / 100), 2);
                 }
@@ -1045,22 +1047,22 @@ class PenilaianService {
                         $nilaiMahasiswa += round(($nilaiSementara / $jumlah), 2);
                     }
                 }
-                
-                if($nilaiMahasiswa != 0){
-                    $nilaiMahasiswa = round($nilaiMahasiswa*($assessment->value_persentase_mahasiswa/100),2);
+
+                if ($nilaiMahasiswa != 0) {
+                    $nilaiMahasiswa = round($nilaiMahasiswa * ($assessment->value_persentase_mahasiswa / 100), 2);
                 }
             }
-            
-            $totalAkhir = $nilaiPengampu+$nilaiPenilai+$nilaiMahasiswa;
+
+            $totalAkhir = $nilaiPengampu + $nilaiPenilai + $nilaiMahasiswa;
 //            dd($totalAkhir);
-            $nilaiTotalAkhir = round($totalAkhir*($assessment->value/100),2);
+            $nilaiTotalAkhir = round($totalAkhir * ($assessment->value / 100), 2);
 
 //            cek penilaian
             $cekTahap1 = $this->penilaian->getPenilaianTahap1($assessment->id)
-                         ->where('mahasiswa_dosen_id',$row);
-            if($cekTahap1->count()>0){
+                    ->where('mahasiswa_dosen_id', $row);
+            if ($cekTahap1->count() > 0) {
                 $model = $cekTahap1->first();
-            }else{
+            } else {
                 $model = $this->penilaian->insertTahap1();
                 $model->penilaian_assessment_id = $assessment->id;
                 $model->mahasiswa_dosen_id = $row;
@@ -1075,25 +1077,25 @@ class PenilaianService {
                     'message' => "gagal menambahkan assessment"
                 ];
             }
-            
+
 //            cek Penilaian total
 //            get assessment
             $listAssessment = $this->penilaian->listPenilaianAssessment($assessment->penilaian_id)
-                              ->get();
-            $grandNilai=0;
-            $penilaiAss=[];
-            foreach($listAssessment as $x => $y){
-                array_push($penilaiAss,$y->id);
+                    ->get();
+            $grandNilai = 0;
+            $penilaiAss = [];
+            foreach ($listAssessment as $x => $y) {
+                array_push($penilaiAss, $y->id);
             }
-            $grandNilai= $this->penilaian->getPenilaianTahap1Arr($penilaiAss)
-                          ->where('mahasiswa_dosen_id',$row)
-                          ->sum('nilai_akhir');
-            
+            $grandNilai = $this->penilaian->getPenilaianTahap1Arr($penilaiAss)
+                    ->where('mahasiswa_dosen_id', $row)
+                    ->sum('nilai_akhir');
+
             $cekTahap2 = $this->penilaian->getPenilaianTahap2($assessment->penilaian_id)
-                         ->where('mahasiswa_dosen_id',$row);
-            if($cekTahap2->count()>0){
+                    ->where('mahasiswa_dosen_id', $row);
+            if ($cekTahap2->count() > 0) {
                 $model = $cekTahap2->first();
-            }else{
+            } else {
                 $model = $this->penilaian->insertTahap2();
                 $model->penilaian_id = $assessment->penilaian_id;
                 $model->mahasiswa_dosen_id = $row;

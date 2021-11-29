@@ -259,74 +259,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div class="form-check"><label class="form-check-label"><input class="form-check-input"
-                                                                                               type="checkbox">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>1</td>
-                            <td>
-                                Prof. Dr. Ir. Sugeng Winardi
-                            </td>
-                            <td>
-                                1985.07.23.2005.02.2.002
-                            </td>
-                            <th>
-                                Architechture Interior
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-check"><label class="form-check-label"><input class="form-check-input"
-                                                                                               type="checkbox">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>2</td>
-                            <td>
-                                Febe Yuanita Ratna Indudewi, S.E. M.M.
-                            </td>
-                            <td>
-                                1985.07.23.2005.02.2.003
-                            </td>
-                            <th>
-                                Architechture Interior
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-check"><label class="form-check-label"><input class="form-check-input"
-                                                                                               type="checkbox">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>3</td>
-                            <td>
-                                Laij Victor Effendi, S.E., CMA.
-                            </td>
-                            <td>
-                                1985.07.23.2005.02.2.004
-                            </td>
-                            <th>
-                                Architechture Interior
-                            </th>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="form-check"><label class="form-check-label"><input class="form-check-input"
-                                                                                               type="checkbox">&nbsp;</label>
-                                </div>
-                            </td>
-                            <td>4</td>
-                            <td>
-                                Helena Sidharta, S.E., M.M.
-                            </td>
-                            <td>
-                                1985.07.23.2005.02.2.005
-                            </td>
-                            <th>
-                                Architechture Interior
-                            </th>
-                        </tr>
+                       
                     </tbody>
                 </table>
             </div>

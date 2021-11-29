@@ -488,7 +488,7 @@
                         <tr>
                             <th>
                                 <div class="form-check"><label class="form-check-label">
-                                        <input class="form-check-input checkDosenAll" id="checkDosenAll" type="checkbox">&nbsp;
+                                        <input class="form-check-input checkDosenPenilaiAll" id="checkDosenPenilaiAll" type="checkbox">&nbsp;
                                     </label>
                                 </div>
                             </th>

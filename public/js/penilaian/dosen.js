@@ -130,6 +130,14 @@ $(document).on('click', '.checkDosenAll', function () {
     }
 });
 
+$(document).on('click', '.checkDosenPenilaiAll', function () {
+    if (document.getElementById('checkDosenPenilaiAll').checked) {
+        $('.checkDosenPenilai').prop("checked", true);
+    } else {
+        $('.checkDosenPenilai').prop("checked", false);
+    }
+});
+
 $(document).on('click', '.ckPenilai', function () {
     var assessment = $(this).data('assessment');
 
@@ -595,6 +603,7 @@ $('#btn-save2').on('click', function () {
                 "Persentase tidak boleh kurang atau lebih dari 100",
                 'error'
                 );
+        return false;
     } else {
         var sukses = false;
         $('.checkAssessment:checked').each(function () {
@@ -625,12 +634,12 @@ $('#btn-save2').on('click', function () {
                         "Persentase Penilai tidak boleh kurang atau lebih dari 100",
                         'error'
                         );
+                sukses = false;
                 return false;
             } else {
                 sukses = true;
             }
         });
-
         if (sukses) {
             saveTahap2(this);
         }
@@ -793,6 +802,7 @@ $('#btn-save3').on('click',function(){
     var persentase=0;
     var assessment="";
     var i =0;
+    var status = true;
     $('.persentaseItemPenilaian').each(function(){
         var assessmentPenilaian = $(this).data('penilaiassessment');
         if(assessment != assessmentPenilaian){
@@ -804,6 +814,7 @@ $('#btn-save3').on('click',function(){
                             "Persentase Penilai tidak boleh kurang atau lebih dari 100",
                             'error'
                             );
+                    status = false;
                     return false;
                 }
             }
@@ -825,6 +836,7 @@ $('#btn-save3').on('click',function(){
                         "Persentase Penilai tidak boleh kurang atau lebih dari 100",
                         'error'
                         );
+                status = false;
                 return false;
             }
         }        
@@ -837,10 +849,13 @@ $('#btn-save3').on('click',function(){
                     "Item Penilaian tidak boleh kosong",
                     'error'
                     );
+            status = false;
             return false; 
         }
     });
-    tahap3();
+    if (status) {
+        tahap3();
+    }
 });
 
 function tahap3(){
