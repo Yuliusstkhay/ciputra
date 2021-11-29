@@ -2,16 +2,11 @@
 @section('css')
 <link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
 @stop
-@section('content') 
-<div class="row gap-20 masonry pos-r">
-    <div class="masonry-sizer col-md-6"></div>
-    <div class="masonry-item col-md-12">
-        <div class="bd bgc-white">
-            <div class="layers">
-                <div class="layer w-100 p-20">
-                    <h6 class="lh-1">Daftar Penilaian</h6>
-                </div>
-                <div class="layer w-100">
+@section('content')
+<div class="container-fluid">
+   <div class="bd bgc-white">
+            <div class="row">
+                <div class="col-12">
                     <div class="bgc-teal-500 c-white p-20">
                         <div class="peers ai-c jc-sb gap-40">
                             <div class="peer peer-greed">
@@ -23,7 +18,11 @@
                             </div>-->
                         </div>
                     </div>
-                    <div class="table-responsive p-20">
+                </div>
+            </div> 
+            <div class="row p-20">
+                <div class="col-12">
+                    <div class="table-responsive">
                         <table class="table" id="tbl-dashboard">
                             <thead>
                                 <tr>
@@ -41,9 +40,9 @@
                     </div>
                 </div>
             </div>
+            
             <div class="ta-c bdT w-100 p-20"><a href="{{route('penilaian')}}">Lihat semua penilaian</a></div>
-        </div>
-    </div>
+        </div> 
 </div>
 @stop
 @section('js')
