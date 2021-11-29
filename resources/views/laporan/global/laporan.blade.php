@@ -109,7 +109,7 @@
                         <div class="col-auto ms-auto d-print-none">
                             <div class="btn-list">
                                 <a href="{{route('laporan.excel',$data->penilaian_id)}}" class="btn btn-info d-none d-sm-inline-block">
-                                    Excel
+                                  Export Excel
                                 </a>
                                 <a href="{{route('laporan.assessmentreport',$data->penilaian_id)}}" class="btn btn-success d-none d-sm-inline-block">
                                     Laporan Assessment

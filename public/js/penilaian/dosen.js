@@ -775,7 +775,7 @@ $(document).on('click','.btnItem',function(){
             ck.classList.add("mb-3");
             ck.setAttribute('data-penilaiassessment', assessment_id);
             ck.setAttribute('name', "item_penilaian-"+assessment_id+"[]");
-            ck.setAttribute('placeholder', "item Penilaian");
+            ck.setAttribute('placeholder', "Item Penilaian");
  const element = document.getElementById("item-" + assessment_id);
                 element.appendChild(ck);
  

@@ -24,7 +24,7 @@ class RoleRepository{
     
     public function getRoleDosen(Request $request){
         $data = Role::where('universitas_id',Auth::user()->universitas_id)
-                ->where('is_dosen',1);
+                ->where('is_dosen',1)->where('status',0);
         if($request->has('q')){
             $data->where('role_name','like','%'.$request->q.'%');
         }
@@ -34,7 +34,7 @@ class RoleRepository{
     
     public function getRoleMahasiswa(Request $request){
         $data = Role::where('universitas_id',Auth::user()->universitas_id)
-                ->where('is_mahasiswa',1);
+                ->where('is_mahasiswa',1)->where('status',0);
         if($request->has('q')){
             $data->where('role_name','like','%'.$request->q.'%');
         }

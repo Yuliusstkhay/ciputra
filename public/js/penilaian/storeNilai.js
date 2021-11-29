@@ -25,7 +25,7 @@ function simpan(){
         formData.append('mahasiswa[]', $(this).data('mahasiswa'));
         formData.append('assessmentdetail[]', $(this).data('id'));
         formData.append('nilai[]', $(this).val());
-        formData.append('catatan[]', $('#catatan-'+mhs).val());        
+        formData.append('catatan[]', document.getElementById('catatan-'+mhs).value);
     });
 
     $.ajax({

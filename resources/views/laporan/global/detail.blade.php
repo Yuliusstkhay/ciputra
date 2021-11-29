@@ -212,8 +212,8 @@
                     <div class="bgc-white bd bdrs-3 p-20 mB-20">
                         <form>
                             <div class="row align-items-center">
-                                <div class="col-auto ms-auto d-print-none">
-                                    <p class="catatan"></p>
+                                <div class="col-12">
+                                    <p class="catatan" style="text-align: left;font-weight: 500;"></p>
                                 </div>
                             </div>
                         </form>

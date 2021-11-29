@@ -288,12 +288,29 @@
                             </div>
                         </div>
                         @endif
+                        @if(Auth::user()->type == 2)
+                        <div class="col-md-6 col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="user_id" class="text-normal text-dark">Jabatan</label> 
+                                <input type="text" class="form-control" id="user_id" name="user_id" placeholder="Email" value="Admin" disabled>
+                            </div>
+                        </div>
+                        @elseif(Auth::user()->type == 1)
+                        <div class="col-md-6 col-lg-6 col-sm-12">
+                            <div class="form-group">
+                                <label for="user_id" class="text-normal text-dark">Jabatan</label> 
+                                <input type="text" class="form-control" id="user_id" name="user_id" placeholder="Email" value="Mahasiswa" disabled>
+                            </div>
+                        </div>
+                        @else
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <div class="form-group">
                                 <label for="user_id" class="text-normal text-dark">Jabatan</label> 
                                 <input type="text" class="form-control" id="user_id" name="user_id" placeholder="Email" value="{{Auth::user()->dosen->jabatan}}" disabled>
                             </div>
                         </div>
+                        @endif
+                        
                     </div>
                     <div class="row">
                         <div class="col-md-6 col-lg-6 col-sm-12">

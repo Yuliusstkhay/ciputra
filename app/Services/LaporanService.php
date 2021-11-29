@@ -87,6 +87,10 @@ class LaporanService {
             $data->whereHas('assessmentDetail.penilaianAssessment',function ($q) use ($penilaian,$assessment){
                 $q->where('assessment_id',$assessment)->where('penilaian_id',$penilaian);
             });
+        }else{
+            $data->whereHas('assessmentDetail.penilaianAssessment',function ($q) use ($penilaian){
+                $q->where('penilaian_id',$penilaian);
+            });
         }
         
         $data = $data->with(['assessmentDetail','assessmentDetail.dosenMahasiswa','assessmentDetail.penilaianAssessment','assessmentDetail.penilaianAssessment.assessment'])->get();
