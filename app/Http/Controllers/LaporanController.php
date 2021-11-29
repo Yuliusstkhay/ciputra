@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Services\LaporanService;
 use App\Http\Resources\AssessmentResource;
 use App\Http\Resources\ItemPenilaianResource;
+use Excel;
+use App\Exports\GlobalReportExport;
 
 class LaporanController extends Controller
 {
@@ -36,6 +38,12 @@ class LaporanController extends Controller
     public function getNilaiGlobal($id, LaporanService $laporan){
         $data = $laporan->getNilaiGlobal($id);
         return $data;
+    }
+    
+    public function excelLaporan($penilaian, LaporanService $laporan){
+        $data = $laporan->exportExcel($penilaian);
+        
+        return Excel::download(new GlobalReportExport($data),'LaporanGlobal.xlsx');
     }
     
     public function assessmentReport($penilaian, LaporanService $laporan){

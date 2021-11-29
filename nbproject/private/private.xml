@@ -3,20 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/JadwalKuliah.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/PenilaianRepository.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/PenilaianAssessmentNilai.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/PenilaianDosenMahasiswa.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Http/Controllers/Master/DosenController.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/JadwalKuliahMahasiswa.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/PenilaianTahap1.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/penilaian/storeNilai.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/penilaian/nilaiMahasiswa.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/dosen/store.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Http/Controllers/PenilaianController.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/PenilaianService.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Models/PenilaianTahap2.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Repository/JadwalKuliahRepository.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Http/Controllers/UserController.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/template/menu.blade.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/routes/web.php</file>
+            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/template/header_footer.blade.php</file>
         </group>
     </open-files>
 </project-private>

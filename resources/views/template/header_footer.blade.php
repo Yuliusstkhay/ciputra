@@ -123,7 +123,7 @@
                                     <div class="peer"><span class="fsz-sm c-grey-900">{{(Auth::user()->type == 2)?Auth::user()->user_id:Auth::user()->dosen->name}}</span></div>
                                 </a>
                                 <ul class="dropdown-menu fsz-sm">
-                                    <li><a href="{{route('logout')}}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="fas fa-user-circle mR-10"></i>
+                                    <li><a href="{{route('profil')}}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="fas fa-user-circle mR-10"></i>
                                             <span>Profil</span></a>
                                     </li>
                                     <li><a href="{{route('logout')}}" class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"><i class="ti-power-off mR-10"></i>

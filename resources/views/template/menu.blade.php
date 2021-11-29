@@ -52,7 +52,9 @@
         </ul>
     </li>
     @endif
+    @if(checkHakAkses(["P01.01"]))
     <li class="nav-item"><a class="sidebar-link" href="{{route('penilaian')}}"><span class="icon-holder"><i class="c-teal-500 ti-pencil"></i> </span><span class="title">Penilaian</span></a></li>
+    @endif
     @if(checkHakAkses(["R01.01"]))
     <li class="nav-item"><a class="sidebar-link" href="{{route('laporan.global')}}"><span class="icon-holder"><i class="c-teal-500 ti-files"></i> </span><span class="title">Laporan</span></a></li>
     @endif

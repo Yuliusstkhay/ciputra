@@ -219,7 +219,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     });
 
-    Route::group(['prefix' => 'penilaian'], function() {
+    Route::group(['prefix' => 'penilaian','middleware'=>'user.akses:P01.01'], function() {
         Route::get('/', [PenilaianController::class, 'index'])->name('penilaian');
         Route::get('nilai/{penilaian}', [PenilaianController::class, 'penilaian']);
         Route::get('item/{penilaian}', [PenilaianController::class, 'listPenilaian']);
@@ -261,7 +261,10 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('assessment/{penilaian}',[LaporanController::class,'listAssessment'])->name('laporan.assessment');
         Route::post('itempenilaian/{penilaian}',[LaporanController::class,'listItemPenilaian'])->name('laporan.itempenilaian');
         Route::get('dataDetailReport/{penilaian}/{mahasiswa}/{assessment}/{itempenilaian}',[LaporanController::class,'dataDetailReport']);
+        Route::get('excelLaporan/{penilaian}',[LaporanController::class,'excelLaporan'])->name('laporan.excel');
     });
+    
+    Route::get('profil',[UserController::class,'profil'])->name('profil');
     
 //    Route::group(['prefix'=>'LaporanAssessment','middleware'=>'user.akses:R02.01'],function(){
 //        Route::get('/',[LaporanController::class,'indexAssessment'])->name('laporan.assessment');
@@ -288,8 +291,8 @@ Route::group(['middleware' => 'auth'], function() {
 
 
 
-    Route::group(['prefix' => 'itempenilaian'], function() {
-        Route::get('/', [ItemPenilaianController::class, 'index'])->name('itempenilaian');
-    });
+//    Route::group(['prefix' => 'itempenilaian'], function() {
+//        Route::get('/', [ItemPenilaianController::class, 'index'])->name('itempenilaian');
+//    });
 });
 

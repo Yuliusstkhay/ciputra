@@ -102,6 +102,24 @@ class LaporanService {
         
     }
     
+    public function getPenilaian($id){
+        $data = $this->penilaian->show($id);
+        return $data;
+    }
+    
+    public function exportExcel($penilaian){
+        $header = $this->penilaian->show($penilaian);
+        $detail = $data = $this->penilaian->listReportGlobal($penilaian);
+        
+        $data = [
+            'header'=>$header,
+            'detail'=>$detail
+        ];
+        
+        return $data;
+        
+    }
+    
     
     
     
@@ -208,10 +226,7 @@ class LaporanService {
         return $action;
     }
     
-    public function getPenilaian($id){
-        $data = $this->penilaian->show($id);
-        return $data;
-    }
+    
     
     public function getAssessment($id,Request $request){
         $data = $this->penilaian->penilaianAssessmentReport($id,$request);
