@@ -603,8 +603,21 @@ class PenilaianService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
 
-                            $action = $this->addKriteria($data->id);
-
+                            $action="";
+                            $checkItem = $this->penilaian->checkAssessmentDetail($data->id);
+                            if ($checkItem->count() > 0) {
+                                $checkItem = $checkItem->select('item_penilaian', 'value_persentase')->distinct()->get();
+                                foreach ($checkItem as $key => $row) {
+                                    if($key == 0){
+                                        $action = $this->addKriteria($data->id);
+                                    }else{
+                                      $action .= $this->getItemDelete($row->value_persentase, $data->id, $key);  
+                                    }
+                                    
+                                }
+                            } else {
+                                $action = $this->addKriteria($data->id);
+                            }
                             return $action;
                         })
                         ->addColumn('itemPenilaian', function ($data) use ($penilaian) {
@@ -646,14 +659,21 @@ class PenilaianService {
     }
 
     public function getFieldPersentase($item, $penilaianAssessment, $key) {
-        $action = '<div class="input-group input-group-flat">
-                <input type="text" class="form-control text-end pe-1 persentaseItemPenilaian mb-3" value="' . $item . '" id="persentase_item_penilaian-' . $penilaianAssessment . '-' . $key . '" data-id="' . $key . '" data-penilaiAssessment="' . $penilaianAssessment . '" name="persentase_item_penilaian-' . $penilaianAssessment . '[]" autocomplete="off" placeholder="%">
-            </div>';
+        $action = '
+                    <input type="text" class="form-control text-end pe-1 col-8 persentaseItemPenilaian mb-3" value="' . $item . '" id="persentase_item_penilaian-' . $penilaianAssessment . '-' . $key . '" data-id="' . $key . '" data-penilaiAssessment="' . $penilaianAssessment . '" name="persentase_item_penilaian-' . $penilaianAssessment . '[]" autocomplete="off" placeholder="%">
+                    ';
+        
+        return $action;
+    }
+    
+    public function getItemDelete($item, $penilaianAssessment, $key){
+        $action = '<div class="row"><button type="button" class="btn btn-danger d-none d-sm-inline-block ml-3 col-2 mb-3"><i class="far fa-trash-alt"></i></button></div>';
         return $action;
     }
 
+
     public function addKriteria($penilaianAssessment) {
-        $action = '<button type="button" class="btn btn-info d-none d-sm-inline-block btnItem" data-value="' . $penilaianAssessment . '">
+        $action = '<button type="button" class="btn btn-info d-none d-sm-inline-block btnItem mb-3" data-value="' . $penilaianAssessment . '">
                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />

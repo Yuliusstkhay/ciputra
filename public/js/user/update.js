@@ -239,7 +239,9 @@ $('#btn-submit').on('click', function () {
             console.log(data);
             if (data.result) {
                 notification("success", data.message);
-               
+               setTimeout(function () {
+                    window.location.href = urlx;
+                }, 500);
             } else {
 
                 notification("error", data.message);

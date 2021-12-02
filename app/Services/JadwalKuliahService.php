@@ -44,7 +44,7 @@ class JadwalKuliahService {
 
     public function getProgramStudi($id) {
         $action = '<a href="' . url('jadwalkuliah/programstudi/' . $id) . '" type="button" class="btn cur-p btn-success">
-                 Atur Jadwal Kuliah
+                 <i class="fas fa-list" title="view detail"></i>
             </a>';
         return $action;
     }

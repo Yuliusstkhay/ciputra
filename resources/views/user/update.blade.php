@@ -256,7 +256,7 @@
 @stop
 @section('content')
 <div class="container-fluid">
-    <h4 class="c-grey-900 mT-10 mB-30">Tambah Pengguna</h4>
+    <h4 class="c-grey-900 mT-10 mB-30">Perbarui Pengguna</h4>
     <div class="row">
         {{csrf_field()}}
         <div class="col-md-12 col-sm-12">
@@ -336,6 +336,7 @@
 var store = '{{route("user.update",$data->user_id)}}';
 var role = '{{route("user.getRole")}}';
 var getModul = '{{route("user.modulUpdate",$data->user_id)}}';
+var urlx = '{{route("user")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/user/update.js')}}"></script>
 @stop

@@ -345,6 +345,7 @@
 var store = '{{route("user.store")}}';
 var role = '{{route("user.getRole")}}';
 var getModul = '{{route("user.modul")}}';
+var urlx = '{{route("user")}}';
 </script>
 <script type="text/javascript" src="{{asset('js/user/store.js')}}"></script>
 @stop

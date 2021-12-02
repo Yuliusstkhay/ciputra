@@ -243,10 +243,8 @@ $('#btn-submit').on('click', function () {
                 notification("success", data.message);
 
                 setTimeout(function () {
-
-                    location.reload();
-
-                }, 1000);
+                    window.location.href = urlx;
+                }, 500);
                
             } else {
 

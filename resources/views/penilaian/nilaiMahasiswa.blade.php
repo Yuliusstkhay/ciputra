@@ -96,12 +96,13 @@
                                 {{$row->mahasiswa->nip}}
                             </td>
                             @foreach($item as $x => $y)
+                            @php $catatan =$row->getCatatan($y->id,$row->mahasiswa->id);  @endphp
                             <td style="width: 100px;">
                                 <input type="number" class="form-control nilai" data-mahasiswa="{{$row->mahasiswa->id}}" data-id="{{$y->id}}" value="{{$row->getNilai($y->id,$row->mahasiswa->id)}}" id="nilai-{{$row->mahasiswa->id}}-{{$y->id}}" placeholder="Nilai">
                             </td>            
                             @endforeach
                             <td>
-                                <textarea class="form-control catatan" data-mahasiswa="{{$row->mahasiswa->id}}" id="catatan-{{$row->mahasiswa->id}}" rows="3"></textarea>
+                                <textarea class="form-control catatan" data-mahasiswa="{{$row->mahasiswa->id}}" id="catatan-{{$row->mahasiswa->id}}" rows="3">{!!$catatan!!}</textarea>
                             </td>
                         </tr>        
                         @endforeach        
