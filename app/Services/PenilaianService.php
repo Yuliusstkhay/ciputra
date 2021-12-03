@@ -603,21 +603,22 @@ class PenilaianService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
 
-                            $action="";
+                            $action='<div class="col-12" id="aksi-'.$data->id.'" >';
                             $checkItem = $this->penilaian->checkAssessmentDetail($data->id);
                             if ($checkItem->count() > 0) {
                                 $checkItem = $checkItem->select('item_penilaian', 'value_persentase')->distinct()->get();
                                 foreach ($checkItem as $key => $row) {
                                     if($key == 0){
-                                        $action = $this->addKriteria($data->id);
+                                        $action .= $this->addKriteria($data->id);
                                     }else{
                                       $action .= $this->getItemDelete($row->value_persentase, $data->id, $key);  
                                     }
                                     
                                 }
                             } else {
-                                $action = $this->addKriteria($data->id);
+                                $action .= $this->addKriteria($data->id);
                             }
+                            $action .='</div>';
                             return $action;
                         })
                         ->addColumn('itemPenilaian', function ($data) use ($penilaian) {
@@ -660,14 +661,15 @@ class PenilaianService {
 
     public function getFieldPersentase($item, $penilaianAssessment, $key) {
         $action = '
-                    <input type="text" class="form-control text-end pe-1 col-8 persentaseItemPenilaian mb-3" value="' . $item . '" id="persentase_item_penilaian-' . $penilaianAssessment . '-' . $key . '" data-id="' . $key . '" data-penilaiAssessment="' . $penilaianAssessment . '" name="persentase_item_penilaian-' . $penilaianAssessment . '[]" autocomplete="off" placeholder="%">
+                    <input type="text" class="form-control text-end pe-1  persentaseItemPenilaian mb-3" value="' . $item . '" id="persentase_item_penilaian-' . $penilaianAssessment . '-' . $key . '" data-id="' . $key . '" data-penilaiAssessment="' . $penilaianAssessment . '" name="persentase_item_penilaian-' . $penilaianAssessment . '[]" autocomplete="off" placeholder="%">
                     ';
         
         return $action;
     }
     
     public function getItemDelete($item, $penilaianAssessment, $key){
-        $action = '<div class="row"><button type="button" class="btn btn-danger d-none d-sm-inline-block ml-3 col-2 mb-3"><i class="far fa-trash-alt"></i></button></div>';
+        $action = '<div class="row"><button type="button" class="btn btn-danger d-none d-sm-inline-block ml-3 col-2 mb-3" disabled><i class="far fa-trash-alt"></i></button></div>';
+//        $action = '<div class="row">&nbsp;</button></div>';
         return $action;
     }
 

@@ -767,9 +767,11 @@ function itemPenilaian(penilaian) {
 
 $(document).on('click','.btnItem',function(){
    var assessment_id = $(this).data('value');
+   var jumlah = $('.btn-hapus').length;
   
   const ck = document.createElement('input');
             ck.setAttribute('type', "text");
+            ck.setAttribute('id', "item_penilaian_new-"+assessment_id+"-"+jumlah);
             ck.classList.add("form-control");
             ck.classList.add("itemPenilaian");
             ck.classList.add("mb-3");
@@ -784,6 +786,7 @@ $(document).on('click','.btnItem',function(){
              prs.classList.add("input-group-flat");
  const fieldprs = document.createElement('input');
             fieldprs.setAttribute('type', "text");
+            fieldprs.setAttribute('id', "persentase_item_penilaian_new-"+assessment_id+"-"+jumlah);
             fieldprs.classList.add("form-control");
             fieldprs.classList.add("text-end");
             fieldprs.classList.add("pe-1");
@@ -796,6 +799,41 @@ $(document).on('click','.btnItem',function(){
 const element2 = document.getElementById("persentase-" + assessment_id);
                 element2.appendChild(prs);
 
+const dvrow = document.createElement('div');
+              dvrow.classList.add("row");
+               
+const btndel = document.createElement("button");
+               btndel.setAttribute('type', "button");
+               btndel.setAttribute('id', "btn_penilaian_new-"+assessment_id+"-"+jumlah);
+               btndel.classList.add("btn");
+               btndel.classList.add("btn-danger");
+               btndel.classList.add("d-none");
+               btndel.classList.add("d-sm-inline-block");
+               btndel.classList.add("ml-3");
+               btndel.classList.add("col-2");
+               btndel.classList.add("mb-3");
+               btndel.classList.add("btn-hapus");
+               btndel.setAttribute('data-id', assessment_id);
+               btndel.setAttribute('data-urutan', jumlah);
+const icon = document.createElement("i");
+            icon.classList.add("far");
+            icon.classList.add("fa-trash-alt");
+            btndel.appendChild(icon);           
+            dvrow.appendChild(btndel);
+const element3 = document.getElementById("aksi-"+assessment_id);
+                element3.appendChild(dvrow);
+
+});
+
+$(document).on('click','.btn-hapus',function(){
+   var assessment_id = $(this).data('id'); 
+   var urutan = $(this).data('urutan'); 
+    var item = document.getElementById("item_penilaian_new-" + assessment_id+"-"+urutan);
+    item.remove();
+    var persentasi = document.getElementById("persentase_item_penilaian_new-" + assessment_id+"-"+urutan);
+    persentasi.remove();
+    var aksi = document.getElementById("btn_penilaian_new-" + assessment_id+"-"+urutan);
+    aksi.remove();
 });
 
 $('#btn-save3').on('click',function(){

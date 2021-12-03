@@ -1,5 +1,6 @@
 $(function(){
     $('#btnSimpan').on('click',function(){
+        var status = true;
         $('.nilai').each(function(){
            if($(this).val() == null||$(this).val() == ""){
                Swal.fire(
@@ -7,10 +8,14 @@ $(function(){
                 "Field Nilai tidak boleh kosong",
                 'error'
                 );
+             status = false;
             return false;
            } 
         });
-        simpan();
+        if(status){
+           simpan(); 
+        }
+        
     });
 });
 
