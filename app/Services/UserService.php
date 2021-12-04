@@ -25,15 +25,21 @@ class UserService {
         $data = $this->user->getList();
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
-
+                            $action = "";
 //                            $action = $this->getShow($data->user_id);
-                            $action = $this->getEdit($data->user_id);
-                            if ($data->is_locked == 0) {
-                                $action .= $this->getVoid($data->user_id);
-                            } else {
-                                $action .= $this->getUnvoid($data->user_id);
+                            if (checkHakAkses(["U02.03"])) {
+                                $action = $this->getEdit($data->user_id);
                             }
-                            $action .= $this->ubahPassword($data->user_id);
+                            if (checkHakAkses(["U02.04"])) {
+                                if ($data->is_locked == 0) {
+                                    $action .= $this->getVoid($data->user_id);
+                                } else {
+                                    $action .= $this->getUnvoid($data->user_id);
+                                }
+                            }
+                            if (checkHakAkses(["U02.03"])) {
+                                $action .= $this->ubahPassword($data->user_id);
+                            }
                             return $action;
                         })
                         ->rawColumns(['action'])

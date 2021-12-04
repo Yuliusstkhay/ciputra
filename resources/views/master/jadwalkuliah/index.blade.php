@@ -24,13 +24,14 @@
                                     Sistem Penilaian Mahasiswa
                                 </div>
                                 <h2 class="page-title">
-                                   Jadwal Kuliah
+                                    Jadwal Kuliah
                                 </h2>
                             </div>
                             <!-- Page title actions -->
-                            <div class="col-auto ms-auto d-print-none">
+                            @if(checkHakAkses(["M08.02"]))
+                            <div class="col-auto ms-auto">
                                 <div class="btn-list">
-                                    <a href="{{route('jadwalkuliah.create',$id)}}" class="btn btn-info d-none d-sm-inline-block">
+                                    <a href="{{route('jadwalkuliah.create',$id)}}" class="btn btn-info">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -40,6 +41,7 @@
                                     </a>
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <table id="tbl-jadwalkuliah" class="table table-hover" cellspacing="0" width="100%">
@@ -68,9 +70,9 @@
     @section('js')
     <script type="text/javascript" src="{{asset('DataTables/datatables.min.js')}}"></script>
     <script type="text/javascript">
-        var list = '{{route("jadwalkuliah.list",$id)}}';
-        var nonaktif = '{{url("jadwalkuliah/void")}}';
-        var aktif = '{{url("jadwalkuliah/unvoid")}}';
+var list = '{{route("jadwalkuliah.list",$id)}}';
+var nonaktif = '{{url("jadwalkuliah/void")}}';
+var aktif = '{{url("jadwalkuliah/unvoid")}}';
     </script>
     <script type="text/javascript" src="{{asset('js/jadwalkuliah/index.js')}}"></script>
     @stop

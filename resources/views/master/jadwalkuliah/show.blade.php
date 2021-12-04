@@ -65,8 +65,8 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
-                            <a href="{{url('jadwalkuliah/jadwalkuliah/'.$data->matakuliah->programStudi->bidang_studi_id."_".$data->matakuliah->programStudi->fakultas->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
-                            <a href="{{url('jadwalkuliah/getDataUpdate/'.$data->jadwal_kuliah_id)}}" class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-3">Ubah Data</a>
+                            <a href="{{url('jadwalkuliah/jadwalkuliah/'.$data->matakuliah->programStudi->bidang_studi_id."_".$data->matakuliah->programStudi->fakultas->fakultas_id)}}" class="btn btn-dark float-start col-lg-2 col-md-2 col-sm-4 d-none d-lg-block d-md-block d-print-block">Kembali</a>
+                            <a href="{{url('jadwalkuliah/getDataUpdate/'.$data->jadwal_kuliah_id)}}" class="btn btn-primary float-end col-lg-2 col-md-2 col-sm-4">Ubah Data</a>
                         </div>
                     </div>
             </div>

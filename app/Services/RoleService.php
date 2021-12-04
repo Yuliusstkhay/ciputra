@@ -55,7 +55,7 @@ class RoleService {
         DB::commit();
         return true;
     }
-    
+
     public function update($id, Request $request) {
         DB::beginTransaction();
         $model = $this->role->show($id);
@@ -68,13 +68,13 @@ class RoleService {
             DB::rollback();
             return false;
         }
-        
+
         $delete = $this->role->deleteAccess($model->role_id);
-        if(!$delete->delete()){
+        if (!$delete->delete()) {
             DB::rollback();
             return false;
         }
-        
+
         foreach ($request->modul_access as $key => $row) {
             $detail = $this->role->insertAccess();
             $detail->module_function_id = $row;
@@ -84,7 +84,7 @@ class RoleService {
                 return false;
             }
         }
-        
+
         DB::commit();
         return true;
     }
@@ -93,11 +93,16 @@ class RoleService {
         $data = $this->role->getList();
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
-                            $action = $this->getEdit($data->role_id);
-                            if ($data->status == 0) {
-                                $action .= $this->getVoid($data->role_id);
-                            } else {
-                                $action .= $this->getUnvoid($data->role_id);
+                            $action = "";
+                            if (checkHakAkses(["U01.03"])) {
+                                $action = $this->getEdit($data->role_id);
+                            }
+                            if (checkHakAkses(["U01.04"])) {
+                                if ($data->status == 0) {
+                                    $action .= $this->getVoid($data->role_id);
+                                } else {
+                                    $action .= $this->getUnvoid($data->role_id);
+                                }
                             }
                             return $action;
                         })
@@ -145,8 +150,6 @@ class RoleService {
     public function show($id) {
         return $this->role->show($id);
     }
-
-    
 
     public function updateStatus($id, $status) {
         DB::beginTransaction();

@@ -8,6 +8,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         "paging": false,
+        responsive: true,
         "lengthMenu": [
             [5, 5, 100],
             [5, 5, 100]
@@ -41,6 +42,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         "paging": false,
+        responsive: true,
         "lengthMenu": [
             [5, 10, 55, 10, 20],
             [5, 10, 55, 10, 20]
@@ -147,6 +149,7 @@ $(document).on('click', '.ckPenilai', function () {
             processing: true,
             serverSide: true,
             "paging": false,
+            responsive: true,
             "lengthMenu": [
                 [5, 10, 55, 10, 20],
                 [5, 10, 55, 10, 20]
@@ -351,6 +354,7 @@ $('#btn-addkelompok').on('click', function () {
         processing: true,
         serverSide: true,
         "paging": false,
+        responsive: true,
         "lengthMenu": [
             [5, 10, 55, 10, 20],
             [5, 10, 55, 10, 20]
@@ -486,6 +490,7 @@ function kelompok(assessment) {
         processing: true,
         serverSide: true,
         "paging": false,
+        responsive: true,
         "lengthMenu": [
             [5, 10, 55, 10, 20],
             [5, 10, 55, 10, 20]
@@ -722,6 +727,7 @@ function itemPenilaian(penilaian) {
         processing: true,
         serverSide: true,
         "paging": false,
+        responsive: true,
         "lengthMenu": [
             [5, 10, 55, 10, 20],
             [5, 10, 55, 10, 20]

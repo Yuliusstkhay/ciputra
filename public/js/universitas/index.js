@@ -2,6 +2,7 @@ $(function () {
     var table = $('#table-universitas').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         "lengthMenu": [
             [10, 25, 50, 100],
             [10, 25, 50, 100]

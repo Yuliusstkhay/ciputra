@@ -25,6 +25,7 @@
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
                 <div class="page-header d-print-none mB-20">
                     <div class="row align-items-center">
+                        <div class="row mB-20">
                         <div class="col">
                             <!-- Page pre-title -->
                             <div class="page-pretitle">
@@ -33,79 +34,81 @@
                             <h2 class="page-title">
                                 {{$data->matakuliah->mata_kuliah_name}}
                             </h2>
-                            <div class="row">
-                                <div class="col-md-3 mT-20">
+                            <div class="row mb-10">
+                                <div class="col-4 mT-20">
                                     <a>Fakultas</a>
                                 </div>
-                                <div class="col-md-9 mT-20">
+                                <div class="col-8 mT-20">
                                     <a>: {{$data->matakuliah->programstudi->fakultas->fakultas_name}}</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row mb-10">
+                                <div class="col-4">
                                     <a>Program Studi</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->matakuliah->programstudi->bidang_studi_name}}</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row mb-10">
+                                <div class="col-4">
                                     <a>Mata Kuliah</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->matakuliah->mata_kuliah_name}}</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row mb-10">
+                                <div class="col-4">
                                     <a>Kode Mata Kuliah</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->matakuliah->mata_kuliah_id}}</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row mb-10">
+                                <div class="col-4">
                                     <a>Paralel</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->paralel}}</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row mb-10">
+                                <div class="col-4">
                                     <a>Dosen Pengampu</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->dosenmahasiswa->name}}</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row mb-10">
+                                <div class="col-4">
                                     <a>Periode</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->semester->semester_name}}</a>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="col-md-3">
+                            <div class="row mb-10">
+                                <div class="col-4">
                                     <a>Jadwal</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {!! $data->deskripsi !!}</a>
                                 </div>
                             </div>
                         </div>
+                            </div>
+                        <div class="row">
                         <!-- Page title actions -->
-                        <div class="col-auto ms-auto d-print-none mT-160">
+                        <div class="col-auto ms-auto">
                             <div class="btn-list">
 <!--                                <a href="#" class="btn btn-primary d-none d-sm-inline-block" data-bs-toggle="modal" data-bs-target="#modal-report">
                                      Download SVG icon from http://tabler-icons.io/i/download 
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="16" height="16" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><polyline points="7 11 12 16 17 11" /><line x1="12" y1="4" x2="12" y2="16" /></svg>                                                        Import
                                 </a>-->
-                                <a href="#" class="btn btn-info d-none d-sm-inline-block btn-peserta" data-toggle="modal" data-target="#modal-add">
+                                <a href="#" class="btn btn-info btn-peserta" data-toggle="modal" data-target="#modal-add">
                                     <!-- Download SVG icon from http://tabler-icons.io/i/plus -->
                                     <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -114,6 +117,7 @@
                                     </svg> Tambah Peserta
                                 </a>
                             </div>
+                        </div>
                         </div>
                     </div>
                 </div>

@@ -33,26 +33,26 @@ class MatkulService {
     }
 
     public function getProgramStudi($id) {
-        $action ='<a href="' . url('matakuliah/programstudi/' . $id) . '" type="button" class="btn cur-p btn-success">
+        $action = '<a href="' . url('matakuliah/programstudi/' . $id) . '" type="button" class="btn cur-p btn-success">
                  Atur Mata Kuliah
             </a>';
         return $action;
     }
-    
+
     public function getDataProgramStudi($id) {
         $data = $this->programstudi->getListData($id);
         return Datatables::of($data)
                         ->addColumn('action', function ($data) use ($id) {
-                            $action = $this->getMatkul($data->bidang_studi_id."_".$id);
+                            $action = $this->getMatkul($data->bidang_studi_id . "_" . $id);
                             return $action;
                         })
                         ->rawColumns(['action'])
                         ->addIndexColumn()
                         ->make(true);
     }
-    
+
     public function getMatkul($id) {
-        $action ='<a href="' . url('matakuliah/matkul/' . $id) . '" type="button" class="btn cur-p btn-success">
+        $action = '<a href="' . url('matakuliah/matkul/' . $id) . '" type="button" class="btn cur-p btn-success">
                  Atur Mata Kuliah
             </a>';
         return $action;
@@ -63,11 +63,15 @@ class MatkulService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
                             $action = $this->getShow($data->mata_kuliah_id);
-                            $action .= $this->getEdit($data->mata_kuliah_id);
-                            if ($data->status == 0) {
-                                $action .= $this->getVoid($data->mata_kuliah_id);
-                            } else {
-                                $action .= $this->getUnvoid($data->mata_kuliah_id);
+                            if (checkHakAkses(["M04.03"])) {
+                                $action .= $this->getEdit($data->mata_kuliah_id);
+                            }
+                            if (checkHakAkses(["M04.04"])) {
+                                if ($data->status == 0) {
+                                    $action .= $this->getVoid($data->mata_kuliah_id);
+                                } else {
+                                    $action .= $this->getUnvoid($data->mata_kuliah_id);
+                                }
                             }
                             return $action;
                         })
@@ -124,8 +128,8 @@ class MatkulService {
                                     </button>';
         return $action;
     }
-    
-    public function getDataProgram($id){
+
+    public function getDataProgram($id) {
         return $this->programstudi->show($id);
     }
 

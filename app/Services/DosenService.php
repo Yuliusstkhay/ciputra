@@ -15,15 +15,11 @@ use Hash;
 
 class DosenService {
 
-    protected $fakultas, $programstudi, $dosen,$user;
+    protected $fakultas, $programstudi, $dosen, $user;
 
     public function __construct(
-            FakultasRepository $fakultas, 
-            ProgramStudiRepository $programstudi, 
-            DosenRepository $dosen, 
-            UserRepository $user,
-            RoleRepository $role
-            ) {
+    FakultasRepository $fakultas, ProgramStudiRepository $programstudi, DosenRepository $dosen, UserRepository $user, RoleRepository $role
+    ) {
         $this->fakultas = $fakultas;
         $this->programstudi = $programstudi;
         $this->dosen = $dosen;
@@ -54,7 +50,7 @@ class DosenService {
         $data = $this->programstudi->getListData($id);
         return Datatables::of($data)
                         ->addColumn('action', function ($data) use ($id) {
-                            $action = $this->getMatkul($data->bidang_studi_id."_".$id);
+                            $action = $this->getMatkul($data->bidang_studi_id . "_" . $id);
                             return $action;
                         })
                         ->rawColumns(['action'])
@@ -74,11 +70,15 @@ class DosenService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
                             $action = $this->getShow($data->id);
-                            $action .= $this->getEdit($data->id);
-                            if ($data->status == 0) {
-                                $action .= $this->getVoid($data->id);
-                            } else {
-                                $action .= $this->getUnvoid($data->id);
+                            if (checkHakAkses(["M05.03"])) {
+                                $action .= $this->getEdit($data->id);
+                            }
+                            if (checkHakAkses(["M05.04"])) {
+                                if ($data->status == 0) {
+                                    $action .= $this->getVoid($data->id);
+                                } else {
+                                    $action .= $this->getUnvoid($data->id);
+                                }
                             }
                             return $action;
                         })
@@ -153,7 +153,7 @@ class DosenService {
             DB::rollback();
             return false;
         }
-        
+
         $user = $this->user->insert();
         $user->user_id = $request->email;
         $user->password = Hash::make('12345');
@@ -164,9 +164,9 @@ class DosenService {
             DB::rollback();
             return false;
         }
-        
+
         $role = $this->role->show($request->role_id);
-        foreach($role->roleAccess as $key=> $row){
+        foreach ($role->roleAccess as $key => $row) {
             $detail = $this->user->insertAccess();
             $detail->module_function_id = $row->module_function_id;
             $detail->user_id = $request->email;
@@ -175,8 +175,8 @@ class DosenService {
                 return false;
             }
         }
-        
-        
+
+
         DB::commit();
         return true;
     }
@@ -196,14 +196,14 @@ class DosenService {
             DB::rollback();
             return false;
         }
-        
+
         $user = $this->user->show($model->email);
         $user->role_id = $request->role_id;
         if (!$user->save()) {
             DB::rollback();
             return false;
         }
-        
+
         $delete = $this->user->deleteAccess($model->email);
         if ($delete->count() > 0) {
             if (!$delete->delete()) {
@@ -211,9 +211,9 @@ class DosenService {
                 return false;
             }
         }
-        
+
         $role = $this->role->show($request->role_id);
-        foreach($role->roleAccess as $key=> $row){
+        foreach ($role->roleAccess as $key => $row) {
             $detail = $this->user->insertAccess();
             $detail->module_function_id = $row->module_function_id;
             $detail->user_id = $model->email;
@@ -222,8 +222,8 @@ class DosenService {
                 return false;
             }
         }
-        
-        
+
+
         DB::commit();
         return true;
     }
@@ -239,8 +239,8 @@ class DosenService {
         DB::commit();
         return true;
     }
-    
-    public function getRole(Request $request){
+
+    public function getRole(Request $request) {
         return $this->role->getRoleDosen($request);
     }
 

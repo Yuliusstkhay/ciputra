@@ -290,50 +290,50 @@
                                         </h2>
                                     </div>
                                     <div class="row lbl-left">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label>Mata Kuliah</label>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <label>: {{$data->matakuliah->mata_kuliah_name}}</label>
                                         </div>
                                     </div>
                                     <div class="row lbl-left">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label>Kode Mata Kuliah</label>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <label>: {{$data->matakuliah->mata_kuliah_id}}</label>
                                         </div>
                                     </div>
                                     <div class="row lbl-left">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label>Dosen Pengampu</label>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <label>: {{$data->dosenmahasiswa->name}}</label>
                                         </div>
                                     </div>
                                     <div class="row lbl-left">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label>Periode</label>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <label>: {{$data->semester->semester_name}}</label>
                                         </div>
                                     </div>
                                     <div class="row lbl-left">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label>Paralel</label>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <label>: {{$data->paralel}}</label>
                                         </div>
                                     </div>
                                     <div class="row lbl-left">
-                                        <div class="col-3">
+                                        <div class="col-4">
                                             <label>Jadwal</label>
                                         </div>
-                                        <div class="col-9">
+                                        <div class="col-8">
                                             <label>: {{$data->deskripsi}}</label>
                                         </div>
                                     </div>
@@ -359,7 +359,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-12">
-                                        <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
+                                        <button class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-4" id="btn-loading" type="button" disabled>
                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                             Menunggu...
                                         </button>

@@ -31,70 +31,70 @@
                                 {{$data->jadwal->matakuliah->mata_kuliah_name}}
                             </h2>
                             <div class="row">
-                                <div class="col-lg-6 col-md-12">
+                                <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-4 mT-20">
+                                        <div class="col-4 mT-20">
                                             <a>Fakultas</a>
                                         </div>
-                                        <div class="col-md-8 mT-20">
+                                        <div class="col-8 mT-20">
                                             <a>: {{$data->jadwal->matakuliah->programstudi->fakultas->fakultas_name}}</a>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-4">
                                             <a>Program Studi</a>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-8">
                                             <a>: {{$data->jadwal->matakuliah->programstudi->bidang_studi_name}}</a>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-4">
                                             <a>Mata Kuliah</a>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-8">
                                             <a>: {{$data->jadwal->matakuliah->mata_kuliah_name}}</a>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-4">
                                             <a>Parallel</a>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-8">
                                             <a>: {{$data->jadwal->paralel}}</a>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-4">
                                             <a>Kode Mata Kuliah</a>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-8">
                                             <a>: {{$data->jadwal->matakuliah->mata_kuliah_id}}</a>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12">
+                                <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="row">
-                                        <div class="col-md-4 mT-20">
+                                        <div class="col-4 mT-20">
                                             <a>Dosen Pengampu</a>
                                         </div>
-                                        <div class="col-md-8 mT-20">
+                                        <div class="col-8 mT-20">
                                             <a>: {{$data->jadwal->dosenmahasiswa->name}}</a>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-4">
                                             <a>Periode</a>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-8">
                                             <a>: {{$data->jadwal->semester->semester_name}}</a>
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="col-md-4">
+                                        <div class="col-4">
                                             <a>Jadwal</a>
                                         </div>
-                                        <div class="col-md-8">
+                                        <div class="col-8">
                                             <a>: {{$data->jadwal->deskripsi}}</a>
                                         </div>
                                     </div>

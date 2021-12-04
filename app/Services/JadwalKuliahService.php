@@ -53,7 +53,7 @@ class JadwalKuliahService {
         $data = $this->programstudi->getListData($id);
         return Datatables::of($data)
                         ->addColumn('action', function ($data) use ($id) {
-                            $action = $this->getMatkul($data->bidang_studi_id."_".$id);
+                            $action = $this->getMatkul($data->bidang_studi_id . "_" . $id);
                             return $action;
                         })
                         ->rawColumns(['action'])
@@ -73,14 +73,19 @@ class JadwalKuliahService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
                             $action = $this->getShow($data->jadwal_kuliah_id);
-                            $action .= $this->getEdit($data->jadwal_kuliah_id);
-                            if ($data->status == 0) {
-                                $action .= $this->getVoid($data->jadwal_kuliah_id);
-                            } else {
-                                $action .= $this->getUnvoid($data->jadwal_kuliah_id);
+                            if (checkHakAkses(["M08.03"])) {
+                                $action .= $this->getEdit($data->jadwal_kuliah_id);
                             }
-
-                            $action .= $this->aturPeserta($data->jadwal_kuliah_id);
+                            if (checkHakAkses(["M08.04"])) {
+                                if ($data->status == 0) {
+                                    $action .= $this->getVoid($data->jadwal_kuliah_id);
+                                } else {
+                                    $action .= $this->getUnvoid($data->jadwal_kuliah_id);
+                                }
+                            }
+                            if (checkHakAkses(["M08.06"])) {
+                                $action .= $this->aturPeserta($data->jadwal_kuliah_id);
+                            }
                             return $action;
                         })
                         ->rawColumns(['action'])
@@ -240,19 +245,19 @@ class JadwalKuliahService {
         $data = $this->jadwalkuliah->getListPeserta($id);
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
-                            $action = $this->getRemove($data->jadwal_kuliah_id,$data->dosen_mahasiswa_id);
+                            $action = $this->getRemove($data->jadwal_kuliah_id, $data->dosen_mahasiswa_id);
                             return $action;
                         })
                         ->rawColumns(['action'])
                         ->addIndexColumn()
                         ->make(true);
     }
-    
-    public function getRemove($id,$mhs){
-        $action = '<button type="button " class="btn cur-p btn-secondary btn-delete" data-id="'.$id.'" data-mhs="'.$mhs.'">   
+
+    public function getRemove($id, $mhs) {
+        $action = '<button type="button " class="btn cur-p btn-secondary btn-delete" data-id="' . $id . '" data-mhs="' . $mhs . '">   
                      Hapus
                    </button>';
-        
+
         return $action;
     }
 
@@ -277,17 +282,17 @@ class JadwalKuliahService {
 
         return $action;
     }
-    
-    public function deletePeserta($id,$mhs){
-      DB::beginTransaction();
-        $model = $this->jadwalkuliah->getPeserta($id,$mhs);
+
+    public function deletePeserta($id, $mhs) {
+        DB::beginTransaction();
+        $model = $this->jadwalkuliah->getPeserta($id, $mhs);
 //        dd($model);
         if (!$model->delete()) {
             DB::rollback();
             return false;
         }
         DB::commit();
-        return true;  
+        return true;
     }
 
 }

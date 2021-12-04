@@ -256,7 +256,13 @@
 @stop
 @section('content')
 <div class="container-fluid">
-    <h4 class="c-grey-900 mT-10 mB-30">Perbarui Pengguna</h4>
+    <h4 class="c-grey-900 mT-10 mB-30">Ubah Pengguna</h4>
+    <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{route('user')}}">Pengguna</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Ubah</li>
+            </ol>
+        </nav>
     <div class="row">
         {{csrf_field()}}
         <div class="col-md-12 col-sm-12">

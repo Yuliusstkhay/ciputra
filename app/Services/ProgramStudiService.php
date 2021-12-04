@@ -10,9 +10,10 @@ use Auth;
 use DB;
 
 class ProgramStudiService {
-    
-    protected $fakultas,$programstudi;
-    public function __construct(FakultasRepository $fakultas,ProgramStudiRepository $programstudi) {
+
+    protected $fakultas, $programstudi;
+
+    public function __construct(FakultasRepository $fakultas, ProgramStudiRepository $programstudi) {
         $this->fakultas = $fakultas;
         $this->programstudi = $programstudi;
     }
@@ -22,11 +23,15 @@ class ProgramStudiService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
                             $action = $this->getShow($data->bidang_studi_id);
-                            $action .= $this->getEdit($data->bidang_studi_id);
-                            if ($data->status == 0) {
-                                $action .= $this->getVoid($data->bidang_studi_id);
-                            } else {
-                                $action .= $this->getUnvoid($data->bidang_studi_id);
+                            if (checkHakAkses(["M03.03"])) {
+                                $action .= $this->getEdit($data->bidang_studi_id);
+                            }
+                            if (checkHakAkses(["M03.04"])) {
+                                if ($data->status == 0) {
+                                    $action .= $this->getVoid($data->bidang_studi_id);
+                                } else {
+                                    $action .= $this->getUnvoid($data->bidang_studi_id);
+                                }
                             }
                             return $action;
                         })
@@ -64,7 +69,7 @@ class ProgramStudiService {
     }
 
     private function getVoid($id) {
-        $action = '<button type="button" class="btn cur-p btn-danger m-3 void" title="Nonaktifkan" data-id="'.$id.'">
+        $action = '<button type="button" class="btn cur-p btn-danger m-3 void" title="Nonaktifkan" data-id="' . $id . '">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/x -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                                     </button>';
@@ -72,7 +77,7 @@ class ProgramStudiService {
     }
 
     private function getUnvoid($id) {
-        $action = '<button type="button" class="btn cur-p btn-success m-3 unvoid" title="aktifkan" data-id="'.$id.'">
+        $action = '<button type="button" class="btn cur-p btn-success m-3 unvoid" title="aktifkan" data-id="' . $id . '">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/check -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15"
                                              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -101,7 +106,7 @@ class ProgramStudiService {
         return $this->programstudi->show($id);
     }
 
-    public function update($id,Request $request) {
+    public function update($id, Request $request) {
         DB::beginTransaction();
         $model = $this->programstudi->show($id);
         $model->fakultas_id = $request->fakultas_id;
@@ -113,11 +118,11 @@ class ProgramStudiService {
         DB::commit();
         return true;
     }
-    
-    public function updateStatus($id,$status){
+
+    public function updateStatus($id, $status) {
         DB::beginTransaction();
         $model = $this->programstudi->show($id);
-        $model->status = ($status == "void")?1:0;
+        $model->status = ($status == "void") ? 1 : 0;
         if (!$model->save()) {
             DB::rollback();
             return false;
@@ -125,10 +130,10 @@ class ProgramStudiService {
         DB::commit();
         return true;
     }
-    
-    public function getFakultas(Request $request){
+
+    public function getFakultas(Request $request) {
         $data = $this->fakultas->getData($request);
-        
+
         return $data;
     }
 

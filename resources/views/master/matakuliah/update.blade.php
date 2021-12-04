@@ -41,12 +41,12 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
-                            <a href="{{url('matakuliah/matkul/'.$data->programstudi->bidang_studi_id."_".$data->programstudi->fakultas_id)}}" class="btn btn-dark float-start col-2">Kembali</a>
-                            <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
+                            <a href="{{url('matakuliah/matkul/'.$data->programstudi->bidang_studi_id."_".$data->programstudi->fakultas_id)}}" class="btn btn-dark float-start col-lg-2 col-md-2 col-sm-4 d-none d-lg-block d-md-block d-print-block">Kembali</a>
+                            <button class="btn btn-primary float-end col-lg-2 col-md-2 col-sm-4" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
                             </button>
-                            <button class="btn btn-primary float-end col-2" id="btn-submit">Perbarui</button>
+                            <button class="btn btn-primary float-end col-lg-2 col-md-2 col-sm-4" id="btn-submit">Perbarui</button>
                         </div>
                     </div>
                 </form>

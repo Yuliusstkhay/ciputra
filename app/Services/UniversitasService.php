@@ -19,11 +19,15 @@ class UniversitasService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
                             $action = $this->getShow($data->universitas_id);
-                            $action .= $this->getEdit($data->universitas_id);
-                            if ($data->status == 0) {
-                                $action .= $this->getVoid($data->universitas_id);
-                            } else {
-                                $action .= $this->getUnvoid($data->universitas_id);
+                            if (checkHakAkses(["M01.03"])) {
+                                $action .= $this->getEdit($data->universitas_id);
+                            }
+                            if (checkHakAkses(["M01.04"])) {
+                                if ($data->status == 0) {
+                                    $action .= $this->getVoid($data->universitas_id);
+                                } else {
+                                    $action .= $this->getUnvoid($data->universitas_id);
+                                }
                             }
                             return $action;
                         })
@@ -61,7 +65,7 @@ class UniversitasService {
     }
 
     private function getVoid($id) {
-        $action = '<button type="button" class="btn cur-p btn-danger m-3 void" title="Nonaktifkan" data-id="'.$id.'">
+        $action = '<button type="button" class="btn cur-p btn-danger m-3 void" title="Nonaktifkan" data-id="' . $id . '">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/x -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
                                     </button>';
@@ -69,7 +73,7 @@ class UniversitasService {
     }
 
     private function getUnvoid($id) {
-        $action = '<button type="button" class="btn cur-p btn-success m-3 unvoid" title="aktifkan" data-id="'.$id.'">
+        $action = '<button type="button" class="btn cur-p btn-success m-3 unvoid" title="aktifkan" data-id="' . $id . '">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/check -->
                                         <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="15" height="15"
                                              viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
@@ -97,7 +101,7 @@ class UniversitasService {
         return $this->universitas->show($id);
     }
 
-    public function update($id,Request $request) {
+    public function update($id, Request $request) {
         DB::beginTransaction();
         $model = $this->universitas->show($id);
         $model->universitas_name = $request->universitas_name;
@@ -108,11 +112,11 @@ class UniversitasService {
         DB::commit();
         return true;
     }
-    
-    public function updateStatus($id,$status){
+
+    public function updateStatus($id, $status) {
         DB::beginTransaction();
         $model = $this->universitas->show($id);
-        $model->status = ($status == "void")?1:0;
+        $model->status = ($status == "void") ? 1 : 0;
         if (!$model->save()) {
             DB::rollback();
             return false;

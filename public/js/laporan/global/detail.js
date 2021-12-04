@@ -79,6 +79,7 @@ function datatable(){
     var table = $('#tbl-laporandetail').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         "lengthMenu": [
             [10, 25,25, 50,25, 100],
             [10, 25,25, 50,25, 100]

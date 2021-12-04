@@ -603,22 +603,21 @@ class PenilaianService {
         return Datatables::of($data)
                         ->addColumn('action', function ($data) {
 
-                            $action='<div class="col-12" id="aksi-'.$data->id.'" >';
+                            $action = '<div class="col-12" id="aksi-' . $data->id . '" >';
                             $checkItem = $this->penilaian->checkAssessmentDetail($data->id);
                             if ($checkItem->count() > 0) {
                                 $checkItem = $checkItem->select('item_penilaian', 'value_persentase')->distinct()->get();
                                 foreach ($checkItem as $key => $row) {
-                                    if($key == 0){
+                                    if ($key == 0) {
                                         $action .= $this->addKriteria($data->id);
-                                    }else{
-                                      $action .= $this->getItemDelete($row->value_persentase, $data->id, $key);  
+                                    } else {
+                                        $action .= $this->getItemDelete($row->value_persentase, $data->id, $key);
                                     }
-                                    
                                 }
                             } else {
                                 $action .= $this->addKriteria($data->id);
                             }
-                            $action .='</div>';
+                            $action .= '</div>';
                             return $action;
                         })
                         ->addColumn('itemPenilaian', function ($data) use ($penilaian) {
@@ -663,16 +662,15 @@ class PenilaianService {
         $action = '
                     <input type="text" class="form-control text-end pe-1  persentaseItemPenilaian mb-3" value="' . $item . '" id="persentase_item_penilaian-' . $penilaianAssessment . '-' . $key . '" data-id="' . $key . '" data-penilaiAssessment="' . $penilaianAssessment . '" name="persentase_item_penilaian-' . $penilaianAssessment . '[]" autocomplete="off" placeholder="%">
                     ';
-        
+
         return $action;
     }
-    
-    public function getItemDelete($item, $penilaianAssessment, $key){
+
+    public function getItemDelete($item, $penilaianAssessment, $key) {
         $action = '<div class="row"><button type="button" class="btn btn-danger d-none d-sm-inline-block ml-3 col-2 mb-3" disabled><i class="far fa-trash-alt"></i></button></div>';
 //        $action = '<div class="row">&nbsp;</button></div>';
         return $action;
     }
-
 
     public function addKriteria($penilaianAssessment) {
         $action = '<button type="button" class="btn btn-info d-none d-sm-inline-block btnItem mb-3" data-value="' . $penilaianAssessment . '">
@@ -799,11 +797,15 @@ class PenilaianService {
 
                                 if ($data->jadwal->dosen_mahasiswa_id == Auth::user()->dosen->id) {
 //                                $action = $this->getShow($data->penilaian_id);
-                                    $action .= $this->getEditPenilaian($data->jadwal_kuliah_id);
-                                    if ($data->status_transaksi == 0) {
-                                        $action .= $this->getVoid($data->penilaian_id);
-                                    } else {
-                                        $action .= $this->getUnvoid($data->penilaian_id);
+                                    if (checkHakAkses(["P01.03"])) {
+                                        $action .= $this->getEditPenilaian($data->jadwal_kuliah_id);
+                                    }
+                                    if (checkHakAkses(["P01.04"])) {
+                                        if ($data->status_transaksi == 0) {
+                                            $action .= $this->getVoid($data->penilaian_id);
+                                        } else {
+                                            $action .= $this->getUnvoid($data->penilaian_id);
+                                        }
                                     }
                                 }
                             }

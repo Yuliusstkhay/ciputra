@@ -29,12 +29,12 @@
                     </div>
                     <div class="form-group mb-5">
                         <div class="col-12">
-                            <a href="{{route('fakultas')}}" class="btn btn-dark float-start col-2">Kembali</a>
-                            <button class="btn btn-primary float-end col-2" id="btn-loading" type="button" disabled>
+                            <a href="{{route('fakultas')}}" class="btn btn-dark float-start col-lg-2 col-md-2 col-sm-4 d-none d-lg-block d-md-block d-print-block">Kembali</a>
+                            <button class="btn btn-primary float-end col-lg-2 col-md-2 col-sm-4" id="btn-loading" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Menunggu...
                             </button>
-                            <button class="btn btn-primary float-end col-2" id="btn-submit">Simpan</button>
+                            <button class="btn btn-primary float-end col-lg-2 col-md-2 col-sm-4" id="btn-submit">Simpan</button>
                         </div>
                     </div>
                 </form>

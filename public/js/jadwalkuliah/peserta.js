@@ -2,6 +2,7 @@ $(function () {
     var table = $('#tbl-peserta').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         "lengthMenu": [
             [10, 25, 50, 100],
             [10, 25, 50, 100]
@@ -34,6 +35,7 @@ $(function () {
     var mhs = $('#tbl-mahasiswa').DataTable({
         processing: true,
         serverSide: true,
+        responsive: true,
         "lengthMenu": [
             [10, 25, 50, 100],
             [10, 25, 50, 100]

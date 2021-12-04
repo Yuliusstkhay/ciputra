@@ -1,3 +1,5 @@
 $(function(){
-    var table = $('#tbl-laporanassessment').DataTable(); 
+    var table = $('#tbl-laporanassessment').DataTable({
+        responsive: true
+    }); 
 });
