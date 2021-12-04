@@ -372,7 +372,7 @@
                             </fieldset>
 
                             <fieldset>
-                                <div class="row table-responsive mB-30">
+                                <div class="row mB-30">
                                     <table id="tbl-assesment" class="table table-hover" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
@@ -397,11 +397,11 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <button type="button" name="previous" id="btn-kembali" class="btn btn-dark float-start previous" data-index="1">Kembali</button>
-                                        <button class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-4" id="btn-loading2" type="button" disabled>
+                                        <button class="btn btn-primary float-end" id="btn-loading2" type="button" disabled>
                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                             Menunggu...
                                         </button>
-                                        <button type="button" class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-4 next" data-index="1" id="btn-save2">Simpan & Lanjutkan</button>
+                                        <button type="button" class="btn btn-primary float-end  next" data-index="1" id="btn-save2">Simpan & Lanjutkan</button>
                                     </div>
                                 </div>
 
@@ -457,11 +457,11 @@
                                 <div class="row">
                                     <div class="col-12">
                                         <button type="button" name="previous" id="btn-kembali" class="btn btn-dark float-start previous" data-index="2">Kembali</button>
-                                        <button class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-4" id="btn-loading3" type="button" disabled>
+                                        <button class="btn btn-primary float-end" id="btn-loading3" type="button" disabled>
                                             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                             Menunggu...
                                         </button>
-                                        <button type="button" class="btn btn-primary float-end col-md-2 col-lg-2 col-sm-4 next" data-index="2" id="btn-save3">Simpan</button>
+                                        <button type="button" class="btn btn-primary float-end next" data-index="2" id="btn-save3">Simpan</button>
                                     </div>
                                 </div>
                             </fieldset>
