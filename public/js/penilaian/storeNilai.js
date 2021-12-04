@@ -17,6 +17,14 @@ $(function(){
         }
         
     });
+    
+    $('#tbl-nilaimhs').DataTable({
+        "lengthMenu": [
+            [5, 10, 55, 10, 20],
+            [5, 10, 55, 10, 20]
+        ],
+        responsive: true,
+    });
 });
 
 function simpan(){

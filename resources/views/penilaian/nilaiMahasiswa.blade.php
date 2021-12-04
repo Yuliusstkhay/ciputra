@@ -10,6 +10,13 @@
 @section('content')
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Penilaian</h4>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{route('penilaian')}}">Penilaian</a></li>
+            <li class="breadcrumb-item"><a href="{{url('penilaian/assessment/'.$data->penilaian_id)}}">Assessment</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Penilaian Mahasiswa</li>
+        </ol>
+    </nav>
     <div class="row">
         {{csrf_field()}}
         <div class="col-md-12">
@@ -28,42 +35,42 @@
                                 {{$data->assessment->assessment_name}}
                             </h2>
                             <div class="row">
-                                <div class="col-md-3 mT-20">
+                                <div class="col-4 mT-20">
                                     <a>Mata Kuliah</a>
                                 </div>
-                                <div class="col-md-9 mT-20">
+                                <div class="col-8 mT-20">
                                     <a>: {{$data->penilaian->jadwal->matakuliah->mata_kuliah_name}}</a>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-4">
                                     <a>Kode Mata Kuliah</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->penilaian->jadwal->matakuliah->mata_kuliah_id}}</a>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-4">
                                     <a>Dosen Pengampu</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->penilaian->jadwal->dosenmahasiswa->name}}</a>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-4">
                                     <a>Periode</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->penilaian->jadwal->semester->semester_name}}</a>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-4">
                                     <a>Jadwal</a>
                                 </div>
-                                <div class="col-md-9">
+                                <div class="col-8">
                                     <a>: {{$data->penilaian->jadwal->deskripsi}}</a>
                                 </div>
                             </div>
@@ -73,7 +80,7 @@
                         </div>
                     </div>
                 </div>
-                <table id="dataTable" class="table table-hover" cellspacing="0" width="100%">
+                <table id="tbl-nilaimhs" class="table table-hover" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>No</th>
@@ -102,7 +109,7 @@
                             </td>            
                             @endforeach
                             <td>
-                                <textarea class="form-control catatan" data-mahasiswa="{{$row->mahasiswa->id}}" id="catatan-{{$row->mahasiswa->id}}" rows="3">{!!$catatan!!}</textarea>
+                                <textarea class="form-control col-12 catatan" data-mahasiswa="{{$row->mahasiswa->id}}" id="catatan-{{$row->mahasiswa->id}}" rows="3">{!!$catatan!!}</textarea>
                             </td>
                         </tr>        
                         @endforeach        
