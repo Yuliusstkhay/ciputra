@@ -95,7 +95,9 @@ $(document).ready(function () {
     $('#tbl-penilaiandosen').DataTable();
     $('#tbl-kelompok').DataTable();
     $('#tbl-kelompokmahasiswa').DataTable();
-    $('#tbl-itemPenilaian').DataTable();
+    $('#tbl-itemPenilaian').DataTable({
+        responsive: true,
+    });
 
 
     $('#btn-save1').on('click', function () {
@@ -724,14 +726,18 @@ function saveTahap2(thus) {
 
 function itemPenilaian(penilaian) {
     $('#tbl-itemPenilaian').DataTable().destroy();
-    $('#tbl-itemPenilaian').DataTable({
+    var itm =$('#tbl-itemPenilaian').DataTable({
         processing: true,
         serverSide: true,
         "paging": false,
         responsive: true,
+        scrollY:"300px",
+        scrollX:true,
+        scrollCollapse:true,
+        "autoWidth":false,
         "lengthMenu": [
-            [5, 10, 55, 10, 20],
-            [5, 10, 55, 10, 20]
+            [5, 10, 100, 10, 20],
+            [5, 10, 100, 10, 20]
         ],
         ajax: listKriteria+"/"+penilaian,
         columns: [
@@ -770,6 +776,7 @@ function itemPenilaian(penilaian) {
 
         ]
     });
+    itm.columns.adjust().draw();
 }
 
 $(document).on('click','.btnItem',function(){
@@ -814,10 +821,10 @@ const btndel = document.createElement("button");
                btndel.setAttribute('id', "btn_penilaian_new-"+assessment_id+"-"+jumlah);
                btndel.classList.add("btn");
                btndel.classList.add("btn-danger");
-               btndel.classList.add("d-none");
-               btndel.classList.add("d-sm-inline-block");
                btndel.classList.add("ml-3");
-               btndel.classList.add("col-2");
+               btndel.classList.add("col-lg-2");
+               btndel.classList.add("col-md-2");
+               btndel.classList.add("col-sm-3");
                btndel.classList.add("mb-3");
                btndel.classList.add("btn-hapus");
                btndel.setAttribute('data-id', assessment_id);

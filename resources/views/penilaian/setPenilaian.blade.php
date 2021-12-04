@@ -409,8 +409,8 @@
                             </fieldset>
 
                             <fieldset>
-                                <div class="row table-responsive mB-30">
-                                    <table id="tbl-itemPenilaian" class="table table-hover" cellspacing="0" width="100%">
+                                <div class="row mB-30">
+                                    <table id="tbl-itemPenilaian" class="table table-hover" cellspacing="0" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
