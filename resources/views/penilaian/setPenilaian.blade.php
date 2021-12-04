@@ -261,6 +261,7 @@
         width: 100%;
         object-fit: cover
     }
+    
 </style>
 <link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
 @stop
@@ -376,15 +377,15 @@
                                     <table id="tbl-assesment" class="table table-hover" cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th style="width:5%!important;">
+                                                <th>
                                                     <div class="form-check" style="text-align: center;">
                                                         <input class="form-check-input checkAssessmentAll" type="checkbox" value="" id="checkAssessmentAll">
                                                     </div>
                                                 </th>
-                                                <th style="width:10%!important;">Assessment</th>
-                                                <th style="width:55%!important;">Kriteria Penilaian</th>
-                                                <th style="width:10%!important;">Persentase</th>
-                                                <th style="width:25%!important;">Penilai</th>
+                                                <th>Assessment</th>
+                                                <th>Kriteria Penilaian</th>
+                                                <th>Persentase</th>
+                                                <th>Penilai</th>
                                             </tr>
                                         </thead>
                                         <tbody>

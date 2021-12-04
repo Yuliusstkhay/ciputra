@@ -41,12 +41,19 @@ $(document).ready(function () {
     var assessment = $('#tbl-assesment').DataTable({
         processing: true,
         serverSide: true,
-        "paging": false,
+        "paging": false,   
+        scrollY:"300px",
+        scrollX:true,
+        scrollCollapse:true,
+        "autoWidth":false,
+        "columnDefs": [
+            { "width": "5%", "targets": 0 },
+            { "width": "8%", "targets": 1 },
+            { "width": "42%", "targets": 2 },
+            { "width": "10%", "targets": 3 },
+            { "width": "35%", "targets": 4 },
+          ],
         responsive: true,
-        "lengthMenu": [
-            [5, 10, 55, 10, 20],
-            [5, 10, 55, 10, 20]
-        ],
         ajax: listAssessment,
         columns: [
             {
@@ -89,7 +96,6 @@ $(document).ready(function () {
     $('#tbl-kelompok').DataTable();
     $('#tbl-kelompokmahasiswa').DataTable();
     $('#tbl-itemPenilaian').DataTable();
-
 
 
     $('#btn-save1').on('click', function () {
@@ -228,7 +234,6 @@ $(document).on('click', '#penilai-tambah', function () {
             $('#btn-loadingPenilai').show();
         },
         success: function (data) {
-            console.log(data);
             if (data.result) {
                 notification("success", data.message);
                 tambahPenilaian();
@@ -304,7 +309,6 @@ function saveTahap1(assessment, thus) {
             $('#btn-loading').show();
         },
         success: function (data) {
-            console.log(data);
             if (data.result) {
                 notification("success", data.message);
                 $('#penilaian_id').val(data.id);
@@ -460,7 +464,6 @@ $('#btnTambahKelompok').on('click', function () {
             $('#btn-loadingKelompok').show();
         },
         success: function (data) {
-            console.log(data);
             if (data.result) {
                 notification("success", data.message);
                 kelompok($('#asm_id').val());
@@ -650,7 +653,6 @@ $('#btn-save2').on('click', function () {
         }
 
     }
-    console.log(persen);
 });
 
 function saveTahap2(thus) {
@@ -696,7 +698,6 @@ function saveTahap2(thus) {
             $('#btn-loading2').show();
         },
         success: function (data) {
-            console.log(data);
             if (data.result) {
                 notification("success", data.message);
 
@@ -928,7 +929,6 @@ function tahap3(){
             $('#btn-loading3').show();
         },
         success: function (data) {
-            console.log(data);
             if (data.result) {
                 notification("success", data.message);
 //
@@ -958,7 +958,6 @@ function previouss(thus) {
 //    current_fs = $('.previous').parent();
 //    previous_fs = $('.previous').parent().prev();
     current_fs = $(thus).data('index');
-    console.log(current_fs);
     previous_fs = current_fs - 1;
 
 //Remove class active
@@ -990,9 +989,6 @@ function next(thus) {
 //    next_fs = $('.next').parent().next();
     current_fs = $(thus).data('index');
     next_fs = current_fs + 1;
-    console.log(current_fs);
-    console.log(next_fs);
-    console.log($("fieldset").eq(next_fs));
 
 
 //Add Class Active
