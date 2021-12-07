@@ -2,33 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/laporan/global/assessment.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/show.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/template/menu.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/laporan/global/detail.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/user/index.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/dashboard/index.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/role/update.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/penilaian/index.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/laporan/global/detail.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/peserta.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/create.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/jadwalkuliah/peserta.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/penilaian/dosen.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/laporan/global/index.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/role/index.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/laporan/global/laporan.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/role/index.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/laporan/global/assessment.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/update.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/public/js/laporan/global/jadwal.js</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/master/jadwalkuliah/index.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/penilaian/setPenilaian.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/RoleService.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/PenilaianService.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/resources/views/role/create.blade.php</file>
-            <file>file:/E:/xampp74/htdocs/ciputraNew/app/Services/JadwalKuliahService.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
