@@ -11,11 +11,11 @@
 <div class="container-fluid">
     <h4 class="c-grey-900 mT-10 mB-30">Ubah Program Studi</h4>
     <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="{{route('programstudi')}}">Master Program Studi</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Ubah</li>
-            </ol>
-        </nav>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{route('programstudi')}}">Master Program Studi</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Ubah</li>
+        </ol>
+    </nav>
     <div class="row">
         <div class="col-md-10 col-sm-12">
             <div class="bgc-white bd bdrs-3 p-20 mB-20">
@@ -23,7 +23,7 @@
                     {{csrf_field()}}
                     <div class="form-group">
                         <label for="fakultas_id" class="text-normal text-dark">Fakultas</label> 
-                        <select class="form-control col-12" style="width:100%!important;" name="fakultas_id" id="fakultas_id" required="">
+                        <select class="form-control" style="width:100%" name="fakultas_id" id="fakultas_id" required="">
                             <option value="{{$data->fakultas_id}}">{{$data->fakultas->fakultas_name}}</option>
                         </select>
                         <div class="invalid-feedback">
