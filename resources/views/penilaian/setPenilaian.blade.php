@@ -262,6 +262,8 @@
         object-fit: cover
     }
     
+    .dataTables_scrollHeadInner, .table{ width:100%!important; }
+    
 </style>
 <link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
 @stop
@@ -374,18 +376,18 @@
 
                             <fieldset>
                                 <div class="row mB-30">
-                                    <table id="tbl-assesment" class="table table-hover" cellspacing="0" width="100%">
+                                    <table id="tbl-assesment" class="table table-hover " cellspacing="0" width="100%">
                                         <thead>
                                             <tr>
-                                                <th>
+                                                <th style="width:5%;">
                                                     <div class="form-check" style="text-align: center;">
                                                         <input class="form-check-input checkAssessmentAll" type="checkbox" value="" id="checkAssessmentAll">
                                                     </div>
                                                 </th>
-                                                <th>Assessment</th>
-                                                <th>Kriteria Penilaian</th>
-                                                <th>Persentase</th>
-                                                <th>Penilai</th>
+                                                <th style="width:8%;">Assessment</th>
+                                                <th style="width:42%;">Kriteria Penilaian</th>
+                                                <th style="width:10%;">Persentase</th>
+                                                <th style="width:35%;">Penilai</th>
                                             </tr>
                                         </thead>
                                         <tbody>

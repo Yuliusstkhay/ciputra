@@ -42,7 +42,7 @@ $(document).ready(function () {
         processing: true,
         serverSide: true,
         "paging": false,   
-        scrollY:"300px",
+        scrollY:"500px",
         scrollX:true,
         scrollCollapse:true,
         "autoWidth":false,
@@ -53,7 +53,6 @@ $(document).ready(function () {
             { "width": "10%", "targets": 3 },
             { "width": "35%", "targets": 4 },
           ],
-        responsive: true,
         ajax: listAssessment,
         columns: [
             {

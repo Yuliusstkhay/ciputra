@@ -7,7 +7,7 @@
         <title>{{$title}}</title>
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap.min.css') }}">
         <link rel="stylesheet" href="{{ asset('bootstrap/css/bootstrap-grid.min.css') }}">
-        
+
         <style>
             #loader {
                 transition: all .3s ease-in-out;
@@ -64,7 +64,7 @@
         </style>
         <link rel="stylesheet" type="text/css" href="{{asset('toastr/build/toastr.css')}}" />
         <link href="{{asset('template/css/style.css')}}" rel="stylesheet">
-        
+
     </head>
 
     <body class="app">
@@ -85,8 +85,12 @@
                     <div class="bgc-white bdrs-50p pos-r" style="width:120px;height:120px"><img class="pos-a centerXY" src="{{asset('template/images/logo2.png')}}" alt=""></div>
                 </div>
             </div>
-            <div class="col-12 col-md-4 peer pX-40 pY-80 h-100 bg-gray scrollable pos-r" style="min-width:320px">
-                <h4 class="fw-300 c-grey-900 mB-40">Login</h4>
+            <div class="col-sm-12 col-md-4 peer pX-40 pY-80 h-100 bg-gray scrollable pos-r" style="min-width:320px">
+                <h4 class="fw-300 c-grey-900 mB-40 d-none d-md-block d-lg-block">Login</h4>
+                <div class="form-group d-lg-none d-md-none">
+                    <img src="{{asset('image/Logo-Ciputra.png')}}" class="img-fluid " alt="Logo Ciputra">
+                </div>
+                
                 <form id="frm-login" class="needs-validation" novalidate>
                     {{csrf_field()}}
                     <div class="form-group">
@@ -127,7 +131,7 @@
         <script src="{{asset('toastr/toastr.js')}}"></script>
         <script type="text/javascript">
             var login = '{{route("login.process")}}';
-            toastr.options.toastClass='toastr';
+            toastr.options.toastClass = 'toastr';
         </script>
         <script type="text/javascript" src="{{asset('js/login/login.js')}}"></script>
     </body>
