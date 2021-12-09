@@ -107,7 +107,7 @@
             </div>
             <div class="page-container">
                 <div class="header navbar">
-                    <div class="header-container col-sm-12">
+                    <div class="header-container">
                         <ul class="nav-left">
                             <li><a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);"><i class="ti-menu"></i></a>
                             </li>
