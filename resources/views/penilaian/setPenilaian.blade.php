@@ -264,6 +264,12 @@
     
     .dataTables_scrollHeadInner, .table{ width:100%!important; }
     
+    @media (max-width: 480px) {
+        .btn-hapuss {
+            width: 60%!important;
+        }
+    }
+    
 </style>
 <link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
 @stop

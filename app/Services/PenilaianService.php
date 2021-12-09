@@ -667,7 +667,7 @@ class PenilaianService {
     }
 
     public function getItemDelete($item, $penilaianAssessment, $key) {
-        $action = '<div class="row"><button type="button" class="btn btn-danger ml-3 col-lg-4 col-md-4 col-sm-3 mb-3" disabled><i class="far fa-trash-alt"></i></button></div>';
+        $action = '<div class="row"><button type="button" class="btn btn-danger ml-3 col-lg-4 col-md-4 col-sm-12 mb-3 btn-hapuss" disabled><i class="far fa-trash-alt"></i></button></div>';
 //        $action = '<div class="row">&nbsp;</button></div>';
         return $action;
     }
