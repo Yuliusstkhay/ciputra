@@ -57,6 +57,7 @@ class JadwalKuliahRepository{
         
         
         $mahasiswa = DosenMahasiswa::where('bidang_studi_id',$jadwal->matakuliah->programstudi->bidang_studi_id)
+                    ->where('status',0)
                     ->where('tipe',1)->whereNotIn('id',$id)
                     ->with(['programstudi'])
                     ->get();

@@ -14,7 +14,7 @@ class MatkulRepository{
     }
     
     public function getListMatkul($id,Request $request){
-        $data =Matkul::with('programstudi.fakultas')->whereHas('programstudi.fakultas',function($q){
+        $data =Matkul::where('status',0)->with('programstudi.fakultas')->whereHas('programstudi.fakultas',function($q){
             $q->where('universitas_id',Auth::user()->universitas_id);
         })->with('programstudi')->where('bidang_studi_id',$id);
         

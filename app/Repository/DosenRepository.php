@@ -14,7 +14,7 @@ class DosenRepository{
     }
     
     public function getListDosen($id,Request $request){
-        $data =DosenMahasiswa::with('programstudi.fakultas')->whereHas('programstudi.fakultas',function($q){
+        $data =DosenMahasiswa::where('status',0)->with('programstudi.fakultas')->whereHas('programstudi.fakultas',function($q){
             $q->where('universitas_id',Auth::user()->universitas_id);
         })->with('programstudi')->where('bidang_studi_id',$id)->where('tipe',0);
         

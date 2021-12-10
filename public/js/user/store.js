@@ -7,7 +7,17 @@ $(document).ready(function () {
         if ($('#role_name').val() == "") {
             $('#role_name').addClass('is-invalid');
             return false;
-        } else {
+        }else if($('#user_id').val() == "" ||$('#password').val() == "" ){
+            if($('#user_id').val() == ""){
+                $('#user_id').addClass('is-invalid');
+            }
+            
+            if($('#password').val() == ""){
+                $('#password').addClass('is-invalid');
+            }
+            
+            return false;
+        }else {
             $('#role_name').removeClass('is-invalid');
             $('#role_name').addClass('is-valid');
             current_fs = $(this).parent();
