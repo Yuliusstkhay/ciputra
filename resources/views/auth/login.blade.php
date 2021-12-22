@@ -88,7 +88,7 @@
             <div class="col-sm-12 col-md-4 peer pX-40 pY-80 h-100 bg-gray scrollable pos-r" style="min-width:320px">
                 <h4 class="fw-300 c-grey-900 mB-40 d-none d-md-block d-lg-block">Login</h4>
                 <div class="form-group d-lg-none d-md-none">
-                    <img src="{{asset('image/Logo-Ciputra.png')}}" class="img-fluid " alt="Logo Ciputra">
+                    <img src="{{asset('image/horizontal_logo.png')}}" class="img-fluid " alt="Logo Ciputra">
                 </div>
                 
                 <form id="frm-login" class="needs-validation" novalidate>
