@@ -58,4 +58,15 @@ class PenilaianDosenMahasiswa extends Model
             return 0;
         }
     }
+    
+    public function getCatatan($penilaianAssessmentID,$mahasiswaID){
+        $data =PenilaianAssessmentNilai::where('penilaian_assessment_detail_id',$penilaianAssessmentID)
+               ->where('mahasiswa_dosen_id',$mahasiswaID);
+        if($data->count()>0){
+            $data = $data->first()->catatan;
+            return $data;
+        }else{
+            return null;
+        }
+    }
 }
