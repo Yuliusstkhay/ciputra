@@ -34,14 +34,14 @@ $(function () {
             {
                 data: 'nilai',
                 name: 'nilai',
-                'sClass': 'td-actions text-center',
+                'sClass': 'td-actions',
                 orderable: false,
                 searchable: false
             },
             {
                 data: 'action',
                 name: 'action',
-                'sClass': 'td-actions text-center',
+                'sClass': 'td-actions',
                 orderable: false,
                 searchable: false
             }
