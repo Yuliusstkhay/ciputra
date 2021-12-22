@@ -22,14 +22,27 @@ class JadwalKuliahRepository{
             $data = JadwalKuliah::where('dosen_mahasiswa_id',Auth::user()->dosen->id)
                     ->whereHas('matakuliah.programstudi.fakultas', function ($q) {
                                 $q->where('universitas_id', Auth::user()->universitas_id);
-                            })->with('matakuliah', 'dosenmahasiswa')
-                            ->whereHas('semester', function ($q) {
+                            })
+                    ->with('matakuliah', 'dosenmahasiswa')
+                    ->whereHas('semester', function ($q) {
                                 $q->where('status', 0);
-                            })->doesntHave('penilaian')->orWhereHas('penilaian', function ($q) {
-                $q->where('status', 0);
-            });
+                            })
+                    ->doesntHave('penilaian')->orWhereHas('penilaian', function ($q) {
+                        $q->where('status', 0);
+                    })->whereHas('penilaian.jadwal',function($q){
+                        $q->where('dosen_mahasiswa_id',Auth::user()->dosen->id);
+                    });
+
+//            whereHas('matakuliah.programstudi.fakultas', function ($q) {
+//                                $q->where('universitas_id', Auth::user()->universitas_id);
+//                            })->with('matakuliah', 'dosenmahasiswa')
+//                            ->whereHas('semester', function ($q) {
+//                                $q->where('status', 0);
+//                            })->doesntHave('penilaian')->orWhereHas('penilaian', function ($q) {
+//                $q->where('status', 0);
+//            })
         }else{
-            $data = JadwalKuliah::whereHas('matakuliah.programstudi.fakultas', function ($q) {
+            $data = JadwalKuliah::where('dosen_mahasiswa_id',Auth::user()->dosen->id)->whereHas('matakuliah.programstudi.fakultas', function ($q) {
                                 $q->where('universitas_id', Auth::user()->universitas_id);
                             })->with('matakuliah', 'dosenmahasiswa')
                             ->whereHas('semester', function ($q) {
