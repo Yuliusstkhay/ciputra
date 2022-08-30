@@ -156,7 +156,12 @@ class DosenService {
 
         $user = $this->user->insert();
         $user->user_id = $request->email;
-        $user->password = Hash::make('12345');
+        if($request->password !=""){
+            $user->password = Hash::make($request->password);
+        }else{
+            $user->password = Hash::make('12345');
+        }
+
         $user->type = 0;
         $user->universitas_id = Auth::user()->universitas_id;
         $user->role_id = $request->role_id;

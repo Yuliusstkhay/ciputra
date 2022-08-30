@@ -1,4 +1,4 @@
-@extends('template.header_footer') 
+@extends('template.header_footer')
 @section('css')
 <style>
     #btn-loading{
@@ -27,22 +27,22 @@
                     <div class="row">
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <div class="form-group">
-                                <label for="fakultas_id" class="text-normal text-dark">Fakultas</label> 
+                                <label for="fakultas_id" class="text-normal text-dark">Fakultas</label>
                                 <input type="text" class="form-control" value="{{$programStudi->fakultas->fakultas_name}}" disabled="" />
                             </div>
                             <div class="form-group">
-                                <label for="programstudi_name" class="text-normal text-dark">Program Studi</label> 
+                                <label for="programstudi_name" class="text-normal text-dark">Program Studi</label>
                                 <input type="text" class="form-control" value="{{$programStudi->bidang_studi_name}}" disabled="" />
                             </div>
                             <div class="form-group">
-                                <label for="nip" class="text-normal text-dark">NIP</label> 
+                                <label for="nip" class="text-normal text-dark">NIP</label>
                                 <input type="text" class="form-control" id="nip" name="nip" placeholder="NIP" required>
                                 <div class="invalid-feedback">
                                     NIP tidak boleh kosong.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="name" class="text-normal text-dark">Nama</label> 
+                                <label for="name" class="text-normal text-dark">Nama</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Nama" required>
                                 <div class="invalid-feedback">
                                     Nama tidak boleh kosong.
@@ -51,21 +51,28 @@
                         </div>
                         <div class="col-md-6 col-lg-6 col-sm-12">
                             <div class="form-group">
-                                <label for="email" class="text-normal text-dark">Email</label> 
+                                <label for="email" class="text-normal text-dark">Email</label>
                                 <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
                                 <div class="invalid-feedback">
                                     Email harus valid.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="jabatan" class="text-normal text-dark">Jabatan</label> 
+                                <label for="password" class="text-normal text-dark">Password</label>
+                                <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                                <div class="invalid-feedback">
+                                    Password harus valid.
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="jabatan" class="text-normal text-dark">Jabatan</label>
                                 <input type="jabatan" class="form-control" id="jabatan" name="jabatan" placeholder="Jabatan" required>
                                 <div class="invalid-feedback">
                                     Jabatan tidak boleh kosong.
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="role_id" class="text-normal text-dark">Hak Akses</label> 
+                                <label for="role_id" class="text-normal text-dark">Hak Akses</label>
                                 <select class="form-control col-12" style="width:100%!important;" name="role_id" id="role_id" required="">
                                     <option value="">&nbsp;</option>
                                 </select>

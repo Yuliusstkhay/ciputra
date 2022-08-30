@@ -20,7 +20,7 @@
 })();
 
 $(function(){
-  
+
     $('#role_id').select2({
         placeholder: 'Pilih Hak Akses',
         ajax: {
@@ -63,8 +63,9 @@ function save() {
             nip:$('#nip').val(),
             name:$('#name').val(),
             email:$('#email').val(),
+            password:$('#password').val(),
             role_id:$('#role_id').val()
-            
+
         },
         dataType: "json",
         beforeSend: function () {

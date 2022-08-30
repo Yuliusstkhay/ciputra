@@ -1,6 +1,6 @@
 @extends('template.header_footer') 
 @section('css')
-<link href="{{asset('DataTables/datatables.min.css')}}" rel="stylesheet">
+<link href="DataTables/datatables.min.css" rel="stylesheet">
     @stop
     @section('content')
     <div class="container-fluid">

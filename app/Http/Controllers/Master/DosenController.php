@@ -13,29 +13,29 @@ class DosenController extends Controller
         $data = [
             'title'=>"Master Dosen"
         ];
-        
+
         return view('master.dosen.fakultas',$data);
-        
+
     }
-    
+
      public function getDataFakultas(DosenService $dosenservice) {
         return $dosenservice->getDataFakultas();
     }
-    
-    
+
+
     public function programstudi($id){
        $data = [
             'title'=>"Master Dosen",
             'id'=>$id
         ];
-        
-        return view('master.dosen.programstudi',$data); 
+
+        return view('master.dosen.programstudi',$data);
     }
-    
+
     public function getDataProgramStudi($id,DosenService $dosenservice){
         return $dosenservice->getDataProgramStudi($id);
     }
-    
+
     public function dosen($id){
         $idx = explode("_", $id);
        $data = [
@@ -43,14 +43,14 @@ class DosenController extends Controller
            'id'=>$idx[0],
            'fakultas'=>$idx[1]
         ];
-        
-        return view('master.dosen.index',$data); 
+
+        return view('master.dosen.index',$data);
     }
-    
+
     public function datatable($id,DosenService $dosenservice) {
         return $dosenservice->getList($id);
     }
-    
+
     public function create($id, DosenService $dosenservice) {
         $data = [
             'title' => "Tambah Master Dosen",
@@ -60,7 +60,7 @@ class DosenController extends Controller
 
         return view('master.dosen.create', $data);
     }
-    
+
     public function store(Request $request, DosenService $dosenservice) {
         try {
             $model = $dosenservice->insert($request);
@@ -82,7 +82,7 @@ class DosenController extends Controller
             ]);
         }
     }
-    
+
     public function show($id, DosenService $dosenservice) {
         $dosen = $dosenservice->show($id);
 
@@ -93,7 +93,7 @@ class DosenController extends Controller
 
         return view('master.dosen.show', $data);
     }
-    
+
     public function getData($id, DosenService $dosenservice) {
         $dosen = $dosenservice->show($id);
 
@@ -104,7 +104,7 @@ class DosenController extends Controller
 
         return view('master.dosen.update', $data);
     }
-    
+
     public function update($id,Request $request, DosenService $dosenservice){
         try {
             $model = $dosenservice->update($id,$request);
@@ -126,7 +126,7 @@ class DosenController extends Controller
             ]);
         }
     }
-    
+
     public function void($id, DosenService $dosenservice){
        try {
             $model = $dosenservice->updateStatus($id,"void");
@@ -146,9 +146,9 @@ class DosenController extends Controller
                         'message' => 'Terjadi kesalahan pada perubahan data. Mohon Hubungi admin',
                         'error'=>$ex->getMessage()
             ]);
-        } 
+        }
     }
-    
+
     public function unvoid($id, DosenService $dosenservice){
        try {
             $model = $dosenservice->updateStatus($id,"unvoid");
@@ -168,9 +168,9 @@ class DosenController extends Controller
                         'message' => 'Terjadi kesalahan pada perubahan data. Mohon Hubungi admin',
                         'error'=>$ex->getMessage()
             ]);
-        } 
+        }
     }
-    
+
     public function hakakses(Request $request,DosenService $dosenservice){
         $data = $dosenservice->getRole($request);
         return response()->json(RoleResource::collection($data));
