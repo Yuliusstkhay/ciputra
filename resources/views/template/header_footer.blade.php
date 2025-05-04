@@ -88,10 +88,10 @@
                                 <a class="sidebar-link td-n" href="{{route('dashboard')}}">
                                     <div class="peers ai-c fxw-nw">
                                         <div class="peer">
-                                            <div class="logo"><img src="{{asset('template/images/logo2.png')}}" alt=""></div>
+                                            <div class="logo"><img src="{{asset('template/images/logo_univ.png')}}" alt="" width="70px"></div>
                                         </div>
                                         <div class="peer peer-greed">
-                                            <h5 class="lh-1 mB-0 logo-text">Universitas Ciputra</h5>
+                                            <h5 class="lh-1 mB-0 logo-text">Universitas</h5>
                                         </div>
                                     </div>
                                 </a>

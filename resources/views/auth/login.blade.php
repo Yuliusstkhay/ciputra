@@ -80,9 +80,9 @@
             });
         </script>
         <div class="peers ai-s fxw-nw h-100vh">
-            <div class="d-n@sm- peer peer-greed h-100 pos-r bgr-n bgpX-l bgpY-b bgsz-cv" style="background-image:url({{asset('template/images/bg2.jpeg')}})">
+            <div class="d-n@sm- peer peer-greed h-100 pos-r bgr-n bgpX-l bgpY-b bgsz-cv" style="background-image:url({{asset('template/images/bg_univ.png')}})">
                 <div class="pos-a centerXY">
-                    <div class="bgc-white bdrs-50p pos-r" style="width:120px;height:120px"><img class="pos-a centerXY" src="{{asset('template/images/logo2.png')}}" alt=""></div>
+                    <!-- <div class="bgc-white bdrs-50p pos-r" style="width:120px;height:120px"><img class="pos-a centerXY" src="{{asset('template/images/logo2.png')}}" alt=""></div> -->
                 </div>
             </div>
             <div class="col-sm-12 col-md-4 peer pX-40 pY-80 h-100 bg-gray scrollable pos-r" style="min-width:320px">
